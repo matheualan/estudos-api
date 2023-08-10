@@ -31,4 +31,5 @@ public class Usuario {
         nome = usuarioDTO.getNome();
         cpf = usuarioDTO.getCpf();
     }
+
 }
