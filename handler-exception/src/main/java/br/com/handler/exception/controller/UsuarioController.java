@@ -16,12 +16,13 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.salvarUsuario(usuarioDTO));
     }
 
-    @GetMapping(path = "/{cpf}")
+    @GetMapping(path = "/find")
     public ResponseEntity<UsuarioDTO> buscarUsuarioPorCpf(@RequestParam String cpf) {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.buscarUsuarioPorCpf(cpf));
     }

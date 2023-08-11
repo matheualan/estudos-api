@@ -2,6 +2,7 @@ package br.com.handler.exception.service;
 
 import br.com.handler.exception.dto.UsuarioDTO;
 import br.com.handler.exception.entity.Usuario;
+import br.com.handler.exception.exception.UsuarioBadRequestException;
 import br.com.handler.exception.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,7 @@ public class UsuarioService {
 
     public UsuarioDTO verificaSeExistePorCpf(String cpf) {
         return new UsuarioDTO(usuarioRepository.findByCpf(cpf).orElseThrow(
-                () -> new RuntimeException()
+                () -> new UsuarioBadRequestException("Usuário não encontrado.")
         ));
     }
 
