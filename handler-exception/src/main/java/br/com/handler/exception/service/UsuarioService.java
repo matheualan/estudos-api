@@ -3,6 +3,7 @@ package br.com.handler.exception.service;
 import br.com.handler.exception.dto.UsuarioDTO;
 import br.com.handler.exception.entity.Usuario;
 import br.com.handler.exception.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,13 +12,14 @@ import java.util.List;
 @Service
 public class UsuarioService {
 
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
     public UsuarioDTO salvarUsuario(UsuarioDTO usuarioDTO) {
         var usuario = new Usuario(usuarioDTO);
-//        if (usuario != null) {
+        if (usuario != null) {
             usuarioRepository.save(usuario);
-//        }
+        }
         return usuarioDTO;
     }
 
