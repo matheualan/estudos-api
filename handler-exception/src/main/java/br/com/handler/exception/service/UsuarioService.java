@@ -15,9 +15,9 @@ public class UsuarioService {
 
     public UsuarioDTO salvarUsuario(UsuarioDTO usuarioDTO) {
         var usuario = new Usuario(usuarioDTO);
-        if (usuario != null) {
+//        if (usuario != null) {
             usuarioRepository.save(usuario);
-        }
+//        }
         return usuarioDTO;
     }
 
