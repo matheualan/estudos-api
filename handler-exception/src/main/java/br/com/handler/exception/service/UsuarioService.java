@@ -40,7 +40,7 @@ public class UsuarioService {
 
     public UsuarioDTO verificaSeExistePorCpf(String cpf) {
         return new UsuarioDTO(usuarioRepository.findByCpf(cpf).orElseThrow(
-                () -> new UsuarioBadRequestException("Usuário não encontrado.")
+                () -> new UsuarioBadRequestException("Usuário não encontrado")
         ));
     }
 
