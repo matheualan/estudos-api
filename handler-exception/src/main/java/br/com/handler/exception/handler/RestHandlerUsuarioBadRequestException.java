@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Locale;
 
 @ControllerAdvice
-public class HandlerUsuarioBadRequestException {
+public class RestHandlerUsuarioBadRequestException {
 
     @ExceptionHandler(UsuarioBadRequestException.class)
     public ResponseEntity<UsuarioBadRequestExceptionDTO> handlerUsuarioBadRequestExcpt(UsuarioBadRequestException e) {
