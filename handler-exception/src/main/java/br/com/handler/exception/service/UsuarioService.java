@@ -6,6 +6,7 @@ import br.com.handler.exception.exception.UsuarioBadRequestException;
 import br.com.handler.exception.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,12 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    private final WebClient webClient;
+
+    public UsuarioService(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.build();
+    }
 
     public UsuarioDTO salvarUsuario(UsuarioDTO usuarioDTO) {
         var usuario = new Usuario(usuarioDTO);
