@@ -1,5 +1,6 @@
 package br.com.handler.exception.service;
 
+import br.com.handler.exception.dto.CepEnderecoDTO;
 import br.com.handler.exception.dto.UsuarioDTO;
 import br.com.handler.exception.entity.Usuario;
 import br.com.handler.exception.exception.UsuarioBadRequestException;
@@ -7,6 +8,7 @@ import br.com.handler.exception.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,13 @@ public class UsuarioService {
 
     public UsuarioService(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.build();
+    }
+
+    public Mono<CepEnderecoDTO> getEnderecoByCep(String cep) {
+        return webClient.get()
+                .uri("https://viacep.com.br/ws/" + cep + "/json/")
+                .retrieve()
+                .bodyToMono(CepEnderecoDTO.class);
     }
 
     public UsuarioDTO salvarUsuario(UsuarioDTO usuarioDTO) {

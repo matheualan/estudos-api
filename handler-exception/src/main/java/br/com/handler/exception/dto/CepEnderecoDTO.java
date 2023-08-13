@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class cepEnderecoDTO {
+public class CepEnderecoDTO {
 
     private String cep;
     private String logradouro;
