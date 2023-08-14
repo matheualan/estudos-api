@@ -32,6 +32,12 @@ public class UsuarioService {
                 .bodyToMono(CepEnderecoDTO.class);
     }
 
+    public Mono<UsuarioDTO> preencherUsuarioComEndereco(UsuarioDTO usuarioDTO, String cep) {
+        Mono<CepEnderecoDTO> enderecoByCep = getEnderecoByCep(cep);
+
+        return null;
+    }
+
     public UsuarioDTO salvarUsuario(UsuarioDTO usuarioDTO) {
         var usuario = new Usuario(usuarioDTO);
         if (usuario != null) {
