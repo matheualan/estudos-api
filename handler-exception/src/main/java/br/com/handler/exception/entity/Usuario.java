@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_usuarios")
@@ -26,6 +27,9 @@ public class Usuario {
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataEntrada = LocalDateTime.now();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
+    private List<Endereco> enderecos;
 
     public Usuario(UsuarioDTO usuarioDTO) {
         nome = usuarioDTO.getNome();

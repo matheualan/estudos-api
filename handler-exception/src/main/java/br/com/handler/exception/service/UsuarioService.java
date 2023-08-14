@@ -34,7 +34,8 @@ public class UsuarioService {
 
     public Mono<UsuarioDTO> preencherUsuarioComEndereco(UsuarioDTO usuarioDTO, String cep) {
         Mono<CepEnderecoDTO> enderecoByCep = getEnderecoByCep(cep);
-
+        Usuario usuario = new Usuario(usuarioDTO);
+        usuarioRepository.save(usuario);
         return null;
     }
 
