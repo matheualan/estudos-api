@@ -1,5 +1,6 @@
 package br.com.handler.exception.entity;
 
+import br.com.handler.exception.dto.EnderecoDTO;
 import br.com.handler.exception.dto.UsuarioDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,11 +31,16 @@ public class Usuario {
     private LocalDateTime dataEntrada = LocalDateTime.now();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
-    private List<Endereco> enderecos;
+    private List<Endereco> enderecos = new ArrayList<>();
 
     public Usuario(UsuarioDTO usuarioDTO) {
         nome = usuarioDTO.getNome();
         cpf = usuarioDTO.getCpf();
+        for (EnderecoDTO endDTO : usuarioDTO.getEnderecosDTOs()) {
+            Endereco endereco = new Endereco(endDTO);
+            endereco.setUsuario(this);
+            enderecos.add(endereco);
+        }
     }
 
 }
