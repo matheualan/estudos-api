@@ -28,7 +28,7 @@ public class UsuarioDTO {
         nome = usuario.getNome();
         cpf = usuario.getCpf();
 //        for (Endereco end : usuario.getEnderecos()) {
-//            var endDTO = new EnderecoDTO(end);
+//            enderecosDTOs.add(new EnderecoDTO(end));
 //        }
     }
 
