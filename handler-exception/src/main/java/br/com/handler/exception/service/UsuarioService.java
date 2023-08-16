@@ -41,15 +41,14 @@ public class UsuarioService {
 
     public UsuarioDTO salvarUsuario(UsuarioDTO usuarioDTO) {
         var usuario = new Usuario(usuarioDTO);
-        if (usuario != null) {
-            usuarioRepository.save(usuario);
-        }
+        usuarioRepository.save(usuario);
         return usuarioDTO;
     }
 
+    //DTO
     public List<UsuarioDTO> listarUsuarios() {
         List<Usuario> all = usuarioRepository.findAll();
-        List<UsuarioDTO> listUsuarioDTO = new ArrayList<UsuarioDTO>();
+        List<UsuarioDTO> listUsuarioDTO = new ArrayList<>();
         for (Usuario u : all) {
             var usuarioDTO = new UsuarioDTO(u);
             listUsuarioDTO.add(usuarioDTO);

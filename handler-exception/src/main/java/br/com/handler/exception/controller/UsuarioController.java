@@ -2,6 +2,7 @@ package br.com.handler.exception.controller;
 
 import br.com.handler.exception.dto.CepEnderecoDTO;
 import br.com.handler.exception.dto.UsuarioDTO;
+import br.com.handler.exception.entity.Usuario;
 import br.com.handler.exception.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

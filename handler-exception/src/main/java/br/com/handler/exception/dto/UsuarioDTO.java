@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -22,14 +23,14 @@ public class UsuarioDTO {
     @Size(min = 11, max = 14)
     private String cpf;
 
-    private List<EnderecoDTO> enderecosDTOs;
+    private List<EnderecoDTO> enderecosDTOs = new ArrayList<>();
 
     public UsuarioDTO(Usuario usuario) {
         nome = usuario.getNome();
         cpf = usuario.getCpf();
-//        for (Endereco end : usuario.getEnderecos()) {
-//            enderecosDTOs.add(new EnderecoDTO(end));
-//        }
+        for (Endereco end : usuario.getEnderecos()) {
+            enderecosDTOs.add(new EnderecoDTO(end));
+        }
     }
 
 }
