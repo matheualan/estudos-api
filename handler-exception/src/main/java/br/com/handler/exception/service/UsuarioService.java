@@ -1,6 +1,7 @@
 package br.com.handler.exception.service;
 
 import br.com.handler.exception.dto.CepEnderecoDTO;
+import br.com.handler.exception.dto.EnderecoDTO;
 import br.com.handler.exception.dto.UsuarioDTO;
 import br.com.handler.exception.entity.Usuario;
 import br.com.handler.exception.exception.UsuarioBadRequestException;
@@ -34,6 +35,7 @@ public class UsuarioService {
 
     public Mono<UsuarioDTO> preencherUsuarioComEndereco(UsuarioDTO usuarioDTO, String cep) {
         Mono<CepEnderecoDTO> enderecoByCep = getEnderecoByCep(cep);
+        var enderecoDTO = new EnderecoDTO();
         Usuario usuario = new Usuario(usuarioDTO);
         usuarioRepository.save(usuario);
         return null;
