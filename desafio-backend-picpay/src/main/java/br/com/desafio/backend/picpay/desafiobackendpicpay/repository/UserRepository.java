@@ -1,4 +1,4 @@
-package br.com.desafio.backend.picpay.desafiobackendpicpay.domain.repository;
+package br.com.desafio.backend.picpay.desafiobackendpicpay.repository;
 
 import br.com.desafio.backend.picpay.desafiobackendpicpay.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
