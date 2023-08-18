@@ -26,9 +26,13 @@ public class UserService {
     }
 
     public User findUserById(Integer id) {
-        return userRepository.findUserById(id).orElseThrow(
-                () -> new UserBadRequestException("Usuário naoão encontrado.")
+        return userRepository.findById(id).orElseThrow(
+                () -> new UserBadRequestException("Usuário não encontrado.")
         );
+    }
+
+    public void saveUser(User user) {
+        userRepository.save(user);
     }
 
 }

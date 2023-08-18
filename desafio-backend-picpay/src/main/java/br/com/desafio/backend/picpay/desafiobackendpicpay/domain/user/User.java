@@ -1,9 +1,11 @@
 package br.com.desafio.backend.picpay.desafiobackendpicpay.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_users")
@@ -35,5 +37,8 @@ public class User {
 
     @Enumerated(value = EnumType.STRING)
     private TypeUser userType;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private final LocalDateTime timestamp = LocalDateTime.now();
 
 }
