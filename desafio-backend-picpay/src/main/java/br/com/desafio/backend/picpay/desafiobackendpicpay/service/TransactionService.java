@@ -4,6 +4,7 @@ import br.com.desafio.backend.picpay.desafiobackendpicpay.domain.dto.Transaction
 import br.com.desafio.backend.picpay.desafiobackendpicpay.domain.transaction.Transaction;
 import br.com.desafio.backend.picpay.desafiobackendpicpay.domain.user.User;
 import br.com.desafio.backend.picpay.desafiobackendpicpay.repository.TransactionRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,16 +43,26 @@ public class TransactionService {
 
         userService.validateTransaction(sender, transactionDTO.value());
 
+//        Autoriza ou não a transação
         boolean isAuthorizedRestTemplate = authorizeTransactionRestTemplate(sender, transactionDTO.value());
         boolean isAuthorizedWebClient = authorizeTransactionWebClient(sender, transactionDTO.value());
         if (!isAuthorizedRestTemplate) {
             throw new Exception("Transação não autorizada");
         }
 
+//        Cria nova transação e pega os dados da transação
         Transaction transaction = new Transaction();
         transaction.setAmount(transactionDTO.value());
         transaction.setSender(sender);
         transaction.setReceiver(receiver);
+//        BeanUtils.copyProperties(transactionDTO, transaction);
+
+        sender.setBalance(sender.getBalance().subtract(transactionDTO.value()));
+        receiver.setBalance(receiver.getBalance().add(transactionDTO.value()));
+
+        transactionRepository.save(transaction);
+        userService.saveUser(sender);
+        userService.saveUser(receiver);
 
     }
 

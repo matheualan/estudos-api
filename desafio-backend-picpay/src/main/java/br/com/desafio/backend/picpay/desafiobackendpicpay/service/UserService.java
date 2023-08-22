@@ -19,7 +19,7 @@ public class UserService {
     public void validateTransaction(User sender, BigDecimal amount) throws Exception {
         if (sender.getUserType() == TypeUser.MERCHANT) {
             throw new Exception("Usuário do tipo MERCHANT(lojista) não está autorizado a realizar transações.");
-        } else if (sender.getBalance().compareTo(amount) < 0) {
+        } else if (sender.getBalance().compareTo(amount) < 0) { //jogar no chatGPT para entender melhor o resultado dessa condição
             throw new Exception("Saldo insuficiente.");
         }
 //
