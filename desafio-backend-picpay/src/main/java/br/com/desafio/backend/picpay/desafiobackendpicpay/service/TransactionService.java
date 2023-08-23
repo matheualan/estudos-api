@@ -73,12 +73,12 @@ public class TransactionService {
     }
 
     public boolean authorizeTransactionWebClient(User sender, BigDecimal value) {
-        Mono<String> message = webClient.get()
+        Mono<Map> authorizationResponse = webClient.get()
                 .uri("https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6")
                 .retrieve()
-                .bodyToMono(String.class);
+                .bodyToMono(Map.class);
 
-        if (message.toString().equalsIgnoreCase("Autorizado")) {
+        if (authorizationResponse.toString().equalsIgnoreCase("Autorizado")) {
             return true;
         } else return false;
     }
