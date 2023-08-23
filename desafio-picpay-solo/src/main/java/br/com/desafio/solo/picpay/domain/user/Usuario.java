@@ -1,5 +1,6 @@
 package br.com.desafio.solo.picpay.domain.user;
 
+import br.com.desafio.solo.picpay.dto.record.UsuarioDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
@@ -40,4 +41,13 @@ public class Usuario {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private final LocalDateTime localDateTime = LocalDateTime.now();
 
+    public Usuario(UsuarioDTO usuarioDTO) {
+        nome = usuarioDTO.nome();
+        sobrenome = usuarioDTO.sobrenome();
+        cpf = usuarioDTO.cpf();
+        email = usuarioDTO.email();
+        senha = usuarioDTO.senha();
+        tipoUsuario = usuarioDTO.tipoUsuario();
+        saldo = usuarioDTO.saldo();
+    }
 }
