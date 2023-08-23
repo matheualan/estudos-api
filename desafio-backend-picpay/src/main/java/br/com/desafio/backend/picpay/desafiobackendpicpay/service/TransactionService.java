@@ -1,10 +1,9 @@
 package br.com.desafio.backend.picpay.desafiobackendpicpay.service;
 
-import br.com.desafio.backend.picpay.desafiobackendpicpay.domain.dto.TransactionDTO;
+import br.com.desafio.backend.picpay.desafiobackendpicpay.dto.record.TransactionDTO;
 import br.com.desafio.backend.picpay.desafiobackendpicpay.domain.transaction.Transaction;
 import br.com.desafio.backend.picpay.desafiobackendpicpay.domain.user.User;
 import br.com.desafio.backend.picpay.desafiobackendpicpay.repository.TransactionRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +25,9 @@ public class TransactionService {
     private TransactionRepository transactionRepository;
 
     @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
     private RestTemplate restTemplate;
 
     private final WebClient webClient;
@@ -35,35 +37,39 @@ public class TransactionService {
     }
 
 //    método para criar transações
-    public void createTransaction(TransactionDTO transactionDTO) throws Exception {
+    public Transaction createTransaction(TransactionDTO transactionDTO) throws Exception {
 //        Pega o usuário que enviará para fazer a validação
         User sender = userService.findUserById(transactionDTO.senderId());
 //        Pega o usuário que receberá para atualizar o balance
-        User receiver = userService.findUserById(transactionDTO.senderId());
+        User receiver = userService.findUserById(transactionDTO.receiverId());
 
         userService.validateTransaction(sender, transactionDTO.value());
 
 //        Autoriza ou não a transação
-        boolean isAuthorizedRestTemplate = authorizeTransactionRestTemplate(sender, transactionDTO.value());
-        boolean isAuthorizedWebClient = authorizeTransactionWebClient(sender, transactionDTO.value());
-        if (!isAuthorizedRestTemplate) {
-            throw new Exception("Transação não autorizada");
+//        boolean isAuthorizedRestTemplate = authorizeTransactionRestTemplate(sender, transactionDTO.value());
+        boolean isAuthorizedWebClient = authorizeTransactionRestTemplate(sender, transactionDTO.value());
+        if (!isAuthorizedWebClient) {
+            throw new Exception("Transação não autorizada!!!");
         }
 
 //        Cria nova transação e pega os dados da transação
-        Transaction transaction = new Transaction();
-        transaction.setAmount(transactionDTO.value());
-        transaction.setSender(sender);
-        transaction.setReceiver(receiver);
-//        BeanUtils.copyProperties(transactionDTO, transaction);
+        Transaction newTransaction = new Transaction();
+        newTransaction.setAmount(transactionDTO.value());
+        newTransaction.setSender(sender);
+        newTransaction.setReceiver(receiver);
+//        BeanUtils.copyProperties(transactionDTO, newTransaction);
 
         sender.setBalance(sender.getBalance().subtract(transactionDTO.value()));
         receiver.setBalance(receiver.getBalance().add(transactionDTO.value()));
 
-        transactionRepository.save(transaction);
+        transactionRepository.save(newTransaction);
         userService.saveUser(sender);
         userService.saveUser(receiver);
 
+        notificationService.sendNotifyRestTemplate(sender, "Transação realizada com sucesso");
+        notificationService.sendNotifyRestTemplate(receiver, "Transação recebida com sucesso");
+
+        return newTransaction;
     }
 
     public boolean authorizeTransactionWebClient(User sender, BigDecimal value) {

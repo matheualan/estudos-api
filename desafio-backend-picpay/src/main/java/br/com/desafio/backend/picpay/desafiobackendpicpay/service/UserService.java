@@ -2,12 +2,14 @@ package br.com.desafio.backend.picpay.desafiobackendpicpay.service;
 
 import br.com.desafio.backend.picpay.desafiobackendpicpay.domain.user.TypeUser;
 import br.com.desafio.backend.picpay.desafiobackendpicpay.domain.user.User;
+import br.com.desafio.backend.picpay.desafiobackendpicpay.dto.record.UserDTO;
 import br.com.desafio.backend.picpay.desafiobackendpicpay.exception.UserBadRequestException;
 import br.com.desafio.backend.picpay.desafiobackendpicpay.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -38,4 +40,12 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public User createUser(UserDTO userDTO) {
+        User newUser = new User(userDTO);
+        return userRepository.save(newUser);
+    }
+
+    public List<User> listUsers() {
+        return userRepository.findAll();
+    }
 }

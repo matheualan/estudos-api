@@ -1,4 +1,4 @@
-package br.com.desafio.backend.picpay.desafiobackendpicpay.domain.dto;
+package br.com.desafio.backend.picpay.desafiobackendpicpay.dto.record;
 
 import java.math.BigDecimal;
 
