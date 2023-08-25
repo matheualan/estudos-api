@@ -20,8 +20,16 @@ public class UsuarioService {
         return usuarioDTO;
     }
 
+    public void salvarUsuario(Usuario usuario) {
+        usuarioRepository.save(usuario);
+    }
+
     public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();
+    }
+
+    public Usuario encontrarUsuarioPorId(Long id) {
+        return usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
 }
