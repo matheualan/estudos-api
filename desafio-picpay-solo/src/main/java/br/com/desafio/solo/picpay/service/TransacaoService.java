@@ -8,6 +8,8 @@ import br.com.desafio.solo.picpay.repository.TransacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class TransacaoService {
 
@@ -17,14 +19,21 @@ public class TransacaoService {
     @Autowired
     private UsuarioService usuarioService;
 
-    public Transacao criarTransacao(TransacaoDTO transacaoDTO) throws Exception {
+    public void validarTransacao(Usuario remetente, BigDecimal valor) throws Exception {
+        if (remetente.getSaldo().compareTo(valor) < 0) {
+            throw new Exception("Saldo insuficiente.");
+        }
 
+        if (remetente.getTipoUsuario() == TipoUsuario.LOJISTA ) {
+            throw new Exception("Usuário do tipo Lojista não pode efetuar transações.");
+        }
+    }
+
+    public Transacao criarTransacao(TransacaoDTO transacaoDTO) throws Exception {
         Usuario remetente = usuarioService.encontrarUsuarioPorId(transacaoDTO.idRemetente());
         Usuario destinatario = usuarioService.encontrarUsuarioPorId(transacaoDTO.idDestinatario());
 
-        if (remetente.getTipoUsuario() == TipoUsuario.LOJISTA) {
-            throw new Exception("Usuário do tipo Lojista não pode realizar transferência.");
-        }
+        validarTransacao(remetente, transacaoDTO.valor());
 
         remetente.setSaldo(remetente.getSaldo().subtract(transacaoDTO.valor()));
         destinatario.setSaldo(destinatario.getSaldo().add(transacaoDTO.valor()));
