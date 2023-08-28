@@ -1,0 +1,29 @@
+[
+  {
+    "nome": "Matus",
+    "sobrenome": "Carvalhos",
+    "cpf": "321312123",
+    "email": "matusc@gmail.com",
+    "senha": "321321",
+    "tipoUsuario": "COMUM",
+    "saldo": 100
+  },
+  {
+    "nome": "Canarim",
+    "sobrenome": "Pardo",
+    "cpf": "123123123",
+    "email": "carnari@gmail.com",
+    "senha": "123123",
+    "tipoUsuario": "COMUM",
+    "saldo": 50
+  },
+  {
+    "nome": "Huggo",
+    "sobrenome": "Lario",
+    "cpf": "223223223",
+    "email": "hugl@gmail.com",
+    "senha": "223223",
+    "tipoUsuario": "LOJISTA",
+    "saldo": 500
+  }
+]
