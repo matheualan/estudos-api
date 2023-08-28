@@ -6,6 +6,7 @@ import br.com.desafio.solo.picpay.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,6 +21,16 @@ public class UsuarioService {
         return usuarioDTO;
     }
 
+    public List<UsuarioDTO> criarVariosUsuarios(List<UsuarioDTO> usuarioDTOS) {
+        List<Usuario> usuarios = new ArrayList<>();
+        for(UsuarioDTO usuarioDTO : usuarioDTOS) {
+            var usuario = new Usuario(usuarioDTO);
+            usuarios.add(usuario);
+        }
+        usuarioRepository.saveAll(usuarios);
+        return usuarioDTOS;
+    }
+
     public void salvarUsuario(Usuario usuario) {
         usuarioRepository.save(usuario);
     }
@@ -31,5 +42,6 @@ public class UsuarioService {
     public Usuario encontrarUsuarioPorId(Long id) {
         return usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
+
 
 }

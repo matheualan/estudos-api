@@ -22,6 +22,11 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.criarUsuario(usuarioDTO));
     }
 
+    @PostMapping(path = "/salvarVarios")
+    public ResponseEntity<List<UsuarioDTO>> salvarVariosUsuarios(@RequestBody List<UsuarioDTO> usuariosDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.criarVariosUsuarios(usuariosDTO));
+    }
+
     @GetMapping
     public ResponseEntity<List<Usuario>> listarUsuarios() {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.listarUsuarios());
