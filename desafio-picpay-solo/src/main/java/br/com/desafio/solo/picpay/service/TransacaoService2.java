@@ -28,17 +28,29 @@ public class TransacaoService2 {
         }
     }
 
-    public Transacao createTranscation(TransacaoDTO transacaoDTO) {
+    public Transacao createTranscation(TransacaoDTO transacaoDTO) throws Exception {
         Usuario remetente = usuarioService.encontrarUsuarioPorId(transacaoDTO.idRemetente());
         Usuario destinatario = usuarioService.encontrarUsuarioPorId(transacaoDTO.idDestinatario());
 
-        try {
+//        try {
             validationTransaction(remetente, transacaoDTO.valor());
-        } catch (Exception e) {
-            new PersonalizedException("Não foi possível prosseguir com a transação.");
-        }
+//        } catch (Exception e) {
+//            throw new PersonalizedException("Não foi possível prosseguir com a transação.");
+//        }
 
-        return null;
+        Transacao transa = new Transacao();
+        transa.setRemetente(remetente);
+        transa.setDestinatario(destinatario);
+        transa.setValor(transacaoDTO.valor());
+
+        remetente.setSaldo(remetente.getSaldo().subtract(transacaoDTO.valor()));
+        destinatario.setSaldo(destinatario.getSaldo().add(transacaoDTO.valor()));
+
+        usuarioService.salvarUsuario(remetente);
+        usuarioService.salvarUsuario(destinatario);
+        transacaoRepository.save(transa);
+
+        return transa;
 
     }
 
