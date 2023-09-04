@@ -15,43 +15,43 @@ import java.math.BigDecimal;
 public class TransacaoService2 {
 
     @Autowired
-    private TransacaoRepository transacaoRepository;
-
-    @Autowired
     private UsuarioService usuarioService;
 
-    public void validationTransaction(Usuario usuario, BigDecimal valor) throws Exception {
+    @Autowired
+    private TransacaoRepository transacaoRepository;
+
+    public void validarTransacao(Usuario usuario, BigDecimal valor) {
         if (usuario.getTipoUsuario() == TipoUsuario.LOJISTA) {
-            throw new Exception("Usuário do tipo lojista não pode realizar transações.");
-        } else if (usuario.getSaldo().compareTo(valor) < 0) {
-            throw new Exception("Saldo insuficiente.");
+            throw new PersonalizedException("Usuário do tipo LOJISTA não pode efetuar transações.");
+        }
+        if (usuario.getSaldo().compareTo(valor) < 0) {
+            throw new PersonalizedException("Saldo insuficiente.");
         }
     }
 
-    public Transacao createTranscation(TransacaoDTO transacaoDTO) throws Exception {
+
+    public Transacao createTransaction(TransacaoDTO transacaoDTO) {
+
         Usuario remetente = usuarioService.encontrarUsuarioPorId(transacaoDTO.idRemetente());
         Usuario destinatario = usuarioService.encontrarUsuarioPorId(transacaoDTO.idDestinatario());
 
-//        try {
-            validationTransaction(remetente, transacaoDTO.valor());
-//        } catch (Exception e) {
-//            throw new PersonalizedException("Não foi possível prosseguir com a transação.");
-//        }
-
-        Transacao transa = new Transacao();
-        transa.setRemetente(remetente);
-        transa.setDestinatario(destinatario);
-        transa.setValor(transacaoDTO.valor());
+        validarTransacao(remetente, transacaoDTO.valor());
 
         remetente.setSaldo(remetente.getSaldo().subtract(transacaoDTO.valor()));
         destinatario.setSaldo(destinatario.getSaldo().add(transacaoDTO.valor()));
 
+        Transacao transacao = new Transacao();
+        transacao.setRemetente(remetente);
+        transacao.setDestinatario(destinatario);
+        transacao.setValor(transacaoDTO.valor());
+
         usuarioService.salvarUsuario(remetente);
         usuarioService.salvarUsuario(destinatario);
-        transacaoRepository.save(transa);
+        transacaoRepository.save(transacao);
 
-        return transa;
+        return transacao;
 
     }
+
 
 }

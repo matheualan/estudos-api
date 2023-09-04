@@ -20,7 +20,7 @@ public class TransacaoController2 {
 
     @PostMapping
     public ResponseEntity<Transacao> realizarTransacao(@RequestBody TransacaoDTO transacaoDTO) throws Exception {
-        return ResponseEntity.status(HttpStatus.CREATED).body(transacaoService2.createTranscation(transacaoDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(transacaoService2.createTransaction(transacaoDTO));
     }
 
 }
