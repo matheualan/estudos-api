@@ -29,9 +29,7 @@ public class TransacaoService2 {
         }
     }
 
-
     public Transacao createTransaction(TransacaoDTO transacaoDTO) {
-
         Usuario remetente = usuarioService.encontrarUsuarioPorId(transacaoDTO.idRemetente());
         Usuario destinatario = usuarioService.encontrarUsuarioPorId(transacaoDTO.idDestinatario());
 
