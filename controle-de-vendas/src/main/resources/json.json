@@ -1,0 +1,20 @@
+[
+  {
+    "firstName": "Matheus",
+    "lastName": "Alan",
+    "cpf": "12312312312",
+    "birthDate": "15/02/1995"
+  },
+  {
+    "firstName": "João",
+    "lastName": "Miguel",
+    "cpf": "22312312312",
+    "birthDate": "27/09/2015"
+  },
+  {
+    "firstName": "João",
+    "lastName": "Guilherme",
+    "cpf": "32312312312",
+    "birthDate": "17/04/2018"
+  }
+]
