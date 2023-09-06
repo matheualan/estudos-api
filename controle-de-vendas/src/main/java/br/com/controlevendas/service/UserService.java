@@ -1,6 +1,7 @@
 package br.com.controlevendas.service;
 
 import br.com.controlevendas.dto.UserDTO;
+import br.com.controlevendas.exception.UserNotFoundException;
 import br.com.controlevendas.model.User;
 import br.com.controlevendas.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -26,7 +28,9 @@ public class UserService {
     }
 
     public UserDTO saveUser(UserDTO userDTO) {
-        return null;
+        var user = new User(userDTO);
+        userRepository.save(user);
+        return userDTO;
     }
 
     public List<UserDTO> listAllUsers() {
@@ -37,6 +41,25 @@ public class UserService {
             usersDTO.add(userDTO);
         }
         return usersDTO;
+    }
+
+    public void deleteUserById(Integer id) {
+        userRepository.deleteById(id);
+    }
+
+    public void deleteUserByFirstName(String firstName) {
+        UserDTO userDTO = findUserByFirstName(firstName);
+        var user = new User(userDTO);
+        userRepository.delete(user);
+
+        Optional<User> userByFirstName = userRepository.findUserByFirstName(firstName);
+        userRepository.delete(userByFirstName.get());
+
+    }
+
+    public UserDTO findUserByFirstName(String firstName) {
+        return new UserDTO(userRepository.findUserByFirstName(firstName)
+                .orElseThrow(() -> new UserNotFoundException("Usuário não encontrado.")));
     }
 
 //    public UserDTO userUpdate(Integer id, UserDTO userDTO) {
