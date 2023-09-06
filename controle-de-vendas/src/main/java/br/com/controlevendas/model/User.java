@@ -1,5 +1,6 @@
 package br.com.controlevendas.model;
 
+import br.com.controlevendas.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,4 +33,10 @@ public class User {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date birthDate;
 
+    public User(UserDTO userDTO) {
+        firstName = userDTO.getFirstName();
+        lastName = userDTO.getLastName();
+        cpf = userDTO.getCpf();
+        birthDate = userDTO.getBirthDate();
+    }
 }

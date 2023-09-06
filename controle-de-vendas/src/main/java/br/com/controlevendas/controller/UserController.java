@@ -1,7 +1,9 @@
 package br.com.controlevendas.controller;
 
+import br.com.controlevendas.dto.UserDTO;
 import br.com.controlevendas.model.User;
 import br.com.controlevendas.repository.UserRepository;
+import br.com.controlevendas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,21 +16,21 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(user));
+    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(userDTO));
     }
 
     @PostMapping(path = "/save-several")
-    public ResponseEntity<List<User>> saveListUsers(@RequestBody List<User> users) {
-        return new ResponseEntity<List<User>>(userRepository.saveAll(users), HttpStatus.CREATED);
+    public ResponseEntity<List<UserDTO>> saveListUsers(@RequestBody List<UserDTO> usersDTO) {
+        return new ResponseEntity<List<UserDTO>>(userService.saveSeveralUsers(usersDTO), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> listUsers() {
-        return ResponseEntity.status(HttpStatus.OK).body(userRepository.findAll());
+    public ResponseEntity<List<UserDTO>> listUsers() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.listAllUsers());
     }
 
 }
