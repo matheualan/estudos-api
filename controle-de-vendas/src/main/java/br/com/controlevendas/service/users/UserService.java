@@ -1,4 +1,4 @@
-package br.com.controlevendas.service;
+package br.com.controlevendas.service.users;
 
 import br.com.controlevendas.dto.UserDTO;
 import br.com.controlevendas.exception.UserNotFoundException;

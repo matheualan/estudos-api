@@ -27,6 +27,10 @@ public class Address {
     private String localidade;
     private String uf;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "idUser")
+    private User user;
+
     public Address(AddressDTO addressDTO) {
         cep = addressDTO.getCep();
         logradouro = addressDTO.getLogradouro();

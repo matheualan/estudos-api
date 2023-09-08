@@ -1,7 +1,7 @@
-package br.com.controlevendas.controller;
+package br.com.controlevendas.controller.addresses;
 
 import br.com.controlevendas.dto.AddressDTO;
-import br.com.controlevendas.service.AddressService;
+import br.com.controlevendas.service.addresses.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

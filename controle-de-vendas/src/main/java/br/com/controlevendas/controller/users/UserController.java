@@ -1,8 +1,7 @@
-package br.com.controlevendas.controller;
+package br.com.controlevendas.controller.users;
 
 import br.com.controlevendas.dto.UserDTO;
-import br.com.controlevendas.service.UserService;
-import jakarta.websocket.server.PathParam;
+import br.com.controlevendas.service.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package br.com.controlevendas.service;
+package br.com.controlevendas.service.addresses;
 
 import br.com.controlevendas.dto.AddressDTO;
 import br.com.controlevendas.model.Address;
