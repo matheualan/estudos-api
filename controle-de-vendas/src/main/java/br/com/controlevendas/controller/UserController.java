@@ -2,6 +2,7 @@ package br.com.controlevendas.controller;
 
 import br.com.controlevendas.dto.UserDTO;
 import br.com.controlevendas.service.UserService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +32,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.listAllUsers());
     }
 
-    @GetMapping(path = "/{firstName}")
-    public ResponseEntity<UserDTO> findUserByFirstName(@PathVariable String firstName) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.findUserByCpf(firstName));
+    @GetMapping(path = "/user/{cpf}")
+    public ResponseEntity<UserDTO> findUserByCpf(@PathVariable String cpf) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findUserByCpf(cpf));
     }
 
     @GetMapping(path = "/users/{firstName}")
@@ -51,6 +52,11 @@ public class UserController {
     public ResponseEntity<Void> deleteUserByCpf(@PathVariable String cpf) {
         userService.deleteUserByCpf(cpf);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PatchMapping(path = "/update/{cpf}")
+    public ResponseEntity<UserDTO> updateUserByCpf(@PathVariable String cpf, @RequestBody UserDTO userDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.userUpdate(cpf, userDTO));
     }
 
 }

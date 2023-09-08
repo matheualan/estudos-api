@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -75,8 +74,17 @@ public class UserService {
         return listDTO;
     }
 
-//    public UserDTO userUpdate(Integer id, UserDTO userDTO) {
-//
-//    }
+    public UserDTO userUpdate(String cpf, UserDTO userDTO) {
+        User userFound = encontreUsuarioPorCpf(cpf);
+
+        userFound.setFirstName(userDTO.getFirstName());
+        userFound.setLastName(userDTO.getLastName());
+        userFound.setCpf(userDTO.getCpf());
+        userFound.setBirthDate(userDTO.getBirthDate());
+
+        userRepository.save(userFound);
+
+        return new UserDTO(userFound);
+    }
 
 }
