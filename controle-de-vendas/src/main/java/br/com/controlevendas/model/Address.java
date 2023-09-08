@@ -1,5 +1,6 @@
 package br.com.controlevendas.model;
 
+import br.com.controlevendas.dto.AddressDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,5 +26,14 @@ public class Address {
     private String bairro;
     private String localidade;
     private String uf;
+
+    public Address(AddressDTO addressDTO) {
+        cep = addressDTO.getCep();
+        logradouro = addressDTO.getLogradouro();
+        complemento = addressDTO.getComplemento();
+        bairro = addressDTO.getBairro();
+        localidade = addressDTO.getLocalidade();
+        uf = addressDTO.getUf();
+    }
 
 }

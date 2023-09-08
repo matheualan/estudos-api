@@ -1,5 +1,6 @@
 package br.com.controlevendas.dto;
 
+import br.com.controlevendas.model.Address;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,14 @@ public class AddressDTO {
     private String bairro;
     private String localidade;
     private String uf;
+
+    public AddressDTO(Address address) {
+        cep = address.getCep();
+        logradouro = address.getLogradouro();
+        complemento = address.getComplemento();
+        bairro = address.getBairro();
+        localidade = address.getLocalidade();
+        uf = address.getUf();
+    }
 
 }
