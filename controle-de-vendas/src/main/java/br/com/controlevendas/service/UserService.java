@@ -47,19 +47,32 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void deleteUserByFirstName(String firstName) {
-        UserDTO userDTO = findUserByFirstName(firstName);
-        var user = new User(userDTO);
-        userRepository.delete(user);
-
-        Optional<User> userByFirstName = userRepository.findUserByFirstName(firstName);
-        userRepository.delete(userByFirstName.get());
-
+    public void deleteUserByCpf(String cpf) {
+        User userByCpf = encontreUsuarioPorCpf(cpf);
+        userRepository.delete(userByCpf);
     }
 
-    public UserDTO findUserByFirstName(String firstName) {
-        return new UserDTO(userRepository.findUserByFirstName(firstName)
+    public User encontreUsuarioPorCpf(String cpf) {
+        return userRepository.findUserByCpf(cpf).orElseThrow(() -> new UserNotFoundException("User not found."));
+    }
+
+    public UserDTO findUserByCpf(String cpf) {
+        return new UserDTO(userRepository.findUserByCpf(cpf)
                 .orElseThrow(() -> new UserNotFoundException("Usuário não encontrado.")));
+    }
+
+    public List<UserDTO> findAllUsersByFirstName(String firstName) {
+        List<UserDTO> listDTO = new ArrayList<>();
+
+        List<User> users = userRepository.findAllUsersByFirstName(firstName)
+                .orElseThrow(() -> new UserNotFoundException(""));
+
+        for (User user : users) {
+            var userDTO = new UserDTO(user);
+            listDTO.add(userDTO);
+        }
+
+        return listDTO;
     }
 
 //    public UserDTO userUpdate(Integer id, UserDTO userDTO) {

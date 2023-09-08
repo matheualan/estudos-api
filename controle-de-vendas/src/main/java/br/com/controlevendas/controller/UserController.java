@@ -1,16 +1,13 @@
 package br.com.controlevendas.controller;
 
 import br.com.controlevendas.dto.UserDTO;
-import br.com.controlevendas.model.User;
 import br.com.controlevendas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/users")
@@ -36,11 +33,23 @@ public class UserController {
 
     @GetMapping(path = "/{firstName}")
     public ResponseEntity<UserDTO> findUserByFirstName(@PathVariable String firstName) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.findUserByFirstName(firstName));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findUserByCpf(firstName));
     }
 
-    @DeleteMapping(path = "/{firstName}")
-    public ResponseEntity<Void> deleteUserByFirstName(@PathVariable String firstName) {
+    @GetMapping(path = "/users/{firstName}")
+    public ResponseEntity<List<UserDTO>> findAllUsersByFirstName(@PathVariable String firstName) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findAllUsersByFirstName(firstName));
+    }
+
+    @DeleteMapping(path = "/deleteById/{id}")
+    public ResponseEntity<Void> deleteUserById(@PathVariable Integer id) {
+        userService.deleteUserById(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @DeleteMapping(path = "/deleteByCpf/{cpf}")
+    public ResponseEntity<Void> deleteUserByCpf(@PathVariable String cpf) {
+        userService.deleteUserByCpf(cpf);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
