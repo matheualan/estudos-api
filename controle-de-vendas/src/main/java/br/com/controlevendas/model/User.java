@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -31,10 +32,14 @@ public class User {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date birthDate;
 
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private final LocalDateTime createAt = LocalDateTime.now();
+
     public User(UserDTO userDTO) {
         firstName = userDTO.getFirstName();
         lastName = userDTO.getLastName();
         cpf = userDTO.getCpf();
         birthDate = userDTO.getBirthDate();
     }
+
 }
