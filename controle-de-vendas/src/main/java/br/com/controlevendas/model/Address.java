@@ -1,6 +1,7 @@
 package br.com.controlevendas.model;
 
 import br.com.controlevendas.dto.AddressDTO;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(value = {"user"})
 public class Address {
 
     @Id

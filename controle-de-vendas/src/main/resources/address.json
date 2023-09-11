@@ -1,12 +1,18 @@
 [
   {
-    "cep": "54360130",
-    "logradouro": "Rua Henrique Dias",
-    "complemento": "Perto do Terminal",
-    "bairro": "Marcos Freire",
-    "localidade": "Jaboatão",
-    "uf": "PE"
-  },
-  {
+    "firstName": "João",
+    "lastName": "Miguel",
+    "cpf": "22312312312",
+    "birthDate": "27/09/2015",
+    "addressesDTO": [
+      {
+        "cep": "43567132",
+        "logradouro": "Avenida São Cristovão",
+        "complemento": "",
+        "bairro": "Vila Marciana",
+        "localidade": "São Paulo",
+        "uf": "SP"
+      }
+    ]
   }
 ]

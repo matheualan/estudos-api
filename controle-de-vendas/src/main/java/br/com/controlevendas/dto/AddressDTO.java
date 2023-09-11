@@ -1,7 +1,7 @@
 package br.com.controlevendas.dto;
 
 import br.com.controlevendas.model.Address;
-import br.com.controlevendas.model.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(value = {"userDTO"})
 public class AddressDTO {
 
     private String cep;
