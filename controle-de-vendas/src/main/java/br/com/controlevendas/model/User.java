@@ -1,5 +1,6 @@
 package br.com.controlevendas.model;
 
+import br.com.controlevendas.dto.AddressDTO;
 import br.com.controlevendas.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -23,6 +24,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUser;
 
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime createAt = LocalDateTime.now();
+
     @Column(nullable = false)
     private String firstName;
 
@@ -37,14 +41,16 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addresses = new ArrayList<>();
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private final LocalDateTime createAt = LocalDateTime.now();
-
     public User(UserDTO userDTO) {
         firstName = userDTO.getFirstName();
         lastName = userDTO.getLastName();
         cpf = userDTO.getCpf();
         birthDate = userDTO.getBirthDate();
+        for (AddressDTO addressDTO : userDTO.getAddressesDTO()) {
+            var address = new Address(addressDTO);
+            address.setUser(this);
+            addresses.add(address);
+        }
     }
 
 }
