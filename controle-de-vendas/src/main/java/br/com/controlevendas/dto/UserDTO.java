@@ -3,6 +3,7 @@ package br.com.controlevendas.dto;
 import br.com.controlevendas.model.Address;
 import br.com.controlevendas.model.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,7 @@ public class UserDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date birthDate;
 
+    @Valid
     private List<AddressDTO> addressesDTO = new ArrayList<>();
 
     public UserDTO(User user) {

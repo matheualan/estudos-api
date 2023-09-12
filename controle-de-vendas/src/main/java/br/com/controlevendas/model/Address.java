@@ -21,7 +21,7 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idAddress;
 
-    @Column(nullable = false, length = 9)
+//    @Column(nullable = false, length = 8)
     private String cep;
     private String logradouro;
     private String complemento;

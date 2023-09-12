@@ -15,21 +15,21 @@ import lombok.Setter;
 @JsonIgnoreProperties(value = {"userDTO"})
 public class AddressDTO {
 
-    @Size(min = 8, max = 8)
+    @Size(min = 8, max = 8, message = "O campo CEP deve conter 8 caracteres")
     private String cep;
 
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 50, message = "O campo LOGRADOURO deve conter entre 3 a 50 caracteres")
     private String logradouro;
 
     private String complemento;
 
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 50, message = "O campo BAIRRO deve conter entre 3 a 50 caracteres")
     private String bairro;
 
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 50, message = "O campo LOCALIDADE deve conter entre 3 a 50 caracteres")
     private String localidade;
 
-    @Size(min = 2, max = 2)
+    @Size(min = 2, max = 2, message = "O campo UF deve conter 2 caracteres")
     private String uf;
 
     private UserDTO userDTO;
