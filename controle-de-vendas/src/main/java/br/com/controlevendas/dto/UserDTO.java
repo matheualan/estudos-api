@@ -4,7 +4,6 @@ import br.com.controlevendas.model.Address;
 import br.com.controlevendas.model.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

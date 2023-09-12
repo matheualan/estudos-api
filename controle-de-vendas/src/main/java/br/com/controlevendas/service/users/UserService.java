@@ -2,7 +2,6 @@ package br.com.controlevendas.service.users;
 
 import br.com.controlevendas.dto.UserDTO;
 import br.com.controlevendas.exception.UserNotFoundException;
-import br.com.controlevendas.model.Address;
 import br.com.controlevendas.model.User;
 import br.com.controlevendas.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
