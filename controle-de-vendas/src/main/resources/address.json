@@ -1,9 +1,41 @@
 [
   {
+    "firstName": "Matheus",
+    "lastName": "Alan",
+    "cpf": "12312312312",
+    "birthDate": "15/02/1995",
+    "addressesDTO": [
+      {
+        "cep": "43567132",
+        "logradouro": "Avenida São Cristovão",
+        "complemento": "",
+        "bairro": "Vila Marciana",
+        "localidade": "São Paulo",
+        "uf": "SP"
+      }
+    ]
+  },
+  {
     "firstName": "João",
     "lastName": "Miguel",
     "cpf": "22312312312",
     "birthDate": "27/09/2015",
+    "addressesDTO": [
+      {
+        "cep": "43567132",
+        "logradouro": "Avenida São Cristovão",
+        "complemento": "",
+        "bairro": "Vila Marciana",
+        "localidade": "São Paulo",
+        "uf": "SP"
+      }
+    ]
+  },
+  {
+    "firstName": "João",
+    "lastName": "Guilherme",
+    "cpf": "32312312312",
+    "birthDate": "17/04/2018",
     "addressesDTO": [
       {
         "cep": "43567132",
