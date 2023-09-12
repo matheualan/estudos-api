@@ -2,6 +2,7 @@ package br.com.controlevendas.controller.users;
 
 import br.com.controlevendas.dto.UserDTO;
 import br.com.controlevendas.service.users.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +18,12 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> saveUser(@RequestBody @Valid UserDTO userDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(userDTO));
     }
 
     @PostMapping(path = "/save-several")
-    public ResponseEntity<List<UserDTO>> saveListUsers(@RequestBody List<UserDTO> usersDTO) {
+    public ResponseEntity<List<UserDTO>> saveListUsers(@RequestBody @Valid List<UserDTO> usersDTO) {
         return new ResponseEntity<List<UserDTO>>(userService.saveSeveralUsers(usersDTO), HttpStatus.CREATED);
     }
 
@@ -54,7 +55,7 @@ public class UserController {
     }
 
     @PatchMapping(path = "/update/{cpf}")
-    public ResponseEntity<UserDTO> updateUserByCpf(@PathVariable String cpf, @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> updateUserByCpf(@PathVariable String cpf, @RequestBody @Valid UserDTO userDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.userUpdate(cpf, userDTO));
     }
 

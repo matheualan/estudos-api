@@ -3,6 +3,8 @@ package br.com.controlevendas.dto;
 import br.com.controlevendas.model.Address;
 import br.com.controlevendas.model.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +20,16 @@ import java.util.List;
 @AllArgsConstructor
 public class UserDTO {
 
+//    @NotBlank(message = "O campo 'Primeiro nome' não pode ser nulo nem vazio")
+    @Size(min = 3, max = 50, message = "O campo 'Primeiro nome' deve conter entre 3 a 50 caracteres")
     private String firstName;
 
+//    @NotBlank(message = "O campo 'Último nome' não pode ser nulo nem vazio")
+    @Size(min = 3, max = 50, message = "O campo 'Último nome' deve conter entre 3 a 50 caracteres")
     private String lastName;
 
+//    @NotBlank(message = "O campo CPF não pode ser nulo nem vazio")
+    @Size(min = 11, max = 14, message = "O campo CPF deve conter entre 11 números")
     private String cpf;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
