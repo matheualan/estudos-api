@@ -40,7 +40,8 @@ public class Address {
         bairro = addressDTO.getBairro();
         localidade = addressDTO.getLocalidade();
         uf = addressDTO.getUf();
-//        user = new User(addressDTO.getUserDTO());
+//        User usuario = new User(addressDTO.getUserDTO());
+//        user = usuario;
     }
 
 }
