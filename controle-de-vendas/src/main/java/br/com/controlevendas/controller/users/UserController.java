@@ -17,17 +17,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping(path = "/register")
     public ResponseEntity<UserDTO> saveUser(@RequestBody @Valid UserDTO userDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(userDTO));
     }
 
-    @PostMapping(path = "/save-several")
+    @PostMapping(path = "/register-several")
     public ResponseEntity<List<UserDTO>> saveListUsers(@RequestBody @Valid List<UserDTO> usersDTO) {
         return new ResponseEntity<List<UserDTO>>(userService.saveSeveralUsers(usersDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping(path = "/list-users")
     public ResponseEntity<List<UserDTO>> listUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.listAllUsers());
     }
@@ -37,18 +37,18 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findUserByCpf(cpf));
     }
 
-    @GetMapping(path = "/users/{firstName}")
+    @GetMapping(path = "/list-users/{firstName}")
     public ResponseEntity<List<UserDTO>> findAllUsersByFirstName(@PathVariable String firstName) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAllUsersByFirstName(firstName));
     }
 
-    @DeleteMapping(path = "/deleteById/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<Void> deleteUserById(@PathVariable Integer id) {
         userService.deleteUserById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @DeleteMapping(path = "/deleteByCpf/{cpf}")
+    @DeleteMapping(path = "/delete/{cpf}")
     public ResponseEntity<Void> deleteUserByCpf(@PathVariable String cpf) {
         userService.deleteUserByCpf(cpf);
         return ResponseEntity.status(HttpStatus.OK).build();
