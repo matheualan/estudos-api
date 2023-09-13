@@ -1,6 +1,7 @@
 package br.com.controlevendas.model;
 
 import br.com.controlevendas.dto.AddressDTO;
+import br.com.controlevendas.dto.OrderDTO;
 import br.com.controlevendas.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -40,6 +41,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addresses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Order> orders = new ArrayList<>();
 
     public User(UserDTO userDTO) {
         firstName = userDTO.getFirstName();
