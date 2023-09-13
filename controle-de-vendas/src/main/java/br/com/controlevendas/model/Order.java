@@ -29,13 +29,18 @@ public class Order {
 
 //    tipos primitivos são mais eficientes em desempenho(nao recebe null), classes wrapper sao tratadas como objeto(recebe null)
     private double quantity;
+
     private BigDecimal price;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime orderDate = LocalDateTime.now();
 
-//    public Order(OrderDTO orderDTO) {
-//
-//    }
+    public Order(OrderDTO orderDTO) {
+        quantity = orderDTO.getQuantity();
+        price = orderDTO.getPrice();
+//        verificar esse new User() pq vai da errado kkk
+        user = new User(orderDTO.getUserOrderDTO());
+    }
+
 
 }

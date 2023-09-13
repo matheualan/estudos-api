@@ -3,6 +3,7 @@ package br.com.controlevendas.model;
 import br.com.controlevendas.dto.AddressDTO;
 import br.com.controlevendas.dto.OrderDTO;
 import br.com.controlevendas.dto.UserDTO;
+import br.com.controlevendas.dto.UserOrderDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
@@ -55,6 +56,12 @@ public class User {
             address.setUser(this);
             addresses.add(address);
         }
+    }
+
+    public User(UserOrderDTO userOrderDTO) {
+        firstName = userOrderDTO.getFirstName();
+        lastName = userOrderDTO.getLastName();
+        cpf = userOrderDTO.getCpf();
     }
 
 }

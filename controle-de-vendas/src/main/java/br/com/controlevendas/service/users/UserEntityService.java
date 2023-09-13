@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceEntity {
+public class UserEntityService {
 
     @Autowired
     private UserRepository userRepository;
