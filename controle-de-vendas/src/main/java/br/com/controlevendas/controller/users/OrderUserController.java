@@ -1,11 +1,9 @@
 package br.com.controlevendas.controller.users;
 
 import br.com.controlevendas.dto.OrderDTO;
-import br.com.controlevendas.model.Order;
 import br.com.controlevendas.service.users.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

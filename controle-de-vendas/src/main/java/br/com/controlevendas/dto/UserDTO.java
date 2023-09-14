@@ -29,7 +29,7 @@ public class UserDTO {
     private String lastName;
 
 //    @NotBlank(message = "O campo CPF não pode ser nulo nem vazio")
-    @Size(min = 11, max = 14, message = "O campo CPF deve conter entre 11 números")
+    @Size(min = 11, max = 14, message = "O campo CPF deve conter 11 números")
     private String cpf;
 
     @JsonFormat(pattern = "dd/MM/yyyy")

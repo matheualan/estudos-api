@@ -1,8 +1,6 @@
 package br.com.controlevendas.service.users;
 
 import br.com.controlevendas.dto.OrderDTO;
-import br.com.controlevendas.dto.UserDTO;
-import br.com.controlevendas.dto.UserOrderDTO;
 import br.com.controlevendas.model.Order;
 import br.com.controlevendas.model.User;
 import br.com.controlevendas.repository.OrderRepository;
@@ -40,15 +38,19 @@ public class OrderService {
 
         return orderDTO;
 
-//        UserOrderDTO userOrderDTO = new UserOrderDTO(userByCpf);
-//
+//        UserDTO userByCpf = userService.findUserByCpf(cpf);
+//        User user = new User(userByCpf);
+//        UserOrderDTO userOrderDTO = new UserOrderDTO(user);
 //        OrderDTO orderDTO = new OrderDTO(quantity, price, userOrderDTO);
-//
 //        Order order = new Order(orderDTO);
 //        order.setUser(userByCpf);
 //        orderRepository.save(order);
-//
 //        return orderDTO;
+    }
+
+    public List<String> listUsersOrders() {
+
+        return null;
     }
 
     public List<OrderDTO> listAllOrders() {
