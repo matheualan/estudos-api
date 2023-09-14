@@ -1,10 +1,17 @@
 package br.com.controlevendas.service.users;
 
 import br.com.controlevendas.dto.OrderDTO;
+import br.com.controlevendas.dto.UserDTO;
+import br.com.controlevendas.dto.UserOrderDTO;
 import br.com.controlevendas.model.Order;
+import br.com.controlevendas.model.User;
 import br.com.controlevendas.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -12,9 +19,46 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-    private OrderDTO createOrder(OrderDTO orderDTO) {
-        var Order = new Order();
-        return null;
+    @Autowired
+    private UserService userService;
+
+    public OrderDTO createOrder(OrderDTO orderDTO) {
+        var order = new Order(orderDTO);
+        orderRepository.save(order);
+        Order orderById = orderRepository.findById(order.getIdOrder()).orElseThrow(() -> new RuntimeException("Not Found"));
+        return new OrderDTO(orderById);
+    }
+
+    public OrderDTO createOrderByUserExisting(String cpf, double quantity, BigDecimal price) {
+        User userByCpf = userService.encontreUsuarioPorCpf(cpf);
+
+        Order orderTest = new Order(userByCpf, quantity, price);
+
+        orderRepository.save(orderTest);
+
+        OrderDTO orderDTO = new OrderDTO(orderTest);
+
+        return orderDTO;
+
+//        UserOrderDTO userOrderDTO = new UserOrderDTO(userByCpf);
+//
+//        OrderDTO orderDTO = new OrderDTO(quantity, price, userOrderDTO);
+//
+//        Order order = new Order(orderDTO);
+//        order.setUser(userByCpf);
+//        orderRepository.save(order);
+//
+//        return orderDTO;
+    }
+
+    public List<OrderDTO> listAllOrders() {
+        List<Order> listOfOrders = orderRepository.findAll();
+        List<OrderDTO> listOrdersDTO = new ArrayList<>();
+        for (Order order : listOfOrders) {
+            var orderDTO = new OrderDTO(order);
+            listOrdersDTO.add(orderDTO);
+        }
+        return listOrdersDTO;
     }
 
 }

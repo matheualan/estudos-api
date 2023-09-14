@@ -39,8 +39,17 @@ public class Order {
         quantity = orderDTO.getQuantity();
         price = orderDTO.getPrice();
 //        verificar esse new User() pq vai da errado kkk
-        user = new User(orderDTO.getUserOrderDTO());
+//        User user2 = new User(orderDTO.getUserOrderDTO());
+//        user = user2;
     }
+
+    public Order(User user, double quantity, BigDecimal price) {
+        this.user = user;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
+
 
 
 }

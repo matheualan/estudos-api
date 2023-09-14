@@ -17,12 +17,12 @@ public class UserOrderDTO {
 
     private String lastName;
 
-    private String cpf;
+//    private String cpf;
 
     public UserOrderDTO(User user) {
         firstName = user.getFirstName();
         lastName = user.getLastName();
-        cpf = user.getCpf();
+//        cpf = user.getCpf();
     }
 
 }

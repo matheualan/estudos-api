@@ -61,7 +61,7 @@ public class User {
     public User(UserOrderDTO userOrderDTO) {
         firstName = userOrderDTO.getFirstName();
         lastName = userOrderDTO.getLastName();
-        cpf = userOrderDTO.getCpf();
+//        cpf = userOrderDTO.getCpf();
     }
 
 }

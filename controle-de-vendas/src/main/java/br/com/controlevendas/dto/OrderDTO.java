@@ -1,6 +1,7 @@
 package br.com.controlevendas.dto;
 
 import br.com.controlevendas.model.Order;
+import br.com.controlevendas.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,5 +26,4 @@ public class OrderDTO {
         price = order.getPrice();
         userOrderDTO = new UserOrderDTO(order.getUser());
     }
-
 }
