@@ -4,6 +4,23 @@
 
 --SELECT id_order, user_id, quantity, price, order_date FROM tb_orders;
 
---SELECT u.id_user, u.first_name, u.last_name, u.cpf, o.id_order, o.quantity, o.price, o.order_date
+--BUSCA DADOS DE USUÁRIO E PEDIDOS
+--SELECT u.id_user, u.first_name, u.last_name, u.cpf,
+--o.id_order, o.quantity, o.price, o.order_date
 --FROM tb_users u
 --JOIN tb_orders o ON u.id_user = o.user_id;
+
+--BUSCA DADOS DE USUÁRIO, PEDIDO E ENDEREÇO
+--SELECT u.id_user, u.first_name, u.last_name, u.cpf,
+--o.id_order, o.quantity, o.price, o.order_date,
+--a.cep, a.logradouro, a.bairro, a.localidade, a.uf
+--FROM tb_users u
+--JOIN tb_orders o ON u.id_user = o.user_id
+--JOIN tb_address a ON u.id_user = a.user_id;
+
+--BUSCA DADOS DE USUÁRIO E PEDIDOS DETERMINADO POR UM CPF
+--SELECT u.id_user, u.first_name, u.last_name, u.cpf,
+--o.id_order, o.quantity, o.price, o.order_date
+--FROM tb_users u
+--JOIN tb_orders o ON u.id_user = o.user_id
+--WHERE u.cpf='22312312312';

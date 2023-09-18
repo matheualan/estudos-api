@@ -25,8 +25,4 @@ public class OrderDTO {
         price = order.getPrice();
     }
 
-//    public OrderDTO() {
-//
-//    }
-
 }
