@@ -24,10 +24,10 @@ public class Order {
     private Integer idOrder;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_user", referencedColumnName = "idUser")
+    @JoinColumn(name = "user_id", referencedColumnName = "idUser")
     private User user;
 
-//    tipos primitivos são mais eficientes em desempenho(nao recebe null), classes wrapper sao tratadas como objeto(recebe null)
+    //    tipos primitivos são mais eficientes em desempenho(nao recebe null), classes wrapper sao tratadas como objeto(recebe null)
     private double quantity;
 
     private BigDecimal price;
@@ -38,18 +38,18 @@ public class Order {
     public Order(OrderDTO orderDTO) {
         quantity = orderDTO.getQuantity();
         price = orderDTO.getPrice();
-//        verificar esse new User() pq vai da errado kkk
-//        User user2 = new User(orderDTO.getUserOrderDTO());
-//        user = user2;
+//        user = new User(orderDTO.getUserOrderDTO());
     }
 
-    public Order(User user, double quantity, BigDecimal price) {
-        this.user = user;
+    public Order(double quantity, BigDecimal price) {
         this.quantity = quantity;
         this.price = price;
     }
 
-
-
+//    public Order(User user, double quantity, BigDecimal price) {
+//        this.user = user;
+//        this.quantity = quantity;
+//        this.price = price;
+//    }
 
 }

@@ -1,6 +1,7 @@
 package br.com.controlevendas.service.users;
 
 import br.com.controlevendas.dto.OrderDTO;
+import br.com.controlevendas.dto.UserDTO;
 import br.com.controlevendas.model.Order;
 import br.com.controlevendas.model.User;
 import br.com.controlevendas.repository.OrderRepository;
@@ -30,13 +31,13 @@ public class OrderService {
     public OrderDTO createOrderByUserExisting(String cpf, double quantity, BigDecimal price) {
         User userByCpf = userService.encontreUsuarioPorCpf(cpf);
 
-        Order orderTest = new Order(userByCpf, quantity, price);
+//        Order order = new Order(userByCpf, quantity, price);
+        Order order = new Order(quantity, price);
+        order.setUser(userByCpf);
 
-        orderRepository.save(orderTest);
+        orderRepository.save(order);
 
-        OrderDTO orderDTO = new OrderDTO(orderTest);
-
-        return orderDTO;
+        return new OrderDTO(order);
 
 //        UserDTO userByCpf = userService.findUserByCpf(cpf);
 //        User user = new User(userByCpf);
@@ -48,7 +49,7 @@ public class OrderService {
 //        return orderDTO;
     }
 
-    public List<String> listUsersOrders() {
+    public List<User> listUsersOrders() {
 
         return null;
     }

@@ -61,7 +61,12 @@ public class User {
     public User(UserOrderDTO userOrderDTO) {
         firstName = userOrderDTO.getFirstName();
         lastName = userOrderDTO.getLastName();
-//        cpf = userOrderDTO.getCpf();
+
+//        for (OrderDTO orderDTO : userOrderDTO.getListOrdersDTO()) {
+//            var order = new Order(orderDTO);
+//            order.setUser(this);
+//            orders.add(order);
+//        }
     }
 
 }
