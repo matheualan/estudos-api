@@ -1,5 +1,6 @@
 package br.com.controlevendas.dto;
 
+import br.com.controlevendas.model.Order;
 import br.com.controlevendas.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

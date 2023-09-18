@@ -1,6 +1,7 @@
 package br.com.controlevendas.service.users;
 
 import br.com.controlevendas.dto.UserDTO;
+import br.com.controlevendas.dto.UserOrderDTO;
 import br.com.controlevendas.exception.UserNotFoundException;
 import br.com.controlevendas.model.User;
 import br.com.controlevendas.repository.UserRepository;
@@ -88,6 +89,16 @@ public class UserService {
         userRepository.save(userFound);
 
         return new UserDTO(userFound);
+    }
+
+    public List<UserOrderDTO> listarUsuariosEPedidos() {
+        List<User> allUsers = userRepository.findAll();
+        List<UserOrderDTO> listUsersOrders = new ArrayList<>();
+        for (User user : allUsers) {
+            var userOrderDTO = new UserOrderDTO(user);
+            listUsersOrders.add(userOrderDTO);
+        }
+        return listUsersOrders;
     }
 
 }
