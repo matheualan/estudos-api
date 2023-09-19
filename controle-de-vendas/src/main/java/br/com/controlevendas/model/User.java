@@ -5,6 +5,8 @@ import br.com.controlevendas.dto.OrderDTO;
 import br.com.controlevendas.dto.UserDTO;
 import br.com.controlevendas.dto.UserOrderDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +22,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "idUser")
+@JsonIgnoreProperties(value = {"orders"})
 public class User {
 
     @Id
@@ -44,6 +47,7 @@ public class User {
     private List<Address> addresses = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JsonIgnore
     private List<Order> orders = new ArrayList<>();
 
     public User(UserDTO userDTO) {
@@ -61,12 +65,11 @@ public class User {
     public User(UserOrderDTO userOrderDTO) {
         firstName = userOrderDTO.getFirstName();
         lastName = userOrderDTO.getLastName();
-
-//        for (OrderDTO orderDTO : userOrderDTO.getListOrdersDTO()) {
-//            var order = new Order(orderDTO);
-//            order.setUser(this);
-//            orders.add(order);
-//        }
+        for (OrderDTO orderDTO : userOrderDTO.getListOrdersDTO()) {
+            var order = new Order(orderDTO);
+            order.setUser(this);
+            orders.add(order);
+        }
     }
 
 }
