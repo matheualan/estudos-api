@@ -5,7 +5,6 @@ import br.com.controlevendas.dto.OrderDTO;
 import br.com.controlevendas.dto.UserDTO;
 import br.com.controlevendas.dto.UserOrderDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -65,7 +64,7 @@ public class User {
     public User(UserOrderDTO userOrderDTO) {
         firstName = userOrderDTO.getFirstName();
         lastName = userOrderDTO.getLastName();
-        for (OrderDTO orderDTO : userOrderDTO.getListOrdersDTO()) {
+        for (OrderDTO orderDTO : userOrderDTO.getOrdersDTO()) {
             var order = new Order(orderDTO);
             order.setUser(this);
             orders.add(order);

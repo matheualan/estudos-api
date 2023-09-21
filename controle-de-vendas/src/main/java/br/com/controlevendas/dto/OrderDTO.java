@@ -4,11 +4,13 @@ import br.com.controlevendas.model.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
 //classe para trabalhar somente os dados necessários para realizar um pedido
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDTO {
@@ -20,7 +22,7 @@ public class OrderDTO {
     private BigDecimal price;
 
     public OrderDTO(Order order) {
-        userOrderDTO = new UserOrderDTO(order.getUser());
+//        userOrderDTO = new UserOrderDTO(order.getUser());
         quantity = order.getQuantity();
         price = order.getPrice();
     }

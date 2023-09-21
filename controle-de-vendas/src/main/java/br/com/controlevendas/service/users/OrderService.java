@@ -55,9 +55,14 @@ public class OrderService {
         List<OrderDTO> listOrdersDTO = new ArrayList<>();
         for (Order order : listOfOrders) {
             var orderDTO = new OrderDTO(order);
+//            orderDTO.setUserOrderDTO(new UserOrderDTO(order.getUser()));
             listOrdersDTO.add(orderDTO);
         }
         return listOrdersDTO;
+    }
+
+    public List<Order> listEntityOrder() {
+        return orderRepository.findAll();
     }
 
 }

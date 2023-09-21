@@ -24,3 +24,5 @@
 --FROM tb_users u
 --JOIN tb_orders o ON u.id_user = o.user_id
 --WHERE u.cpf='22312312312';
+
+--INSERT INTO tb_orders (user_id, quantity, price, order_date) values (2, 5, 60, NOW());

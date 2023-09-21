@@ -2,7 +2,6 @@ package br.com.controlevendas.dto;
 
 import br.com.controlevendas.model.Order;
 import br.com.controlevendas.model.User;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,23 +15,25 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties(value = {"listOrdersDTO"})
+//@JsonIgnoreProperties(value = {"listOrdersDTO"})
 public class UserOrderDTO {
 
     private String firstName;
 
     private String lastName;
 
-    private List<OrderDTO> listOrdersDTO = new ArrayList<>();
+    private List<OrderDTO> ordersDTO = new ArrayList<>();
 
     public UserOrderDTO(User user) {
         firstName = user.getFirstName();
         lastName = user.getLastName();
 
-//        for (Order order : user.getOrders()) {
-//            var orderDTO = new OrderDTO(order);
-//            listOrdersDTO.add(orderDTO);
-//        }
+//        Este trecho de código está causando recursão infinita em chamados de construtores
+        for (Order order : user.getOrders()) {
+            var orderDTO = new OrderDTO(order);
+//            orderDTO.setUserOrderDTO(this);
+            ordersDTO.add(orderDTO);
+        }
     }
 
 }

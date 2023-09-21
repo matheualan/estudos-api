@@ -2,6 +2,7 @@ package br.com.controlevendas.controller.users;
 
 import br.com.controlevendas.dto.OrderDTO;
 import br.com.controlevendas.dto.UserOrderDTO;
+import br.com.controlevendas.model.Order;
 import br.com.controlevendas.service.users.OrderService;
 import br.com.controlevendas.service.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,11 @@ public class OrderUserController {
     @GetMapping(path = "/listarUsuariosEPedidos")
     public ResponseEntity<List<UserOrderDTO>> listarUsuariosEPedidos() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.listarUsuariosEPedidos());
+    }
+
+    @GetMapping(path = "/listEntityOrders")
+    public ResponseEntity<List<Order>> listEntityOrders() {
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.listEntityOrder());
     }
 
 }
