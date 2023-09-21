@@ -1,6 +1,7 @@
 package br.com.controlevendas.model;
 
 import br.com.controlevendas.dto.OrderDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class Order {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "idUser")
+//    @JsonBackReference
     private User user;
 
     //    tipos primitivos são mais eficientes em desempenho(nao recebe null), classes wrapper sao tratadas como objeto(recebe null)

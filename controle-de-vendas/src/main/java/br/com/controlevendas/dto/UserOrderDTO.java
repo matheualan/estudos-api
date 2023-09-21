@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@JsonIgnoreProperties(value = {"listOrdersDTO"})
+//@JsonIgnoreProperties(value = {"ordersDTO"})
 public class UserOrderDTO {
 
     private String firstName;

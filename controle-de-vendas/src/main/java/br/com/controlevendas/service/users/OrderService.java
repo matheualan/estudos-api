@@ -35,7 +35,6 @@ public class OrderService {
 //        Order order = new Order(userByCpf, quantity, price);
         Order order = new Order(quantity, price);
         order.setUser(userByCpf);
-
         orderRepository.save(order);
 
         return new OrderDTO(order);
@@ -53,11 +52,12 @@ public class OrderService {
     public List<OrderDTO> listAllOrders() {
         List<Order> listOfOrders = orderRepository.findAll();
         List<OrderDTO> listOrdersDTO = new ArrayList<>();
+
         for (Order order : listOfOrders) {
             var orderDTO = new OrderDTO(order);
-//            orderDTO.setUserOrderDTO(new UserOrderDTO(order.getUser()));
             listOrdersDTO.add(orderDTO);
         }
+
         return listOrdersDTO;
     }
 

@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class OrderDTO {
 
     private UserOrderDTO userOrderDTO;
@@ -25,6 +25,12 @@ public class OrderDTO {
 //        userOrderDTO = new UserOrderDTO(order.getUser());
         quantity = order.getQuantity();
         price = order.getPrice();
+    }
+
+    public OrderDTO(UserOrderDTO userOrderDTO, double quantity, BigDecimal price) {
+        this.userOrderDTO = userOrderDTO;
+        this.quantity = quantity;
+        this.price = price;
     }
 
 }
