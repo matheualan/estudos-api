@@ -34,6 +34,10 @@ public class Order {
 
     private BigDecimal price;
 
+    private int quantityOrders;
+
+    private BigDecimal totalPurchases = BigDecimal.ZERO;
+
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime orderDate = LocalDateTime.now();
 

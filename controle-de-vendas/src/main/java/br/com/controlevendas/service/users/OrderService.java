@@ -32,9 +32,24 @@ public class OrderService {
     public OrderDTO createOrderByUserExisting(String cpf, double quantity, BigDecimal price) {
         User userByCpf = userService.encontreUsuarioPorCpf(cpf);
 
+        boolean userHasOrders = !userByCpf.getOrders().isEmpty();
+
+        if (userHasOrders) {
+            for (Order order : userByCpf.getOrders()) {
+                order.setQuantityOrders(order.getQuantityOrders() + 1);
+                order.setTotalPurchases(order.getTotalPurchases().add(price));
+            }
+        }
+
 //        Order order = new Order(userByCpf, quantity, price);
         Order order = new Order(quantity, price);
         order.setUser(userByCpf);
+
+//        for (Order o : order.getUser().getOrders()) {
+//            o.setQuantityOrders(o.getQuantityOrders() + 1);
+//            o.setTotalPurchases(o.getTotalPurchases().add(price));
+//        }
+
         orderRepository.save(order);
 
         return new OrderDTO(order);
