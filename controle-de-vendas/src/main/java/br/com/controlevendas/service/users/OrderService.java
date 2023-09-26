@@ -32,22 +32,20 @@ public class OrderService {
     public OrderDTO createOrderByUserExisting(String cpf, double quantity, BigDecimal price) {
         User userByCpf = userService.encontreUsuarioPorCpf(cpf);
 
-        boolean userHasOrders = !userByCpf.getOrders().isEmpty();
+        Order order = new Order(userByCpf, quantity, price);
+//        Order order = new Order(quantity, price);
+//        order.setUser(userByCpf);
 
-        if (userHasOrders) {
-            for (Order order : userByCpf.getOrders()) {
-                order.setQuantityOrders(order.getQuantityOrders() + 1);
-                order.setTotalPurchases(order.getTotalPurchases().add(price));
-            }
+        order.setTotalOrders(order.getTotalOrders() + 1);
+        order.setTotalPurchased(order.getTotalPurchased().add(price));
+
+        for (int i = 0; i < userByCpf.getOrders().size(); i++) {
+            userByCpf.getOrders().get(i).setTotalOrders(userByCpf.getOrders().get(i).getTotalOrders() + 1);
+            userByCpf.getOrders().get(i).setTotalPurchased(userByCpf.getOrders().get(i).getTotalPurchased().add(price));
         }
-
-//        Order order = new Order(userByCpf, quantity, price);
-        Order order = new Order(quantity, price);
-        order.setUser(userByCpf);
-
 //        for (Order o : order.getUser().getOrders()) {
-//            o.setQuantityOrders(o.getQuantityOrders() + 1);
-//            o.setTotalPurchases(o.getTotalPurchases().add(price));
+//            o.setTotalOrders(o.getTotalOrders() + 1);
+//            o.setTotalPurchased(o.getTotalPurchased().add(price));
 //        }
 
         orderRepository.save(order);

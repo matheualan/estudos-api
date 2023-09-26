@@ -34,9 +34,9 @@ public class Order {
 
     private BigDecimal price;
 
-    private int quantityOrders;
+    private int totalOrders;
 
-    private BigDecimal totalPurchases = BigDecimal.ZERO;
+    private BigDecimal totalPurchased = BigDecimal.ZERO;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime orderDate = LocalDateTime.now();
@@ -52,10 +52,10 @@ public class Order {
         this.price = price;
     }
 
-//    public Order(User user, double quantity, BigDecimal price) {
-//        this.user = user;
-//        this.quantity = quantity;
-//        this.price = price;
-//    }
+    public Order(User user, double quantity, BigDecimal price) {
+        this.user = user;
+        this.quantity = quantity;
+        this.price = price;
+    }
 
 }
