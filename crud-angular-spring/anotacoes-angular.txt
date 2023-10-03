@@ -1,0 +1,20 @@
+Para rodar Angular:
+
+1- Instalar o Node.js por causa do NPM que é o gerenciador de pacotes do Node. O NPM é semelhante ao Maven no Java onde perminatará gerenciamento de pacotes e download de dependências.
+
+2- Com o Node instalado deve-se intalar o Angular CLI que é uma ferramenta de linha de comando (terminal) do Angular que permite criar projetos, fazer build, criar componentes e etc tudo via terminal. 
+Comando que instala o angular cli de forma global: npm install -g @angular/cli
+Comando para verificar versão angular: ng version
+
+3- Novas versoes do Angular utilizar o comando 'ng new <nome-do-projeto> --style=scss' para criar o projeto com scss, já que ele não pergunta mais
+
+4- Comando para iniciar projeto angular: 
+ng serve
+
+5- No Angular o conceito de módulos é como organiza de forma lógica a aplicação, todos os componentes que gera e cria dentro do módulo estará visível apenas dentro do módulo, para deixar visível em outras partes da aplicação será necessário expor.
+
+6- Comando para criar um novo módulo e já criar e importar o roteamento no módulo:
+ng generate module [nome-do-modulo] --routing
+
+6.1- Comando para criar novo component dentro de um módulo:
+ng generate component [nome-do-modulo]/[nome-do-component]
