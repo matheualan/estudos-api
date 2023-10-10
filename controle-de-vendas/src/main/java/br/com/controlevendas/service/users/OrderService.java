@@ -39,14 +39,15 @@ public class OrderService {
         order.setTotalOrders(order.getTotalOrders() + 1);
         order.setTotalPurchased(order.getTotalPurchased().add(price));
 
-        for (int i = 0; i < userByCpf.getOrders().size(); i++) {
-            userByCpf.getOrders().get(i).setTotalOrders(userByCpf.getOrders().get(i).getTotalOrders() + 1);
-            userByCpf.getOrders().get(i).setTotalPurchased(userByCpf.getOrders().get(i).getTotalPurchased().add(price));
-        }
-//        for (Order o : order.getUser().getOrders()) {
-//            o.setTotalOrders(o.getTotalOrders() + 1);
-//            o.setTotalPurchased(o.getTotalPurchased().add(price));
+//        for (int i = 0; i < userByCpf.getOrders().size(); i++) {
+//            userByCpf.getOrders().get(i).setTotalOrders(userByCpf.getOrders().get(i).getTotalOrders() + 1);
+//            userByCpf.getOrders().get(i).setTotalPurchased(userByCpf.getOrders().get(i).getTotalPurchased().add(price));
 //        }
+
+        for (Order o : order.getUser().getOrders()) {
+            o.setTotalOrders(o.getTotalOrders() + 1);
+            o.setTotalPurchased(o.getTotalPurchased().add(price));
+        }
 
         orderRepository.save(order);
 
