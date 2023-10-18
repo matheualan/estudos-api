@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { CursosRoutingModule } from './cursos-routing.module';
 import { CursosComponent } from './cursos/cursos.component';
 
-
 @NgModule({
   declarations: [
     CursosComponent
