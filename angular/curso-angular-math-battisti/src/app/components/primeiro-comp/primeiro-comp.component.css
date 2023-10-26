@@ -1,3 +1,18 @@
 h2 {
-    color: aqua;
+    color: whitesmoke;
+}
+
+.title {
+    background: cornflowerblue;
+    padding: 10px;
+    margin: 15px;
+    border: 5px solid rgb(45, 32, 226);
+}
+
+#titli {
+    border: 2px solid rgb(45, 32, 226);
+}
+
+a {
+    color: rgb(229, 248, 60);
 }
