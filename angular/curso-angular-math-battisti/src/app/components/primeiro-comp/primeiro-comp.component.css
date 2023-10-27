@@ -1,16 +1,21 @@
+.paragrafo {
+    margin: 0px;
+    padding: 0px;
+}
+
 h2 {
-    color: whitesmoke;
+    color: rgba(245, 245, 245, 0.884);
 }
 
 .title {
-    background: cornflowerblue;
-    padding: 10px;
-    margin: 15px;
-    border: 5px solid rgb(45, 32, 226);
+    background: rgb(196, 186, 102);
+    margin: 9px;
+    border: 4px solid black;
+    padding: 13px;
 }
 
 #titli {
-    border: 2px solid rgb(45, 32, 226);
+    border: 2px solid rgb(22, 21, 21);
 }
 
 a {
