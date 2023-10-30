@@ -12,7 +12,7 @@ export class AppComponent {
 
   userObject = {
     email: 'math@random.com',
-    cell: 9999-1122
+    cell: '9999-1122'
   }
 
   title = 'curso-angular-math-battisti';

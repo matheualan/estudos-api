@@ -10,6 +10,7 @@ export class ParentDataComponent {
   @Input() firstName: string = "";
   @Input() lastName: string = "";
 // a exclamação é uma sintaxe do TS para afirmar que o valor da variável não será nulo assim podendo inicializar-la
-  @Input() data!: { email: string };
+  @Input() data!: { email: string, cell: string };
+  @Input() titulo: string = "";
 
 }
