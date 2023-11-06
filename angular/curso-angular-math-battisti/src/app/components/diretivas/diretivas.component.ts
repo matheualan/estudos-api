@@ -7,6 +7,11 @@ import { Component } from '@angular/core';
 })
 export class DiretivasComponent {
 
+  tamanho: number = 40;
+  coloracao: string = "blue";
+  tipoDaFonte: string = "cosmic sans";
+  crasses: object = ['blue-title', 'smoll-title'];
+
   size: number = 10;
   color: string = 'red';
   font: string = 'Tahoma';

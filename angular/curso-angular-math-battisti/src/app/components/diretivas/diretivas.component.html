@@ -1,11 +1,21 @@
-<h2 [ngStyle]="{'font-size': size + 'px', 'color': color, 'font-family': font}">
-    Testando diretiva de estilo
-</h2>
+<div>
+    <h2 [ngStyle]="{'font-size': size + 'px', 'color': color, 'font-family': font}">
+        Testando diretiva de estilo
+    </h2>
 
-<h2 [ngClass]="classes">
-    Testando Diretiva de Classe 1
-</h2>
+    <h2 [ngClass]="classes">
+        Testando Diretiva de Classe 1
+    </h2>
 
-<!-- <h2 [ngClass]="classUnique">
-    Testando Underline Decoration
-</h2> -->
+    <!-- <h2 [ngClass]="classUnique">
+        Testando Underline Decoration
+    </h2> -->
+
+    <h1 [ngStyle]="{'font-size': tamanho + 'px', 'color': coloracao, 'font-family': tipoDaFonte}">
+        Testando ngStyle
+    </h1>
+
+    <p [ngClass]="crasses">
+        Testando ngClass
+    </p>
+</div>

@@ -20,6 +20,7 @@ export class AppComponent {
 
   // dados primeiro-comp
   objetivoFinal: string = "Concluir este curso de Angular e me tornar fullstack!";
+  
   // dados primeiro-comp
 
   title = 'curso-angular-math-battisti';

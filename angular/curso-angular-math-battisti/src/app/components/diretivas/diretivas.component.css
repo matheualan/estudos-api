@@ -9,3 +9,12 @@
 .underline {
     text-decoration: underline;
 }
+
+.blue-title {
+    color: blue;
+    text-decoration: underline;
+}
+
+.smoll-title {
+    font-size: 30px;
+}
