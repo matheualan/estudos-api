@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { PrimeiroCompComponent } from './components/primeiro-comp/primeiro-comp.component';
-import { SegundoCompComponent } from './components/segundo-comp/segundo-comp.component';
 import { ParentDataComponent } from './components/parent-data/parent-data.component';
 import { DiretivasComponent } from './components/diretivas/diretivas.component';
 
@@ -11,7 +10,6 @@ import { DiretivasComponent } from './components/diretivas/diretivas.component';
   declarations: [
     AppComponent,
     PrimeiroCompComponent,
-    SegundoCompComponent,
     ParentDataComponent,
     DiretivasComponent
   ],

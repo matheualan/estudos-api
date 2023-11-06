@@ -11,8 +11,8 @@ export class DiretivasComponent {
   color: string = 'red';
   font: string = 'Tahoma';
 
-  classes = ["green-title", "small-title"];
+  classes = ["green-title", "small-title", "underline"];
 
-  classUnique: string = 'underline';
+  // classUnique: string = 'underline';
 
 }

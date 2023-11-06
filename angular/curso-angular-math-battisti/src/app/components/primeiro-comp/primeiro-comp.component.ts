@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-primeiro-comp',
@@ -17,6 +17,9 @@ export class PrimeiroCompComponent implements OnInit {
     color: "Preto",
     year: 2024
   };
+
+  obejetivo: string = "Obejetivo é ter uma plantação de alfafa.";
+  @Input() objective: string = "";
 
   constructor() { }
 
