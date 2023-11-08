@@ -1,7 +1,11 @@
-<div>
-  <h1>app.component.html</h1>
-  <h2>Testando H2 app.component.html</h2>
-</div>
 <app-primeiro-comp [objective]="objetivoFinal"></app-primeiro-comp>
-<app-parent-data [firstName]="firstName" [lastName]="lastName" [data]="userObject" [idade]="age"></app-parent-data>
+
+<app-parent-data [firstName]="firstName" 
+  [lastName]="lastName" 
+  [data]="userObject" 
+  [idade]="age">
+</app-parent-data>
+
 <app-diretivas></app-diretivas>
+
+<app-if-render></app-if-render>

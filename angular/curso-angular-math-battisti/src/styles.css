@@ -8,3 +8,15 @@
 a {
     color: darkorange;
 }
+
+body {
+    padding-bottom: 350px;
+}
+
+.div1 {
+    border-bottom: 1px solid navy;
+    padding: 2em;
+    margin-bottom: 1em;
+
+    padding-top: 0px; /* corrigir o espaço em branco que estava no topo */
+}

@@ -1,0 +1,20 @@
+<div class="div1">
+    <!-- *ngIf para exibir ou não a tag especificada -->
+    <div *ngIf="boleano">Mostrando o que foi permitido</div>
+
+    <h2 *ngIf="name === 'Matheuss'; else nameNotFound">O nome é Matheus</h2>
+    <ng-template #nameNotFound>
+        <div>
+            <h2>Nome não encontrado</h2>
+        </div>
+    </ng-template>
+
+    <p *ngIf="idade === '28'; else idadeInvalid">
+        Aqui deve aparecer quando for TRUE
+    </p>
+    <ng-template #idadeInvalid>
+        <p>
+            Aqui deve aparecer quando for FALSE
+        </p>
+    </ng-template>
+</div>
