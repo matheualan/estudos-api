@@ -1,0 +1,31 @@
+Para mudar permissão somente durante a sensão atual do terminal:
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Unrestricted
+
+Para mudar permissão definitivamente:
+Set-ExecutionPolicy -Scope LocalMachine -ExecutionPolicy Unrestricted
+
+npm install angular --global
+
+Para criar projeto Angular:
+
+1- Instalar o Node.js por causa do NPM que é o gerenciador de pacotes do Node. O NPM é semelhante ao Maven no Java onde perminatará gerenciamento de pacotes e download de dependências.
+
+2- Com o Node instalado deve-se intalar o Angular CLI que é uma ferramenta de linha de comando (terminal) do Angular que permite criar projetos, fazer build, criar componentes e etc tudo via terminal. 
+Comando que instala o angular cli de forma global: npm install -g @angular/cli
+Comando para verificar versão angular: ng version
+
+3- Novas versões do Angular utilizar o comando 'ng new <nome-do-projeto> --style=scss' para criar o projeto com scss caso ele não pergunte
+
+3.1- Adicionar o Angular Material ao projeto via Angular CLI pois ele já consegue fazer o NPM Install dessa lib no projeto e adicionar alguns arquivos ou configurações adicionais automáticamente:
+ng add @angular/material
+
+4- Comando para rodar projeto angular: 
+ng serve
+
+5- No Angular, módulos são como organizamos de forma lógica a aplicação, todos os componentes que geramos e criamos dentro do módulo estará visível apenas dentro do módulo, para deixar visível em outras partes da aplicação será necessário expor por meio do import/export
+
+6- Comando para criar um novo módulo e já criar e importar o roteamento no módulo:
+ng generate module [nome-do-modulo] --routing
+
+6.1- Comando para criar novo component dentro de um módulo:
+ng generate component [nome-do-modulo]/[nome-do-component]
