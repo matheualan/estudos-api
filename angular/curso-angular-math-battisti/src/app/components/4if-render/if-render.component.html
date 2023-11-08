@@ -1,8 +1,12 @@
 <div class="div1">
     <!-- *ngIf para exibir ou não a tag especificada -->
-    <div *ngIf="boleano">Mostrando o que foi permitido</div>
+    <div *ngIf="boleano">
+        Mostrando o que foi permitido
+    </div>
 
-    <h2 *ngIf="name === 'Matheuss'; else nameNotFound">O nome é Matheus</h2>
+    <h2 *ngIf="name === 'Matheus'; else nameNotFound">
+        O nome é Matheus
+    </h2>
     <ng-template #nameNotFound>
         <div>
             <h2>Nome não encontrado</h2>

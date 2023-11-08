@@ -21,6 +21,13 @@ export class PrimeiroCompComponent implements OnInit {
   obejetivo: string = "Obejetivo é ter uma plantação de alfafa.";
   @Input() objective: string = "";
 
+  cor: string = 'blue';
+  tamanho: string = '35px';
+  show: boolean = true;
+  showMessage(): void {
+    this.show = !this.show;
+  }
+
   constructor() { }
 
   ngOnInit(): void {

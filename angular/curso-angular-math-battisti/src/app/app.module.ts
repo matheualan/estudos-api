@@ -6,6 +6,7 @@ import { PrimeiroCompComponent } from './components/1primeiro-comp/primeiro-comp
 import { ParentDataComponent } from './components/2parent-data/parent-data.component';
 import { DiretivasComponent } from './components/3diretivas/diretivas.component';
 import { IfRenderComponent } from './components/4if-render/if-render.component';
+import { EventsComponent } from './components/5events/events.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { IfRenderComponent } from './components/4if-render/if-render.component';
     PrimeiroCompComponent,
     ParentDataComponent,
     DiretivasComponent,
-    IfRenderComponent
+    IfRenderComponent,
+    EventsComponent
   ],
   imports: [
     BrowserModule
