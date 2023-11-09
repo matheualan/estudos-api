@@ -6,6 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  
+  // dados primeiro-comp
+  objetivoFinal: string = "Concluir este curso de Angular e me tornar fullstack!";
+  // dados primeiro-comp
+
+  primeiroNome: string = 'Matios';
+  ultimoNome: string = 'Vinhera';
 
   // dados parent-data
   firstName: string = "Joaquim";
@@ -17,11 +24,6 @@ export class AppComponent {
     cell: '9999-1122'
   }
   // dados parent-data
-
-  // dados primeiro-comp
-  objetivoFinal: string = "Concluir este curso de Angular e me tornar fullstack!";
-  
-  // dados primeiro-comp
 
   title = 'curso-angular-math-battisti';
 }
