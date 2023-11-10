@@ -9,7 +9,7 @@ export class EmitterComponent {
 
   myNumber: number = 0;
 
-  onChangeNumber() {
+  onChangeNumber(): void {
     console.log('Função onChangeNumber deu certo!!!');
     this.myNumber = Math.floor(Math.random() * 10);
   }

@@ -11,5 +11,7 @@ export class ComponentTest1Component {
 
   @Input() firstName: string = '';
   @Input() lastName!: string;
+  @Input() age!: number;
+  @Input() job!: string;
 
 }
