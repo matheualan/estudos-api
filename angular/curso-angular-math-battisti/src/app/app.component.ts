@@ -6,17 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  // event-test01
+  maeNome: string = 'Maria Anunciada';
+  paiNome: string = 'Francisco Moacy';
+  // event-test01
   
   // primeiro-comp
   objetivoFinal: string = "Concluir este curso de Angular e me tornar fullstack!";
   // primeiro-comp
-
-  // component-test1
-  primeiroNome: string = 'Matios';
-  ultimoNome: string = 'Vinhera';
-  idade: number = 25;
-  job: string = 'Programador';
-  // component-test1
 
   // parent-data
   firstName: string = "Joaquim";

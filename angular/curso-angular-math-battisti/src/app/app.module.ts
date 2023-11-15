@@ -7,9 +7,10 @@ import { ParentDataComponent } from './components/2parent-data/parent-data.compo
 import { DiretivasComponent } from './components/3diretivas/diretivas.component';
 import { IfRenderComponent } from './components/4if-render/if-render.component';
 import { EventsComponent } from './components/5events/events.component';
-import { ComponentTest1Component } from './components/component-test1/component-test1.component';
 import { EmitterComponent } from './components/6.1emitter/emitter.component';
 import { ChangeNumberComponent } from './components/6.2change-number/change-number.component';
+import { EventTest01Component } from './components/event-test01/event-test01.component';
+import { EventTest02Component } from './components/event-test02/event-test02.component';
 
 @NgModule({
   declarations: [
@@ -19,9 +20,10 @@ import { ChangeNumberComponent } from './components/6.2change-number/change-numb
     DiretivasComponent,
     IfRenderComponent,
     EventsComponent,
-    ComponentTest1Component,
     EmitterComponent,
-    ChangeNumberComponent
+    ChangeNumberComponent,
+    EventTest01Component,
+    EventTest02Component
   ],
   imports: [
     BrowserModule

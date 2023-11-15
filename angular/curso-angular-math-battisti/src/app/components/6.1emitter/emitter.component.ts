@@ -8,10 +8,15 @@ import { Component } from '@angular/core';
 export class EmitterComponent {
 
   myNumber: number = 0;
+  numeroAtual: number = 1;
 
   onChangeNumber(): void {
-    console.log('Função onChangeNumber deu certo!!!');
+    console.log('Função onChangeNumber() funcionando corretamente.');
     this.myNumber = Math.floor(Math.random() * 10);
+  }
+
+  onTrocarNumero(): void {
+    this.numeroAtual = Math.floor(Math.random() * 10 + 1);
   }
 
 }

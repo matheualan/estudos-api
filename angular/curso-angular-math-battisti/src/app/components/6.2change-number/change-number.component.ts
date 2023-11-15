@@ -9,13 +9,14 @@ export class ChangeNumberComponent {
 
 @Output() changeNumber: EventEmitter<any> = new EventEmitter();
 
-  handleClick() {
-    // console.log("Mudou o número");
+  handleClick(): void {
     this.changeNumber.emit();
   }
 
+  @Output() trocarNumero: EventEmitter<any> = new EventEmitter();
+
   clicarBotao(): void {
-    this.changeNumber.emit();
+    this.trocarNumero.emit();
   }
 
 }
