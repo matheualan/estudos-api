@@ -1,7 +1,7 @@
 <div class="div1">
-    <h1>O número é: {{ myNumber }} </h1>
-    <app-change-number (changeNumber)="onChangeNumber()"></app-change-number> <br>
-
-    <h1>Número Atual: {{ numeroAtual }}</h1>
-    <app-change-number (trocarNumero)="onTrocarNumero()"></app-change-number>
+    <p>
+        Número Sorteado: 
+        <input class="input-number" type="text" [value]="numeroAtual" readonly>
+    </p>
+    <app-change-number (numero)="onNumero()"></app-change-number>
 </div>

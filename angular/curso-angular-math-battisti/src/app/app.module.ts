@@ -9,8 +9,6 @@ import { IfRenderComponent } from './components/4if-render/if-render.component';
 import { EventsComponent } from './components/5events/events.component';
 import { EmitterComponent } from './components/6.1emitter/emitter.component';
 import { ChangeNumberComponent } from './components/6.2change-number/change-number.component';
-import { EventTest01Component } from './components/event-test01/event-test01.component';
-import { EventTest02Component } from './components/event-test02/event-test02.component';
 
 @NgModule({
   declarations: [
@@ -21,9 +19,7 @@ import { EventTest02Component } from './components/event-test02/event-test02.com
     IfRenderComponent,
     EventsComponent,
     EmitterComponent,
-    ChangeNumberComponent,
-    EventTest01Component,
-    EventTest02Component
+    ChangeNumberComponent
   ],
   imports: [
     BrowserModule

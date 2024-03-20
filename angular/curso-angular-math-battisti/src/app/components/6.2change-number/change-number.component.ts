@@ -7,16 +7,10 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class ChangeNumberComponent {
 
-@Output() changeNumber: EventEmitter<any> = new EventEmitter();
+  @Output() numero: EventEmitter<any> = new EventEmitter();
 
-  handleClick(): void {
-    this.changeNumber.emit();
-  }
-
-  @Output() trocarNumero: EventEmitter<any> = new EventEmitter();
-
-  clicarBotao(): void {
-    this.trocarNumero.emit();
+  alterarNumero(): void {
+    this.numero.emit();
   }
 
 }
