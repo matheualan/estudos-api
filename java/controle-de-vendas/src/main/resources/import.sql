@@ -26,10 +26,3 @@
 --WHERE u.cpf='22312312312';
 
 --INSERT INTO tb_orders (user_id, quantity, price, order_date) values (2, 5, 60, NOW());
-
-
-
-
---BUGS
---Corrigir o retorno de userOrderDTO que retorna null ao listar os pedidos
---Não está salvando o primeiro valor para quantityOrders e totalPurchases da entidade Order

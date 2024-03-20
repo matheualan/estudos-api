@@ -1,0 +1,3 @@
+BUGS
+1 Corrigir o retorno de userOrderDTO que retorna null ao listar os pedidos
+2 Não está salvando o primeiro valor para quantityOrders e totalPurchases da entidade Order
