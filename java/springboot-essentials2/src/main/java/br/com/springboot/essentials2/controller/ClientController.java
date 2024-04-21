@@ -1,10 +1,13 @@
 package br.com.springboot.essentials2.controller;
 
 import br.com.springboot.essentials2.model.Client;
+import br.com.springboot.essentials2.service.ClientService;
 import br.com.springboot.essentials2.util.DateUtil;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,20 +15,34 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/client") //localhost:8080/client/list
+@RequestMapping(value = "/client")
 @Log4j2
 public class ClientController {
 
     private final DateUtil dateUtil;
+    private final ClientService clientService;
 
-    public ClientController(DateUtil dateUtil) {
+    public ClientController(DateUtil dateUtil, ClientService clientService) {
         this.dateUtil = dateUtil;
+        this.clientService = clientService;
     }
 
     @GetMapping(value = "/list")
     public List<Client> listClients() {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, method: listClients()"));
-        return List.of(new Client("Mattos"), new Client("Jackson"));
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: listClients()"));
+        return clientService.listAll();
+    }
+
+    @GetMapping(value = "/findClientByIndex/{index}")
+    public ResponseEntity<Client> findClientByIndex(@PathVariable Integer index) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: findClientByIndex()"));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.findClientByIndex(index));
+    }
+
+    @GetMapping(value = "/findClientById/{id}")
+    public ResponseEntity<Client> findClientById(@PathVariable Integer id) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: findClientById()"));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.findClientById(id));
     }
 
 }
