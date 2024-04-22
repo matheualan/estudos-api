@@ -6,10 +6,7 @@ import br.com.springboot.essentials2.util.DateUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,6 +22,11 @@ public class ClientController {
     public ClientController(DateUtil dateUtil, ClientService clientService) {
         this.dateUtil = dateUtil;
         this.clientService = clientService;
+    }
+
+    @PostMapping
+    public ResponseEntity<Client> saveClient(@RequestBody Client client) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClient(client));
     }
 
     @GetMapping(value = "/list")
