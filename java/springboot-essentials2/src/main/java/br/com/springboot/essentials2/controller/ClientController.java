@@ -55,4 +55,10 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PutMapping(value = "/replaceClientById/{id}")
+    public ResponseEntity<Client> replaceClientById(@PathVariable Integer id, @RequestBody Client client) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: findClientById()"));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.replaceClientById(id, client));
+    }
+
 }
