@@ -41,4 +41,7 @@ public class ClientService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cliente não encontrado"));
     }
 
+    public void deleteClientById(Integer id) {
+        listClients.remove(findClientById(id));
+    }
 }

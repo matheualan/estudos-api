@@ -26,6 +26,7 @@ public class ClientController {
 
     @PostMapping
     public ResponseEntity<Client> saveClient(@RequestBody Client client) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: POST, Method: saveClient()"));
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClient(client));
     }
 
@@ -45,6 +46,13 @@ public class ClientController {
     public ResponseEntity<Client> findClientById(@PathVariable Integer id) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: findClientById()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findClientById(id));
+    }
+
+    @DeleteMapping(value = "/deleteClientById/{id}")
+    public ResponseEntity<Void> deleteClientById(@PathVariable Integer id) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: findClientById()"));
+        clientService.deleteClientById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }
