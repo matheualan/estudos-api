@@ -50,15 +50,16 @@ public class ClientController {
 
     @DeleteMapping(value = "/deleteClientById/{id}")
     public ResponseEntity<Void> deleteClientById(@PathVariable Integer id) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: findClientById()"));
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: DELETE, Method: deleteClientById()"));
         clientService.deleteClientById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping(value = "/replaceClientById/{id}")
-    public ResponseEntity<Client> replaceClientById(@PathVariable Integer id, @RequestBody Client client) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: findClientById()"));
-        return ResponseEntity.status(HttpStatus.OK).body(clientService.replaceClientById(id, client));
+    @PutMapping(value = "/replaceClientById")
+    public ResponseEntity<Void> replaceClientById(@RequestBody Client client) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: PUT, Method: replaceClientById()"));
+        clientService.replaceClientById(client);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

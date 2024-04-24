@@ -44,4 +44,10 @@ public class ClientService {
     public void deleteClientById(Integer id) {
         listClients.remove(findClientById(id));
     }
+
+    public void replaceClientById(Client client) {
+        deleteClientById(client.getIdClient());
+        listClients.add(client);
+    }
+
 }
