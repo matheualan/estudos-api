@@ -58,7 +58,7 @@ public class ClientController {
     @PutMapping(value = "/replaceClientById")
     public ResponseEntity<Void> replaceClient(@RequestBody Client client) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: PUT - Method: replaceClientById()"));
-        clientService.replaceClientById(client);
+        clientService.replaceClient(client);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

@@ -45,7 +45,7 @@ public class ClientService {
         listClients.remove(findClientById(id));
     }
 
-    public void replaceClientById(Client client) {
+    public void replaceClient(Client client) {
         deleteClientById(client.getIdClient());
         listClients.add(client);
     }
