@@ -1,53 +1,55 @@
 package br.com.springboot.essentials2.service;
 
+import br.com.springboot.essentials2.dto.ClientGetFindById;
+import br.com.springboot.essentials2.dto.ClientPostRequestBodyDTO;
+import br.com.springboot.essentials2.dto.ClientPutRequestBody;
 import br.com.springboot.essentials2.model.Client;
+import br.com.springboot.essentials2.repository.ClientRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ClientService {
 
-    private static List<Client> listClients;
-
-    static {
-        listClients = new ArrayList<>(List.of(new Client(1, "Mattus"),
-                new Client(2, "Alien"),
-                new Client(3, "Mosh")));
-    }
-
-    public Client saveClient(Client client) {
-        Client newClient = new Client(client.getIdClient(), client.getName());
-        listClients.add(newClient);
-        return newClient;
-    }
+    private final ClientRepository clientRepository;
 
     public List<Client> listAll() {
-        return listClients;
-    }
-
-    public Client findClientByIndex(Integer index) {
-        return listClients.get(index - 1);
+        return clientRepository.findAll();
     }
 
     public Client findClientById(Integer id) {
-        return listClients
-                .stream()
-                .filter(client -> client.getIdClient().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cliente não encontrado"));
+        return clientRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Client não encontrado"));
+    }
+
+    public ClientGetFindById findClient(Integer id) {
+        Client client = findClientById(id);
+        return new ClientGetFindById(client);
+    }
+
+    public ClientPostRequestBodyDTO saveClient(ClientPostRequestBodyDTO clientDTO) {
+//        var client = new Client(clientDTO);
+        Client client = Client.builder().name(clientDTO.getName()).build();
+        clientRepository.save(client);
+        return clientDTO;
     }
 
     public void deleteClientById(Integer id) {
-        listClients.remove(findClientById(id));
+        clientRepository.delete(findClientById(id));
     }
 
-    public void replaceClient(Client client) {
-        deleteClientById(client.getIdClient());
-        listClients.add(client);
+    public void replaceClient(ClientPutRequestBody clientDTO) {
+        Client foundClient = findClientById(clientDTO.getIdClientDTO());
+        Client client = Client.builder()
+                .idClient(foundClient.getIdClient())
+                .name(clientDTO.getName())
+                .build();
+        clientRepository.save(client);
     }
 
 }

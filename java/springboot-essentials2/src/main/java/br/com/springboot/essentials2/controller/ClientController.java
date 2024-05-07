@@ -1,8 +1,12 @@
 package br.com.springboot.essentials2.controller;
 
+import br.com.springboot.essentials2.dto.ClientGetFindById;
+import br.com.springboot.essentials2.dto.ClientPostRequestBodyDTO;
+import br.com.springboot.essentials2.dto.ClientPutRequestBody;
 import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.service.ClientService;
 import br.com.springboot.essentials2.util.DateUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,52 +17,43 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/client")
+@RequiredArgsConstructor
 @Log4j2
 public class ClientController {
 
-    private final DateUtil dateUtil;
     private final ClientService clientService;
+    private final DateUtil dateUtil;
 
-    public ClientController(DateUtil dateUtil, ClientService clientService) {
-        this.dateUtil = dateUtil;
-        this.clientService = clientService;
-    }
-
-    @PostMapping
-    public ResponseEntity<Client> saveClient(@RequestBody Client client) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: POST - Method: saveClient()"));
-        return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClient(client));
+    @PostMapping(value = "/save")
+    public ResponseEntity<ClientPostRequestBodyDTO> saveClient(@RequestBody ClientPostRequestBodyDTO clientDTO) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: POST, Method: saveClient()"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClient(clientDTO));
     }
 
     @GetMapping(value = "/list")
-    public List<Client> listClients() {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET - Method: listClients()"));
-        return clientService.listAll();
+    public ResponseEntity<List<Client>> listClient() {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: listClient()"));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.listAll());
     }
 
-    @GetMapping(value = "/findClientByIndex/{index}")
-    public ResponseEntity<Client> findClientByIndex(@PathVariable Integer index) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET - Method: findClientByIndex()"));
-        return ResponseEntity.status(HttpStatus.OK).body(clientService.findClientByIndex(index));
+    @GetMapping(value = "/find/{id}")
+    public ResponseEntity<ClientGetFindById> findClientById(@PathVariable Integer id) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: findClientById()"));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.findClient(id));
     }
 
-    @GetMapping(value = "/findClientById/{id}")
-    public ResponseEntity<Client> findClientById(@PathVariable Integer id) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET - Method: findClientById()"));
-        return ResponseEntity.status(HttpStatus.OK).body(clientService.findClientById(id));
-    }
 
-    @DeleteMapping(value = "/deleteClientById/{id}")
-    public ResponseEntity<Void> deleteClientById(@PathVariable Integer id) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: DELETE - Method: deleteClientById()"));
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<Void> deleteClient(@PathVariable Integer id) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: DELETE, Method: deleteClient()"));
         clientService.deleteClientById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping(value = "/replaceClientById")
-    public ResponseEntity<Void> replaceClient(@RequestBody Client client) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: PUT - Method: replaceClientById()"));
-        clientService.replaceClient(client);
+    @PutMapping(value = "/replace")
+    public ResponseEntity<Void> replaceClient(@RequestBody ClientPutRequestBody clientDTO) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: PUT, Method: replaceClient()"));
+        clientService.replaceClient(clientDTO);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
