@@ -3,6 +3,7 @@ package br.com.springboot.essentials2.service;
 import br.com.springboot.essentials2.dto.ClientGetFindById;
 import br.com.springboot.essentials2.dto.ClientPostRequestBodyDTO;
 import br.com.springboot.essentials2.dto.ClientPutRequestBody;
+import br.com.springboot.essentials2.mapper.ClientMapper;
 import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,10 +35,13 @@ public class ClientService {
 
     public ClientPostRequestBodyDTO saveClient(ClientPostRequestBodyDTO clientDTO) {
 //        var client = new Client(clientDTO);
-        Client client = Client.builder()
-                .name(clientDTO.getName())
-                .phone(clientDTO.getPhone())
-                .build();
+
+//        Client client = Client.builder()
+//                .name(clientDTO.getName())
+//                .phone(clientDTO.getPhone())
+//                .build();
+
+        Client client = ClientMapper.INSTANCE.toClient(clientDTO);
         clientRepository.save(client);
         return clientDTO;
     }
@@ -48,11 +52,15 @@ public class ClientService {
 
     public void replaceClient(ClientPutRequestBody clientDTO) {
         Client foundClient = findClientById(clientDTO.getIdClientDTO());
-        Client client = Client.builder()
-                .idClient(foundClient.getIdClient())
-                .name(clientDTO.getName())
-                .phone(clientDTO.getPhone())
-                .build();
+
+//        Client client = Client.builder()
+//                .idClient(foundClient.getIdClient())
+//                .name(clientDTO.getName())
+//                .phone(clientDTO.getPhone())
+//                .build();
+
+        Client client = ClientMapper.INSTANCE.toClient(clientDTO);
+        client.setIdClient(foundClient.getIdClient());
         clientRepository.save(client);
     }
 
