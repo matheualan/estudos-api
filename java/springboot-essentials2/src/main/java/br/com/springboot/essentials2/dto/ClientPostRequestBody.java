@@ -3,7 +3,7 @@ package br.com.springboot.essentials2.dto;
 import lombok.Data;
 
 @Data
-public class ClientPostRequestBodyDTO {
+public class ClientPostRequestBody {
 
     private String name;
 

@@ -1,7 +1,7 @@
 package br.com.springboot.essentials2.controller;
 
 import br.com.springboot.essentials2.dto.ClientGetFindById;
-import br.com.springboot.essentials2.dto.ClientPostRequestBodyDTO;
+import br.com.springboot.essentials2.dto.ClientPostRequestBody;
 import br.com.springboot.essentials2.dto.ClientPutRequestBody;
 import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.service.ClientService;
@@ -25,7 +25,7 @@ public class ClientController {
     private final DateUtil dateUtil;
 
     @PostMapping(value = "/save")
-    public ResponseEntity<ClientPostRequestBodyDTO> saveClient(@RequestBody ClientPostRequestBodyDTO clientDTO) {
+    public ResponseEntity<ClientPostRequestBody> saveClient(@RequestBody ClientPostRequestBody clientDTO) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: POST, Method: saveClient()"));
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClient(clientDTO));
     }

@@ -1,7 +1,7 @@
 package br.com.springboot.essentials2.service;
 
 import br.com.springboot.essentials2.dto.ClientGetFindById;
-import br.com.springboot.essentials2.dto.ClientPostRequestBodyDTO;
+import br.com.springboot.essentials2.dto.ClientPostRequestBody;
 import br.com.springboot.essentials2.dto.ClientPutRequestBody;
 import br.com.springboot.essentials2.mapper.ClientMapper;
 import br.com.springboot.essentials2.model.Client;
@@ -33,33 +33,33 @@ public class ClientService {
         return new ClientGetFindById(client);
     }
 
-    public ClientPostRequestBodyDTO saveClient(ClientPostRequestBodyDTO clientDTO) {
-//        var client = new Client(clientDTO);
+    public ClientPostRequestBody saveClient(ClientPostRequestBody clientPostRequestBody) {
+//        var client = new Client(clientPostRequestBodyDTO);
 
 //        Client client = Client.builder()
-//                .name(clientDTO.getName())
-//                .phone(clientDTO.getPhone())
+//                .name(clientPostRequestBodyDTO.getName())
+//                .phone(clientPostRequestBodyDTO.getPhone())
 //                .build();
 
-        Client client = ClientMapper.INSTANCE.toClient(clientDTO);
+        Client client = ClientMapper.INSTANCE.toClient(clientPostRequestBody);
         clientRepository.save(client);
-        return clientDTO;
+        return clientPostRequestBody;
     }
 
     public void deleteClientById(Integer id) {
         clientRepository.delete(findClientById(id));
     }
 
-    public void replaceClient(ClientPutRequestBody clientDTO) {
-        Client foundClient = findClientById(clientDTO.getIdClientDTO());
+    public void replaceClient(ClientPutRequestBody clientPutRequestBody) {
+        Client foundClient = findClientById(clientPutRequestBody.getIdClientDTO());
 
 //        Client client = Client.builder()
 //                .idClient(foundClient.getIdClient())
-//                .name(clientDTO.getName())
-//                .phone(clientDTO.getPhone())
+//                .name(clientPutRequestBody.getName())
+//                .phone(clientPutRequestBody.getPhone())
 //                .build();
 
-        Client client = ClientMapper.INSTANCE.toClient(clientDTO);
+        Client client = ClientMapper.INSTANCE.toClient(clientPutRequestBody);
         client.setIdClient(foundClient.getIdClient());
         clientRepository.save(client);
     }
