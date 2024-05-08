@@ -23,6 +23,8 @@ public class Client {
 
     private String name;
 
+    private String phone;
+
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private final LocalDateTime createdAt = LocalDateTime.now();
 

@@ -34,7 +34,10 @@ public class ClientService {
 
     public ClientPostRequestBodyDTO saveClient(ClientPostRequestBodyDTO clientDTO) {
 //        var client = new Client(clientDTO);
-        Client client = Client.builder().name(clientDTO.getName()).build();
+        Client client = Client.builder()
+                .name(clientDTO.getName())
+                .phone(clientDTO.getPhone())
+                .build();
         clientRepository.save(client);
         return clientDTO;
     }
@@ -48,6 +51,7 @@ public class ClientService {
         Client client = Client.builder()
                 .idClient(foundClient.getIdClient())
                 .name(clientDTO.getName())
+                .phone(clientDTO.getPhone())
                 .build();
         clientRepository.save(client);
     }

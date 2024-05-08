@@ -1,6 +1,7 @@
 package br.com.springboot.essentials2.service;
 
 import br.com.springboot.essentials2.model.Client;
+import br.com.springboot.essentials2.model.Cliente;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -11,32 +12,32 @@ import java.util.List;
 @Service
 public class ClientServiceHardCode {
 
-    private static List<Client> listClients;
+    private static List<Cliente> listClients;
 
     static {
-        listClients = new ArrayList<>(List.of(new Client(1, "Mattus"),
-                new Client(2, "Alien"),
-                new Client(3, "Mosh")));
+        listClients = new ArrayList<>(List.of(new Cliente(1, "Mattus"),
+                new Cliente(2, "Alien"),
+                new Cliente(3, "Mosh")));
     }
 
-    public Client saveClient(Client client) {
-        Client newClient = new Client(client.getIdClient(), client.getName());
+    public Cliente saveClient(Cliente client) {
+        Cliente newClient = new Cliente(client.getId(), client.getName());
         listClients.add(newClient);
         return newClient;
     }
 
-    public List<Client> listAll() {
+    public List<Cliente> listAll() {
         return listClients;
     }
 
-    public Client findClientByIndex(Integer index) {
+    public Cliente findClientByIndex(Integer index) {
         return listClients.get(index - 1);
     }
 
-    public Client findClientById(Integer id) {
+    public Cliente findClientById(Integer id) {
         return listClients
                 .stream()
-                .filter(client -> client.getIdClient().equals(id))
+                .filter(client -> client.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cliente não encontrado"));
     }
@@ -45,8 +46,8 @@ public class ClientServiceHardCode {
         listClients.remove(findClientById(id));
     }
 
-    public void replaceClient(Client client) {
-        deleteClientById(client.getIdClient());
+    public void replaceClient(Cliente client) {
+        deleteClientById(client.getId());
         listClients.add(client);
     }
 

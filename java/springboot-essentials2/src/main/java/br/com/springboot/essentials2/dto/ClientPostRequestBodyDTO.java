@@ -7,6 +7,8 @@ public class ClientPostRequestBodyDTO {
 
     private String name;
 
+    private String phone;
+
 //    public ClientPostRequestBodyDTO(Client client) {
 //        name = client.getName();
 //    }

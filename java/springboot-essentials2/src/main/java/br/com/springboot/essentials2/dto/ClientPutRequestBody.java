@@ -9,4 +9,6 @@ public class ClientPutRequestBody {
 
     private String name;
 
+    private String phone;
+
 }

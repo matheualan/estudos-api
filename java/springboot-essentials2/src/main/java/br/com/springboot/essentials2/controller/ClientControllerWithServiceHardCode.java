@@ -1,6 +1,6 @@
 package br.com.springboot.essentials2.controller;
 
-import br.com.springboot.essentials2.model.Client;
+import br.com.springboot.essentials2.model.Cliente;
 import br.com.springboot.essentials2.service.ClientServiceHardCode;
 import br.com.springboot.essentials2.util.DateUtil;
 import lombok.extern.log4j.Log4j2;
@@ -25,25 +25,25 @@ public class ClientControllerWithServiceHardCode {
     }
 
     @PostMapping
-    public ResponseEntity<Client> saveClient(@RequestBody Client client) {
+    public ResponseEntity<Cliente> saveClient(@RequestBody Cliente client) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: POST - Method: saveClient()"));
         return ResponseEntity.status(HttpStatus.CREATED).body(clientServiceHardCode.saveClient(client));
     }
 
     @GetMapping(value = "/list")
-    public List<Client> listClients() {
+    public List<Cliente> listClients() {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET - Method: listClients()"));
         return clientServiceHardCode.listAll();
     }
 
     @GetMapping(value = "/findClientByIndex/{index}")
-    public ResponseEntity<Client> findClientByIndex(@PathVariable Integer index) {
+    public ResponseEntity<Cliente> findClientByIndex(@PathVariable Integer index) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET - Method: findClientByIndex()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientServiceHardCode.findClientByIndex(index));
     }
 
     @GetMapping(value = "/findClientById/{id}")
-    public ResponseEntity<Client> findClientById(@PathVariable Integer id) {
+    public ResponseEntity<Cliente> findClientById(@PathVariable Integer id) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET - Method: findClientById()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientServiceHardCode.findClientById(id));
     }
@@ -56,7 +56,7 @@ public class ClientControllerWithServiceHardCode {
     }
 
     @PutMapping(value = "/replaceClientById")
-    public ResponseEntity<Void> replaceClient(@RequestBody Client client) {
+    public ResponseEntity<Void> replaceClient(@RequestBody Cliente client) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: PUT - Method: replaceClientById()"));
         clientServiceHardCode.replaceClient(client);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
