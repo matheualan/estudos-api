@@ -42,6 +42,11 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findClient(id));
     }
 
+    @GetMapping(value = "/find-entity/{id}")
+    public ResponseEntity<Client> findClientEntityById(@PathVariable Integer id) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: findClientById()"));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.findClientById(id));
+    }
 
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Void> deleteClient(@PathVariable Integer id) {

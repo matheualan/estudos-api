@@ -60,7 +60,7 @@ public class ClientService {
 //                .build();
 
         Client client = ClientMapper.INSTANCE.toClient(clientPutRequestBody);
-        client.setIdClient(foundClient.getIdClient());
+//        client.setIdClient(foundClient.getIdClient());
         clientRepository.save(client);
     }
 
