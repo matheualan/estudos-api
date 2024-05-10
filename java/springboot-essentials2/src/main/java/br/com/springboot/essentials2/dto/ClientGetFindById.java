@@ -18,6 +18,7 @@ public class ClientGetFindById {
 
     public ClientGetFindById(Client client) {
         name = client.getName();
+        phone = client.getPhone();
         createdAt = client.getCreatedAt();
     }
 

@@ -23,6 +23,10 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
+    public List<Client> findByName(String name) {
+        return clientRepository.findByName(name);
+    }
+
     public Client findClientById(Integer id) {
         return clientRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Client não encontrado"));

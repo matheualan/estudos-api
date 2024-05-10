@@ -30,13 +30,19 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClient(clientDTO));
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/find-all")
     public ResponseEntity<List<Client>> listClient() {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: listClient()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.listAll());
     }
 
-    @GetMapping(value = "/find/{id}")
+    @GetMapping(value = "/find-name") // Usar ? na URL para passar a var. Ex.: ?name=Matios / ?id=1&name=Alen
+    public ResponseEntity<List<Client>> findClientByName(@RequestParam String name) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: findClientByName()"));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.findByName(name));
+    }
+
+    @GetMapping(value = "/find-id/{id}")
     public ResponseEntity<ClientGetFindById> findClientById(@PathVariable Integer id) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: findClientById()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findClient(id));
