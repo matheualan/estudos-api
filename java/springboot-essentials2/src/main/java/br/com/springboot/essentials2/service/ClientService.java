@@ -3,6 +3,7 @@ package br.com.springboot.essentials2.service;
 import br.com.springboot.essentials2.dto.ClientGetFindById;
 import br.com.springboot.essentials2.dto.ClientPostRequestBody;
 import br.com.springboot.essentials2.dto.ClientPutRequestBody;
+import br.com.springboot.essentials2.exception.ClientNotFoundBadRequestException;
 import br.com.springboot.essentials2.mapper.ClientMapper;
 import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.repository.ClientRepository;
@@ -33,8 +34,10 @@ public class ClientService {
     }
 
     public ClientGetFindById findClient(Integer id) {
-        Client client = findClientById(id);
-        return new ClientGetFindById(client);
+//        Client client = findClientById(id);
+        Client clientById = clientRepository.findById(id)
+                .orElseThrow(() -> new ClientNotFoundBadRequestException("Cliente não encontrado"));
+        return new ClientGetFindById(clientById);
     }
 
     public ClientPostRequestBody saveClient(ClientPostRequestBody clientPostRequestBody) {
@@ -57,6 +60,7 @@ public class ClientService {
     public void replaceClient(ClientPutRequestBody clientPutRequestBody) {
         Client foundClient = findClientById(clientPutRequestBody.getIdClientDTO());
 
+//        CRIANDO OBJETO USANDO @BUILDER DO LOMBOK - ANOTAÇÃO @BUILDER ESTÁ NA ENTIDADE
 //        Client client = Client.builder()
 //                .idClient(foundClient.getIdClient())
 //                .name(clientPutRequestBody.getName())
@@ -64,7 +68,6 @@ public class ClientService {
 //                .build();
 
         Client client = ClientMapper.INSTANCE.toClient(clientPutRequestBody);
-//        client.setIdClient(foundClient.getIdClient());
         clientRepository.save(client);
     }
 
