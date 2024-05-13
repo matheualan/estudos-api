@@ -1,6 +1,5 @@
 package br.com.springboot.essentials2.service;
 
-import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.model.Cliente;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
