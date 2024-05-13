@@ -34,7 +34,6 @@ public class ClientService {
     }
 
     public ClientGetFindById findClient(Integer id) {
-//        Client client = findClientById(id);
         Client clientById = clientRepository.findById(id)
                 .orElseThrow(() -> new ClientNotFoundBadRequestException("Cliente não encontrado"));
         return new ClientGetFindById(clientById);
@@ -48,7 +47,7 @@ public class ClientService {
 //                .phone(clientPostRequestBodyDTO.getPhone())
 //                .build();
 
-        Client client = ClientMapper.INSTANCE.toClient(clientPostRequestBody);
+        Client client = ClientMapper.INSTANCE.toClient(clientPostRequestBody); //map struct
         clientRepository.save(client);
         return clientPostRequestBody;
     }
