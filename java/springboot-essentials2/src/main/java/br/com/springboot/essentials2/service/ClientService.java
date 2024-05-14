@@ -10,6 +10,7 @@ import br.com.springboot.essentials2.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -39,6 +40,7 @@ public class ClientService {
         return new ClientGetFindById(clientById);
     }
 
+    @Transactional //(rollbackFor = Exception.class)
     public ClientPostRequestBody saveClient(ClientPostRequestBody clientPostRequestBody) {
 //        var client = new Client(clientPostRequestBodyDTO);
 
