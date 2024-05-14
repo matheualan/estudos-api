@@ -6,6 +6,7 @@ import br.com.springboot.essentials2.dto.ClientPutRequestBody;
 import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.service.ClientService;
 import br.com.springboot.essentials2.util.DateUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class ClientController {
     private final DateUtil dateUtil;
 
     @PostMapping(value = "/save")
-    public ResponseEntity<ClientPostRequestBody> saveClient(@RequestBody ClientPostRequestBody clientDTO) {
+    public ResponseEntity<ClientPostRequestBody> saveClient(@RequestBody @Valid ClientPostRequestBody clientDTO) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: POST, Method: saveClient()"));
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClient(clientDTO));
     }

@@ -50,6 +50,9 @@ public class ClientService {
 //                .build();
 
         Client client = ClientMapper.INSTANCE.toClient(clientPostRequestBody); //map struct
+//        if (client.getName() == null || client.getName().isEmpty()) {
+//            throw new RuntimeException("O campo nome deve conter no mínimo 3 caracteres.");
+//        }
         clientRepository.save(client);
         return clientPostRequestBody;
     }
