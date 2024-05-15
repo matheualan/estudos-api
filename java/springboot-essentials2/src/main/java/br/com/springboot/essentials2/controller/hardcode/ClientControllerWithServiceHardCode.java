@@ -1,7 +1,7 @@
-package br.com.springboot.essentials2.controller;
+package br.com.springboot.essentials2.controller.hardcode;
 
-import br.com.springboot.essentials2.model.Cliente;
-import br.com.springboot.essentials2.service.ClientServiceHardCode;
+import br.com.springboot.essentials2.model.hardcode.Cliente;
+import br.com.springboot.essentials2.service.hardcode.ClientServiceHardCode;
 import br.com.springboot.essentials2.util.DateUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;

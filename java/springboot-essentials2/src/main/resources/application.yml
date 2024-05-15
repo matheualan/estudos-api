@@ -1,6 +1,6 @@
 server:
   error:
-    include-stacktrace: never
+    include-stacktrace: on-param # on-param / always / never
 
 #spring:
 #  datasource:

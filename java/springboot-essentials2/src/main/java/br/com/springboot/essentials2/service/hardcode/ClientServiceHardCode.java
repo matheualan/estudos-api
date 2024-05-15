@@ -1,6 +1,6 @@
-package br.com.springboot.essentials2.service;
+package br.com.springboot.essentials2.service.hardcode;
 
-import br.com.springboot.essentials2.model.Cliente;
+import br.com.springboot.essentials2.model.hardcode.Cliente;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;

@@ -3,7 +3,7 @@ package br.com.springboot.essentials2.service;
 import br.com.springboot.essentials2.dto.ClientGetFindById;
 import br.com.springboot.essentials2.dto.ClientPostRequestBody;
 import br.com.springboot.essentials2.dto.ClientPutRequestBody;
-import br.com.springboot.essentials2.exception.ClientNotFoundBadRequestException;
+import br.com.springboot.essentials2.exception.ClientNotFoundException;
 import br.com.springboot.essentials2.mapper.ClientMapper;
 import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.repository.ClientRepository;
@@ -36,7 +36,7 @@ public class ClientService {
 
     public ClientGetFindById findClient(Integer id) {
         Client clientById = clientRepository.findById(id)
-                .orElseThrow(() -> new ClientNotFoundBadRequestException("Cliente não encontrado"));
+                .orElseThrow(() -> new ClientNotFoundException("Cliente não encontrado"));
         return new ClientGetFindById(clientById);
     }
 
