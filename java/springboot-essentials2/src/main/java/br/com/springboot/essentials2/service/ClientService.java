@@ -38,6 +38,7 @@ public class ClientService {
         Client clientById = clientRepository.findById(id)
                 .orElseThrow(() -> new ClientNotFoundException("Cliente não encontrado"));
         return new ClientGetFindById(clientById);
+
     }
 
     @Transactional //(rollbackFor = Exception.class)
