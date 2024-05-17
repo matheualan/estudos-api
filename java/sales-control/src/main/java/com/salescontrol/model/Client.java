@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_clients")
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,6 +23,6 @@ public class Client {
     private String name;
     private String cpf;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private final LocalDateTime createdAt = LocalDateTime.now();
 
 }
