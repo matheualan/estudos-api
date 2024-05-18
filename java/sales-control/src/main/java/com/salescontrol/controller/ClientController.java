@@ -1,5 +1,6 @@
 package com.salescontrol.controller;
 
+import com.salescontrol.dto.ClientGetRequestBody;
 import com.salescontrol.dto.ClientPostRequestBody;
 import com.salescontrol.model.Client;
 import com.salescontrol.service.ClientService;
@@ -33,6 +34,18 @@ public class ClientController {
     public ResponseEntity<List<Client>> listClients() {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET listClients()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.listClients());
+    }
+
+    @GetMapping(value = "/findByName")
+    public ResponseEntity<ClientGetRequestBody> findClientByName(@RequestParam String name) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET findClientByName()"));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.findByName(name));
+    }
+
+    @GetMapping(value = "/findByCpf/{cpf}")
+    public ResponseEntity<ClientGetRequestBody> findClientByCpf(@PathVariable(value = "cpf") String cpf) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET findClientByCpf()"));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.findByCpf(cpf));
     }
 
 }

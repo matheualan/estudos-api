@@ -1,0 +1,5 @@
+--INSERT INTO tb_clients (name, cpf, created_at) VALUES ('aaa', '111', CURRENT_TIMESTAMP);
+--INSERT INTO tb_clients (name, cpf) VALUES ('bbb', '222');
+--INSERT INTO tb_clients (name, cpf) VALUES ('ccc', '333');
+--INSERT INTO tb_clients (name, cpf) VALUES ('ddd', '444');
+--INSERT INTO tb_clients (name, cpf) VALUES ('eee', '555');
