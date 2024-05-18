@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,8 +25,26 @@ public class ClientService {
         return clientPostRequestBody;
     }
 
+    public List<ClientPostRequestBody> saveMultipleClients(List<ClientPostRequestBody> multipleClients) {
+        List<Client> clients = new ArrayList<>();
+        for (ClientPostRequestBody clientPost : multipleClients) {
+            clients.add(ClientMapper.INSTANCE.toClient(clientPost));
+        }
+        clientRepository.saveAll(clients);
+        return multipleClients;
+    }
+
     public List<Client> listClients() {
         return clientRepository.findAll();
+    }
+
+    public List<ClientGetRequestBody> listClientsDTO() {
+        List<Client> clients = clientRepository.findAll();
+        List<ClientGetRequestBody> clientsDTO = new ArrayList<>();
+        for (Client client : clients) {
+            clientsDTO.add(ClientMapper.INSTANCE.toClientGet(client));
+        }
+        return clientsDTO;
     }
 
     public ClientGetRequestBody findByName(String name) {
@@ -36,8 +55,7 @@ public class ClientService {
 
     public ClientGetRequestBody findByCpf(String cpf) {
         Client client = clientRepository.findByCpf(cpf).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cliente não encontrado.")
-        );
+                () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cliente não encontrado."));
         return ClientMapper.INSTANCE.toClientGet(client);
     }
 

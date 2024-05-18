@@ -30,10 +30,23 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClient(clientPost));
     }
 
+    @PostMapping(value = "/saveMultiple")
+    public ResponseEntity<List<ClientPostRequestBody>> saveMultipleClients(
+            @RequestBody List<ClientPostRequestBody> multipleClients) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST saveMultipleClients()"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveMultipleClients(multipleClients));
+    }
+
     @GetMapping(value = "/list")
     public ResponseEntity<List<Client>> listClients() {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET listClients()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.listClients());
+    }
+
+    @GetMapping(value = "/listDTO")
+    public ResponseEntity<List<ClientGetRequestBody>> listClientsDTO() {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET listClientsDTO()"));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.listClientsDTO());
     }
 
     @GetMapping(value = "/findByName")

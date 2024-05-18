@@ -17,7 +17,7 @@ public class ClientGetRequestBody {
     @Size(min = 11, max = 11, message = "O campo 'CPF' deve conter 11 caracteres.")
     private String cpf;
 
-//    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-//    private LocalDateTime localDateTime;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime createdAt;
 
 }

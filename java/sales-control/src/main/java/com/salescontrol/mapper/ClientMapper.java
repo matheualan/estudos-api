@@ -14,6 +14,8 @@ public abstract class ClientMapper {
 
     public abstract Client toClient(ClientPostRequestBody clientPostRequestBody);
     public abstract Client toClient(ClientPutRequestBody clientPutRequestBody);
-    public abstract ClientGetRequestBody toClientGet(Client clientGetRequestBody);
+
+    public abstract ClientPostRequestBody toClientPost(Client client);
+    public abstract ClientGetRequestBody toClientGet(Client client);
 
 }
