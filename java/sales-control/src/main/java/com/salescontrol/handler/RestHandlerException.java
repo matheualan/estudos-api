@@ -2,14 +2,17 @@ package com.salescontrol.handler;
 
 import com.salescontrol.exception.ClientNotFoundException;
 import com.salescontrol.exception.ClientNotFoundExceptionDetails;
+import com.salescontrol.exception.UniqueIndexCpfExceptionDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
 
-@ControllerAdvice
+//@ControllerAdvice
+@RestControllerAdvice
 public class RestHandlerException {
 
     @ExceptionHandler(ClientNotFoundException.class)
@@ -18,6 +21,18 @@ public class RestHandlerException {
                 .error("BAD REQUEST")
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message(e.getMessage())
+                .developMessage(e.getClass().getName())
+                .timestamp(LocalDateTime.now())
+                .build());
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<UniqueIndexCpfExceptionDetails> handlerUniqueIndexCpfException(
+            SQLIntegrityConstraintViolationException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(UniqueIndexCpfExceptionDetails.builder()
+                .error("BAD REQUEST")
+                .status(HttpStatus.BAD_REQUEST.value())
+                .message(e.getMessage().concat(" - CPF JÁ EXISTE NA BASE DE DADOS."))
                 .developMessage(e.getClass().getName())
                 .timestamp(LocalDateTime.now())
                 .build());
