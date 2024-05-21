@@ -1,6 +1,7 @@
 package com.salescontrol.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +19,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
+//@JsonIgnoreProperties(value = {"orders"}) //Sem esta anotação o sistema ñ estava retornando objeto Client com as Orders
 public class Client {
 
     @Id

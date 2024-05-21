@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Order {
 
     @Id
@@ -26,13 +25,13 @@ public class Order {
 
     private Double quantity;
 
-    private BigDecimal value;
+    private BigDecimal price;
 
     private Double totalQuantity;
 
-    private BigDecimal totalValue;
+    private BigDecimal totalPurchased;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private final LocalDateTime orderDate = LocalDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
 
 }

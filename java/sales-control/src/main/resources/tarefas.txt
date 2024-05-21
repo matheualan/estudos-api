@@ -1,0 +1,1 @@
+1 - Criar endpoint que retorne o client com todos os pedidos (orders)
