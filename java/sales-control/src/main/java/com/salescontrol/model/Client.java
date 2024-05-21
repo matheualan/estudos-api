@@ -20,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 
-//@JsonIgnoreProperties(value = {"orders"}) //Sem esta anotação o sistema ñ estava retornando objeto Client com as Orders
+@JsonIgnoreProperties(value = {"orders", "addresses"})
 public class Client {
 
     @Id
@@ -32,8 +32,12 @@ public class Client {
     @Column(unique = true)
     private String cpf;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    private List<Address> addresses = new ArrayList<>();
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private final LocalDateTime createdAt = LocalDateTime.now();
