@@ -1,9 +1,9 @@
 package com.salescontrol.mapper;
 
-import com.salescontrol.dto.ClientGetRequestBody;
-import com.salescontrol.dto.ClientPostRequestBody;
-import com.salescontrol.dto.ClientPutRequestBody;
-import com.salescontrol.dto.ClientWithOrderPostDTO;
+import com.salescontrol.dto.client.ClientGetRequestBody;
+import com.salescontrol.dto.client.ClientPostRequestBody;
+import com.salescontrol.dto.client.ClientPutRequestBody;
+import com.salescontrol.dto.client.ClientWithOrderPostDTO;
 import com.salescontrol.model.Client;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

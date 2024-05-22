@@ -29,7 +29,7 @@ public class Order {
 
     private Double totalQuantity;
 
-    private BigDecimal totalPurchased;
+    private BigDecimal totalPurchased = BigDecimal.ZERO;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime createdAt = LocalDateTime.now();

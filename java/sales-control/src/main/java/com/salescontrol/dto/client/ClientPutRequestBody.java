@@ -1,4 +1,4 @@
-package com.salescontrol.dto;
+package com.salescontrol.dto.client;
 
 public class ClientPutRequestBody {
 

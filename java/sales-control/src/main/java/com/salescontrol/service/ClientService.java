@@ -1,7 +1,8 @@
 package com.salescontrol.service;
 
-import com.salescontrol.dto.ClientGetRequestBody;
-import com.salescontrol.dto.ClientPostRequestBody;
+import com.salescontrol.dto.client.ClientGetRequestBody;
+import com.salescontrol.dto.client.ClientPostRequestBody;
+import com.salescontrol.dto.client.ClientWithOrderPostDTO;
 import com.salescontrol.exception.ClientNotFoundException;
 import com.salescontrol.mapper.ClientMapper;
 import com.salescontrol.model.Client;
@@ -56,6 +57,12 @@ public class ClientService {
         Client client = clientRepository.findByCpf(cpf).orElseThrow(
                 () -> new ClientNotFoundException("Cliente não encontrado."));
         return ClientMapper.INSTANCE.toClientGet(client);
+    }
+
+    public ClientWithOrderPostDTO saveClientWithOrder(ClientWithOrderPostDTO clientWithOrderPostDTO) {
+        Client client = ClientMapper.INSTANCE.toClient(clientWithOrderPostDTO);
+        clientRepository.save(client);
+        return clientWithOrderPostDTO;
     }
 
 }

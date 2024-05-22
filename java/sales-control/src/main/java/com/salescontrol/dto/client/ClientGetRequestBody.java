@@ -1,4 +1,4 @@
-package com.salescontrol.dto;
+package com.salescontrol.dto.client;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;

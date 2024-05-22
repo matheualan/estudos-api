@@ -15,7 +15,9 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idAdress;
+    private Integer idAddress;
+
+    private String cep;
 
     private String enderecoCompleto;
 

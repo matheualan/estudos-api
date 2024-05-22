@@ -1,7 +1,7 @@
 package com.salescontrol.controller;
 
-import com.salescontrol.dto.ClientGetRequestBody;
-import com.salescontrol.dto.ClientPostRequestBody;
+import com.salescontrol.dto.client.ClientGetRequestBody;
+import com.salescontrol.dto.client.ClientPostRequestBody;
 import com.salescontrol.model.Client;
 import com.salescontrol.service.ClientService;
 import com.salescontrol.util.DateUtil;

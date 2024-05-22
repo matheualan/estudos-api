@@ -1,4 +1,4 @@
-package com.salescontrol.dto;
+package com.salescontrol.dto.client;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
