@@ -1,7 +1,7 @@
 package com.salescontrol.controller;
 
-import com.salescontrol.dto.client.ClientGetRequestBody;
-import com.salescontrol.dto.client.ClientPostRequestBody;
+import com.salescontrol.dto.client.ClientGetDTO;
+import com.salescontrol.dto.client.ClientPostDTO;
 import com.salescontrol.model.Client;
 import com.salescontrol.service.ClientService;
 import com.salescontrol.util.DateUtil;
@@ -25,14 +25,14 @@ public class ClientController {
     private final DateUtil dateUtil;
 
     @PostMapping(value = "/save")
-    public ResponseEntity<ClientPostRequestBody> saveClient(@RequestBody @Valid ClientPostRequestBody clientPost) {
+    public ResponseEntity<ClientPostDTO> saveClient(@RequestBody @Valid ClientPostDTO clientPost) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST saveClient()"));
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClient(clientPost));
     }
 
     @PostMapping(value = "/saveMultiple")
-    public ResponseEntity<List<ClientPostRequestBody>> saveMultipleClients(
-            @RequestBody List<ClientPostRequestBody> multipleClients) {
+    public ResponseEntity<List<ClientPostDTO>> saveMultipleClients(
+            @RequestBody List<ClientPostDTO> multipleClients) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST saveMultipleClients()"));
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveMultipleClients(multipleClients));
     }
@@ -44,19 +44,19 @@ public class ClientController {
     }
 
     @GetMapping(value = "/listDTO")
-    public ResponseEntity<List<ClientGetRequestBody>> listClientsDTO() {
+    public ResponseEntity<List<ClientGetDTO>> listClientsDTO() {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET listClientsDTO()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.listClientsDTO());
     }
 
     @GetMapping(value = "/findByName")
-    public ResponseEntity<ClientGetRequestBody> findClientByName(@RequestParam String name) {
+    public ResponseEntity<ClientGetDTO> findClientByName(@RequestParam String name) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET findClientByName()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findByName(name));
     }
 
     @GetMapping(value = "/findByCpf/{cpf}")
-    public ResponseEntity<ClientGetRequestBody> findClientByCpf(@PathVariable(value = "cpf") String cpf) {
+    public ResponseEntity<ClientGetDTO> findClientByCpf(@PathVariable(value = "cpf") String cpf) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET findClientByCpf()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findByCpf(cpf));
     }

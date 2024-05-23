@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class ClientPostRequestBody {
+public class ClientPostDTO {
 
     @NotBlank(message = "O campo 'name' não pode ser branco ou nulo.")
     @Size(min = 3, max = 255, message = "O campo 'name' deve conter entre 3 a 255 caracteres.")

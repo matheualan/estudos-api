@@ -1,6 +1,6 @@
 package com.salescontrol.dto.client;
 
-public class ClientPutRequestBody {
+public class ClientPutDTO {
 
 
 

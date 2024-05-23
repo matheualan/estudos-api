@@ -2,7 +2,9 @@ package com.salescontrol.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -27,7 +29,7 @@ public class Order {
 
     private BigDecimal price;
 
-    private Double totalQuantity;
+    private Double totalQuantity = 0.0;
 
     private BigDecimal totalPurchased = BigDecimal.ZERO;
 

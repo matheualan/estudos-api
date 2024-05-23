@@ -1,15 +1,19 @@
 package com.salescontrol.controller;
 
-import com.salescontrol.dto.client.ClientWithOrderPostDTO;
+import com.salescontrol.dto.client.order.ClientWithOrderGetDTO;
+import com.salescontrol.dto.client.order.ClientWithOrderPostDTO;
+import com.salescontrol.model.Order;
 import com.salescontrol.service.ClientService;
+import com.salescontrol.service.OrderService;
+import com.salescontrol.util.DateUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/client-with-order")
@@ -18,10 +22,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClientWithOrderController {
 
     private final ClientService clientService;
+    private final OrderService orderService;
+    private final DateUtil dateUtil;
 
     @PostMapping(value = "/saveClientWithOrder")
     public ResponseEntity<ClientWithOrderPostDTO> saveClientWithOrder(@RequestBody ClientWithOrderPostDTO client) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST saveClientWithOrder()"));
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClientWithOrder(client));
     }
+
+    @GetMapping(value = "/listOrders")
+    public ResponseEntity<List<Order>> listAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.findAllOrders());
+    }
+
+//    @GetMapping(value = "/listClientsWithOrders")
+//    public ResponseEntity<List<ClientWithOrderGetDTO>> listClientWithOrder() {
+//        return ResponseEntity.status(HttpStatus.OK).body(clientService.listClientWithOrder());
+//    }
 
 }

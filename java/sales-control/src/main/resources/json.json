@@ -18,5 +18,27 @@
   {
     "name": "Elococo",
     "cpf": "12312312315"
+  },
+
+  {
+    "name": "Arnold",
+    "cpf": "22312312310",
+    "orders": [
+      {
+        "quantity": 10,
+        "price": 110
+      }
+    ]
+  }
+,
+  {
+    "name": "Joana",
+    "cpf": "22312312311",
+    "orders": [
+      {
+        "quantity": 50,
+        "price": 400
+      }
+    ]
   }
 ]

@@ -1,6 +1,7 @@
-package com.salescontrol.dto.client;
+package com.salescontrol.dto.client.order;
 
-import com.salescontrol.dto.order.OrderPostRequestBody;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.salescontrol.dto.order.OrderPostDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,10 +11,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
+//@JsonIgnoreProperties(value = {"client"})
 public class ClientWithOrderPostDTO {
 
     private String name;
     private String cpf;
-    private List<OrderPostRequestBody> orders;
+    private List<OrderPostDTO> orders;
 
 }

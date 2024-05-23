@@ -8,7 +8,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class ClientGetRequestBody {
+public class ClientGetDTO {
 
     @NotBlank(message = "O campo 'name' não pode ser branco ou nulo.")
     @Size(min = 3, max = 255, message = "O campo 'name' deve conter entre 3 a 255 caracteres.")
