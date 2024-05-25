@@ -1,4 +1,4 @@
-package com.salescontrol.controller;
+package com.salescontrol.controller.client;
 
 import com.salescontrol.dto.client.ClientGetDTO;
 import com.salescontrol.dto.client.ClientPostDTO;

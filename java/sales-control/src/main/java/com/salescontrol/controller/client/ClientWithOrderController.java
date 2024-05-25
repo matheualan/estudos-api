@@ -1,4 +1,4 @@
-package com.salescontrol.controller;
+package com.salescontrol.controller.client;
 
 import com.salescontrol.dto.client.ClientWithOrderGetDTO;
 import com.salescontrol.dto.client.ClientWithOrderPostDTO;
@@ -33,11 +33,13 @@ public class ClientWithOrderController {
 
     @GetMapping(value = "/listOrders")
     public ResponseEntity<List<Order>> listAllOrders() {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET listAllOrders()"));
         return ResponseEntity.status(HttpStatus.OK).body(orderService.findAllOrders());
     }
 
     @GetMapping(value = "/listClientsWithOrders")
     public ResponseEntity<List<ClientWithOrderGetDTO>> listClientWithOrder() {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET listClientWithOrder()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.listClientWithOrder());
     }
 
