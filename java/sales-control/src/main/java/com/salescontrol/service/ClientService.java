@@ -73,14 +73,14 @@ public class ClientService {
         return clientWithOrderPostDTO;
     }
 
-//    public List<ClientWithOrderGetDTO> listClientWithOrder() {
-//        List<Client> clients = clientRepository.findAll();
-//        List<ClientWithOrderGetDTO> listDTO = new ArrayList<>();
-//        for (Client client : clients) {
-//            ClientWithOrderGetDTO clientWithOrderGetDTO = ClientMapper.INSTANCE.toClientWithOrderGet(client);
-//            listDTO.add(clientWithOrderGetDTO);
-//        }
-//        return listDTO;
-//    }
+    public List<ClientWithOrderGetDTO> listClientWithOrder() {
+        List<Client> clients = clientRepository.findAll();
+        List<ClientWithOrderGetDTO> listDTO = new ArrayList<>();
+        for (Client client : clients) {
+            ClientWithOrderGetDTO clientWithOrderGetDTO = ClientMapper.INSTANCE.toClientWithOrderGet(client);
+            listDTO.add(clientWithOrderGetDTO);
+        }
+        return listDTO;
+    }
 
 }

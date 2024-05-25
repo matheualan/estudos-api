@@ -19,6 +19,6 @@ public abstract class ClientMapper {
     public abstract Client toClient(ClientPutDTO clientPutDTO);
 
     public abstract ClientGetDTO toClientGet(Client client);
-//    public abstract ClientWithOrderGetDTO toClientWithOrderGet(Client client);
+    public abstract ClientWithOrderGetDTO toClientWithOrderGet(Client client);
 
 }

@@ -32,13 +32,13 @@ public class ClientWithOrderController {
     }
 
     @GetMapping(value = "/listOrders")
-    public ResponseEntity<List<Order>> listAll() {
+    public ResponseEntity<List<Order>> listAllOrders() {
         return ResponseEntity.status(HttpStatus.OK).body(orderService.findAllOrders());
     }
 
-//    @GetMapping(value = "/listClientsWithOrders")
-//    public ResponseEntity<List<ClientWithOrderGetDTO>> listClientWithOrder() {
-//        return ResponseEntity.status(HttpStatus.OK).body(clientService.listClientWithOrder());
-//    }
+    @GetMapping(value = "/listClientsWithOrders")
+    public ResponseEntity<List<ClientWithOrderGetDTO>> listClientWithOrder() {
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.listClientWithOrder());
+    }
 
 }
