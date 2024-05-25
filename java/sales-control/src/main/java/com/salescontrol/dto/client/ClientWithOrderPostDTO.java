@@ -1,6 +1,5 @@
-package com.salescontrol.dto.client.order;
+package com.salescontrol.dto.client;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.salescontrol.dto.order.OrderPostDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -2,8 +2,8 @@ package com.salescontrol.service;
 
 import com.salescontrol.dto.client.ClientGetDTO;
 import com.salescontrol.dto.client.ClientPostDTO;
-import com.salescontrol.dto.client.order.ClientWithOrderGetDTO;
-import com.salescontrol.dto.client.order.ClientWithOrderPostDTO;
+import com.salescontrol.dto.client.ClientWithOrderGetDTO;
+import com.salescontrol.dto.client.ClientWithOrderPostDTO;
 import com.salescontrol.exception.ClientNotFoundException;
 import com.salescontrol.mapper.ClientMapper;
 import com.salescontrol.model.Client;

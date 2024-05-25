@@ -1,7 +1,7 @@
 package com.salescontrol.controller;
 
-import com.salescontrol.dto.client.order.ClientWithOrderGetDTO;
-import com.salescontrol.dto.client.order.ClientWithOrderPostDTO;
+import com.salescontrol.dto.client.ClientWithOrderGetDTO;
+import com.salescontrol.dto.client.ClientWithOrderPostDTO;
 import com.salescontrol.model.Order;
 import com.salescontrol.service.ClientService;
 import com.salescontrol.service.OrderService;

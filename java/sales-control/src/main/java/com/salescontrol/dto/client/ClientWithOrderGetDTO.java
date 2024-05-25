@@ -1,4 +1,4 @@
-package com.salescontrol.dto.client.order;
+package com.salescontrol.dto.client;
 
 import com.salescontrol.dto.order.OrderGetDTO;
 import lombok.AllArgsConstructor;
