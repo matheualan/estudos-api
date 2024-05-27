@@ -35,8 +35,12 @@
     "cpf": "22312312311",
     "orders": [
       {
-        "quantity": 50,
-        "price": 400
+        "quantity": 5,
+        "price": 60
+      },
+      {
+        "quantity": 15,
+        "price": 150
       }
     ]
   }

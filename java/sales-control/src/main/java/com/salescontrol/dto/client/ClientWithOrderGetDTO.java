@@ -1,6 +1,6 @@
 package com.salescontrol.dto.client;
 
-import com.salescontrol.dto.order.OrderGetDTO;
+import com.salescontrol.dto.order.OrderForClientGetDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +14,6 @@ public class ClientWithOrderGetDTO {
 
     private String name;
     private String cpf;
-    private List<OrderGetDTO> orders;
+    private List<OrderForClientGetDTO> orders;
 
 }

@@ -1,5 +1,6 @@
 package com.salescontrol.service;
 
+import com.salescontrol.dto.order.OrderPostDTO;
 import com.salescontrol.model.Order;
 import com.salescontrol.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,4 +22,7 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
+    public OrderPostDTO createOrder(OrderPostDTO orderPostDTO) {
+        return null;
+    }
 }
