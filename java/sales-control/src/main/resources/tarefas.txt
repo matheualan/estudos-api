@@ -1,3 +1,1 @@
-1 - Criar endpoint que retorne o client com todos os pedidos (orders)
-
-2 - Criar endpoint para salvar pedido e associar o pedido ao client já existente
+1 - Criar endpoint para salvar pedido e associar o pedido ao client já existente
