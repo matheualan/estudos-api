@@ -17,23 +17,22 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final ClientService clientService;
     private final ClientRepository clientRepository;
 
     public List<Order> findAllOrders() {
         return orderRepository.findAll();
     }
 
-    public Order saveOrder(Order order) {
-        return orderRepository.save(order);
-    }
-
     public OrderGetDTO createOrder(OrderPostDTO orderPostDTO) {
-        Client byName = clientRepository.findByName(orderPostDTO.getNameClient()).get();
+        Client client = clientRepository.findByName(orderPostDTO.getNameClient()).get();
 
         Order order = OrderMapper.INSTANCE.toOrder(orderPostDTO);
 
-        order.setClient(byName);
+        client.setTotalQuantity(client.getTotalQuantity() + orderPostDTO.getQuantity());
+        client.setTotalPurchased(client.getTotalPurchased().add(orderPostDTO.getPrice()));
+        order.setClient(client);
+//        order.setTotalQuantity(order.getTotalQuantity() + orderPostDTO.getQuantity());
+//        order.setTotalPurchased(order.getTotalPurchased().add(orderPostDTO.getPrice()));
 
         orderRepository.save(order);
 

@@ -12,10 +12,10 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@JsonIgnoreProperties(value = {"clientWithOrderPostDTO"})
+//@JsonIgnoreProperties(value = {"clientWithOrderPostDTO"})
 public class OrderPostDTO {
 
-    private ClientWithOrderPostDTO clientWithOrderPostDTO;
+//    private ClientWithOrderPostDTO clientWithOrderPostDTO;
     private String nameClient;
     private Double quantity;
     private BigDecimal price;
