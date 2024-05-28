@@ -29,12 +29,9 @@ public class OrderService {
     }
 
     public OrderGetDTO createOrder(OrderPostDTO orderPostDTO) {
-//        ClientGetDTO clientGetDTO = clientService.findByName(orderPostDTO.getNameClient());
-//        Client client = ClientMapper.INSTANCE.toClient(clientGetDTO);
+        Client byName = clientRepository.findByName(orderPostDTO.getNameClient()).get();
 
         Order order = OrderMapper.INSTANCE.toOrder(orderPostDTO);
-
-        Client byName = clientRepository.findByName(orderPostDTO.getNameClient()).get();
 
         order.setClient(byName);
 
