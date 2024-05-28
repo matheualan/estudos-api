@@ -1,6 +1,7 @@
 package com.salescontrol.dto.order;
 
 import com.salescontrol.model.Client;
+import com.salescontrol.model.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,12 @@ public class OrderGetDTO {
 
     private Double quantity;
     private BigDecimal price;
-    private Double totalQuantity;
-    private BigDecimal totalPurchased;
     private Client client;
+
+    public OrderGetDTO(Order order) {
+        quantity = order.getQuantity();
+        price = order.getPrice();
+        client = order.getClient();
+    }
 
 }

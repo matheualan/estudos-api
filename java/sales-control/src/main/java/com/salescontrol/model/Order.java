@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_orders")
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,10 +27,6 @@ public class Order {
     private Double quantity;
 
     private BigDecimal price;
-
-    private Double totalQuantity = 0.0;
-
-    private BigDecimal totalPurchased = BigDecimal.ZERO;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime createdAt = LocalDateTime.now();

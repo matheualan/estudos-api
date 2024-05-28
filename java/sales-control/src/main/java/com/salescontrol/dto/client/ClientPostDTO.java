@@ -2,7 +2,11 @@ package com.salescontrol.dto.client;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Data
 public class ClientPostDTO {
@@ -14,7 +18,9 @@ public class ClientPostDTO {
     @NotBlank(message = "O campo 'CPF' não pode ser branco ou nulo.")
     @Size(min = 11, max = 11, message = "O campo 'CPF' deve conter 11 caracteres.")
     private String cpf;
-//    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-//    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private Double totalQuantity = 0.0;
+
+    private BigDecimal totalPurchased = BigDecimal.ZERO;
 
 }

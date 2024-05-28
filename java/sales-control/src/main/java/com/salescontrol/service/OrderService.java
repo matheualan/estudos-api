@@ -2,6 +2,7 @@ package com.salescontrol.service;
 
 import com.salescontrol.dto.order.OrderGetDTO;
 import com.salescontrol.dto.order.OrderPostDTO;
+import com.salescontrol.exception.ClientNotFoundException;
 import com.salescontrol.mapper.OrderMapper;
 import com.salescontrol.model.Client;
 import com.salescontrol.model.Order;
@@ -24,19 +25,22 @@ public class OrderService {
     }
 
     public OrderGetDTO createOrder(OrderPostDTO orderPostDTO) {
-        Client client = clientRepository.findByName(orderPostDTO.getNameClient()).get();
+        Client client = clientRepository.findByName(orderPostDTO.getNameClient())
+                .orElseThrow(() -> new ClientNotFoundException("Cliente não encontrado"));
 
         Order order = OrderMapper.INSTANCE.toOrder(orderPostDTO);
 
-        client.setTotalQuantity(client.getTotalQuantity() + orderPostDTO.getQuantity());
         client.setTotalPurchased(client.getTotalPurchased().add(orderPostDTO.getPrice()));
+        client.setTotalQuantity(client.getTotalQuantity() + orderPostDTO.getQuantity());
+
         order.setClient(client);
-//        order.setTotalQuantity(order.getTotalQuantity() + orderPostDTO.getQuantity());
-//        order.setTotalPurchased(order.getTotalPurchased().add(orderPostDTO.getPrice()));
 
         orderRepository.save(order);
 
-        return OrderMapper.INSTANCE.toOrderGet(order);
+        OrderGetDTO orderGetDTO = new OrderGetDTO(order);
+        return orderGetDTO;
+
+//        return OrderMapper.INSTANCE.toOrderGet(order);
     }
 
 }

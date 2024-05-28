@@ -23,6 +23,8 @@ public class ClientService {
 
     public ClientPostDTO saveClient(ClientPostDTO clientPostDTO) {
         Client client = ClientMapper.INSTANCE.toClient(clientPostDTO);
+        client.setTotalPurchased(clientPostDTO.getTotalPurchased());
+        client.setTotalQuantity(clientPostDTO.getTotalQuantity());
         clientRepository.save(client);
         return clientPostDTO;
     }

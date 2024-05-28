@@ -36,11 +36,12 @@ public class Client {
     @OneToMany(mappedBy = "client", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
 
-    private Double totalQuantity = 0.0;
-    private BigDecimal totalPurchased = BigDecimal.ZERO;
+    private Double totalQuantity;
+
+    private BigDecimal totalPurchased;
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id")
+//    @JoinColumn(name = "client_id")
     private List<Address> addresses = new ArrayList<>();
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
