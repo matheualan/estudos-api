@@ -1,5 +1,9 @@
 1 - Criar endpoint para salvar pedido e associar o pedido ao client já existente
 
+2 - Endpoint para criar pedido (Order) e associar a um cliente
+2.1 - Client deve passar apenas o nome e a lógica de criar pedido deve buscar o Client por nome do banco de dados
+    e resgatar como entidade para poder associar a entidade Order.
+
 Regras de negócio:
 
 Cadastrar Cliente (NOME, cpf, data de aniversário)

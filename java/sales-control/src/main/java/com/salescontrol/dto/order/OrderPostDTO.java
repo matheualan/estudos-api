@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 public class OrderPostDTO {
 
     private ClientWithOrderPostDTO clientWithOrderPostDTO;
+    private String nameClient;
     private Double quantity;
     private BigDecimal price;
 

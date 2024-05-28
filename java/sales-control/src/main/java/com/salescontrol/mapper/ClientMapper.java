@@ -15,6 +15,7 @@ public abstract class ClientMapper {
     public static final ClientMapper INSTANCE = Mappers.getMapper(ClientMapper.class);
 
     public abstract Client toClient(ClientPostDTO clientPostDTO);
+    public abstract Client toClient(ClientGetDTO clientPostDTO);
     public abstract Client toClient(ClientWithOrderPostDTO clientWithOrderPostDTO);
     public abstract Client toClient(ClientPutDTO clientPutDTO);
 
