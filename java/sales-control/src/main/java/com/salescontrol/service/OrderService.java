@@ -37,10 +37,7 @@ public class OrderService {
 
         orderRepository.save(order);
 
-        OrderGetDTO orderGetDTO = new OrderGetDTO(order);
-        return orderGetDTO;
-
-//        return OrderMapper.INSTANCE.toOrderGet(order);
+        return OrderMapper.INSTANCE.toOrderGet(order);
     }
 
 }

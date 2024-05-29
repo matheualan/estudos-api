@@ -23,8 +23,6 @@ public class ClientService {
 
     public ClientPostDTO saveClient(ClientPostDTO clientPostDTO) {
         Client client = ClientMapper.INSTANCE.toClient(clientPostDTO);
-//        client.setTotalPurchased(clientPostDTO.getTotalPurchased());
-//        client.setTotalQuantity(clientPostDTO.getTotalQuantity());
         clientRepository.save(client);
         return clientPostDTO;
     }
@@ -33,10 +31,6 @@ public class ClientService {
         List<Client> clients = new ArrayList<>();
         for (ClientPostDTO clientPost : multipleClients) {
             clients.add(ClientMapper.INSTANCE.toClient(clientPost));
-            for (Client client : clients) {
-//                client.setTotalQuantity(clientPost.getTotalQuantity());
-//                client.setTotalPurchased(clientPost.getTotalPurchased());
-            }
         }
         clientRepository.saveAll(clients);
         return multipleClients;
