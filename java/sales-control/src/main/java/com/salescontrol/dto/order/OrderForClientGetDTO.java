@@ -14,15 +14,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class OrderForClientGetDTO {
 
-//    private Client client;
-
     private Double quantity;
 
     private BigDecimal price;
-
-    private Double totalQuantity = 0.0;
-
-    private BigDecimal totalPurchased = BigDecimal.ZERO;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime createdAt = LocalDateTime.now();
