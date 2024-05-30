@@ -15,7 +15,6 @@ public class AddressService {
 
     private final AddressRepository addressRepository;
     private final ClientRepository clientRepository;
-    private final ClientService clientService;
 
     public AddressPostDTO saveAddress(AddressPostDTO addressPostDTO, String name) {
         Address address = AddressMapper.INSTANCE.toAddress(addressPostDTO);
