@@ -1,6 +1,7 @@
 package com.salescontrol.service;
 
-import com.salescontrol.dto.AddressPostDTO;
+import com.salescontrol.dto.address.AddressPostDTO;
+import com.salescontrol.mapper.AddressMapper;
 import com.salescontrol.model.Address;
 import com.salescontrol.repository.AddressRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +13,10 @@ public class AddressService {
 
     private final AddressRepository addressRepository;
 
-    private String cep;
-    private final String urlViaCep = "viacep.com.br/ws/cep/json/";
-
-    public Address saveAddress(AddressPostDTO addressPostDTO) {
-
-        return null;
+    public AddressPostDTO saveAddress(AddressPostDTO addressPostDTO) {
+        Address address = AddressMapper.INSTANCE.toAddress(addressPostDTO);
+        addressRepository.save(address);
+        return addressPostDTO;
     }
 
 }

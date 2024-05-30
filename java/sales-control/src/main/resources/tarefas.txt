@@ -7,4 +7,11 @@ Cadastrar Endereço e associar a um cliente
 Cadastrar Pedido e associar a Cliente
 
 ===============================================================
+PARA IMPLEMENTAR:
 
+
+===============================================================
+BUGS:
+
+ Endpoint create-order lança exception quando tenta cadastrar pedido em um nome e encontra 2 registros no banco de dados
+    com o mesmo nome.

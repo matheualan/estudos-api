@@ -19,7 +19,7 @@ public class ClientPostDTO {
     @Size(min = 11, max = 11, message = "O campo 'CPF' deve conter 11 números.")
     private String cpf;
 
-    private Integer totalOrders;
+    private Integer totalOrders = 0;
 
     private Double totalQuantity = 0.0;
 

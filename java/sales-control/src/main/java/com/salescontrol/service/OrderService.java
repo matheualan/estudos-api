@@ -30,9 +30,9 @@ public class OrderService {
 
         Order order = OrderMapper.INSTANCE.toOrder(orderPostDTO);
 
+        client.setTotalOrders(client.getTotalOrders() + 1);
         client.setTotalPurchased(client.getTotalPurchased().add(orderPostDTO.getPrice()));
         client.setTotalQuantity(client.getTotalQuantity() + orderPostDTO.getQuantity());
-//        client.set
 
         order.setClient(client);
 
