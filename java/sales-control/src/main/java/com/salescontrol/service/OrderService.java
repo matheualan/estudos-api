@@ -32,6 +32,7 @@ public class OrderService {
 
         client.setTotalPurchased(client.getTotalPurchased().add(orderPostDTO.getPrice()));
         client.setTotalQuantity(client.getTotalQuantity() + orderPostDTO.getQuantity());
+//        client.set
 
         order.setClient(client);
 

@@ -26,6 +26,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idClient;
 
+    @Column(nullable = false)
     private String name;
 
     @Column(unique = true)
@@ -35,11 +36,13 @@ public class Client {
     private List<Order> orders = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id")
     private List<Address> addresses = new ArrayList<>();
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private final LocalDateTime createdAt = LocalDateTime.now();
+
+    private Integer totalOrders;
 
     private Double totalQuantity;
 

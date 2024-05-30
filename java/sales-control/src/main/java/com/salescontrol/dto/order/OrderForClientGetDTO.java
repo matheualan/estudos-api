@@ -1,7 +1,6 @@
 package com.salescontrol.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.salescontrol.model.Client;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

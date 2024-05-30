@@ -23,9 +23,9 @@ spring:
     password:
     driver-class-name: org.h2.Driver
   jpa:
-    #show-sql: true
     hibernate:
       ddl-auto: create #validate, update
+    #show-sql: true
 #    properties:
 #      hibernate:
 #        dialect: org.hibernate.dialect.MySQL8Dialect

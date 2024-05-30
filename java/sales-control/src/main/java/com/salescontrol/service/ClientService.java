@@ -6,8 +6,10 @@ import com.salescontrol.dto.client.ClientWithOrderGetDTO;
 import com.salescontrol.dto.client.ClientWithOrderPostDTO;
 import com.salescontrol.exception.ClientNotFoundException;
 import com.salescontrol.mapper.ClientMapper;
+import com.salescontrol.model.Address;
 import com.salescontrol.model.Client;
 import com.salescontrol.model.Order;
+import com.salescontrol.repository.AddressRepository;
 import com.salescontrol.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import java.util.List;
 public class ClientService {
 
     private final ClientRepository clientRepository;
+    private final AddressRepository addressRepository;
 
     public ClientPostDTO saveClient(ClientPostDTO clientPostDTO) {
         Client client = ClientMapper.INSTANCE.toClient(clientPostDTO);
