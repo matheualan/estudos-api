@@ -24,9 +24,9 @@ public class AddressController {
     private final DateUtil dateUtil;
 
     @PostMapping(value = "/save-address")
-    public ResponseEntity<AddressPostDTO> saveAddress(@RequestBody AddressPostDTO addressPostDTO) {
+    public ResponseEntity<AddressPostDTO> saveAddress(@RequestBody AddressPostDTO addressPostDTO, String name) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST saveAddress()"));
-        return ResponseEntity.status(HttpStatus.OK).body(addressService.saveAddress(addressPostDTO));
+        return ResponseEntity.status(HttpStatus.OK).body(addressService.saveAddress(addressPostDTO, name));
     }
 
 }

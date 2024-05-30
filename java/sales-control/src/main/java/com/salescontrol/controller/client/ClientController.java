@@ -25,13 +25,13 @@ public class ClientController {
     private final ClientService clientService;
     private final DateUtil dateUtil;
 
-    @PostMapping(value = "/save")
+    @PostMapping(value = "/save-client")
     public ResponseEntity<ClientPostDTO> saveClient(@RequestBody @Valid ClientPostDTO clientPost) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST saveClient()"));
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClient(clientPost));
     }
 
-    @PostMapping(value = "/saveMultiple")
+    @PostMapping(value = "/save-multiple-clients")
     public ResponseEntity<List<ClientPostDTO>> saveMultipleClients(
             @RequestBody List<ClientPostDTO> multipleClients) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST saveMultipleClients()"));
@@ -45,25 +45,25 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClientWithAddress(clientWithAddress));
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/list-client-entity")
     public ResponseEntity<List<Client>> listClients() {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET listClients()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.listClients());
     }
 
-    @GetMapping(value = "/listDTO")
+    @GetMapping(value = "/list-client-dto")
     public ResponseEntity<List<ClientGetDTO>> listClientsDTO() {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET listClientsDTO()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.listClientsDTO());
     }
 
-    @GetMapping(value = "/findByName")
+    @GetMapping(value = "/find-client-byName")
     public ResponseEntity<ClientGetDTO> findClientByName(@RequestParam String name) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET findClientByName()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findByName(name));
     }
 
-    @GetMapping(value = "/findByCpf/{cpf}")
+    @GetMapping(value = "/find-client-byCpf/{cpf}")
     public ResponseEntity<ClientGetDTO> findClientByCpf(@PathVariable(value = "cpf") String cpf) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET findClientByCpf()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findByCpf(cpf));
