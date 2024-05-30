@@ -19,14 +19,14 @@ public class Address {
 
     private String cep;
 
-    @JsonProperty("logradouro")
-    private String rua;
+    @JsonProperty("rua")
+    private String logradouro;
 
     private String complemento;
 
     private String bairro;
 
-    @JsonProperty(value = "localidade")
-    private String estado;
+    @JsonProperty(value = "estado")
+    private String localidade;
 
 }

@@ -2,6 +2,7 @@ package com.salescontrol.controller.client;
 
 import com.salescontrol.dto.client.ClientGetDTO;
 import com.salescontrol.dto.client.ClientPostDTO;
+import com.salescontrol.dto.client.forAddress.ClientForAddressPostDTO;
 import com.salescontrol.model.Client;
 import com.salescontrol.service.ClientService;
 import com.salescontrol.util.DateUtil;
@@ -35,6 +36,13 @@ public class ClientController {
             @RequestBody List<ClientPostDTO> multipleClients) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST saveMultipleClients()"));
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveMultipleClients(multipleClients));
+    }
+
+    @PostMapping(value = "/save-client-with-address")
+    public ResponseEntity<ClientForAddressPostDTO> saveClientWithAddress(
+            @RequestBody ClientForAddressPostDTO clientWithAddress) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST saveClientWithAddress()"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClientWithAddress(clientWithAddress));
     }
 
     @GetMapping(value = "/list")

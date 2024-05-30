@@ -4,6 +4,7 @@ import com.salescontrol.dto.client.ClientGetDTO;
 import com.salescontrol.dto.client.ClientPostDTO;
 import com.salescontrol.dto.client.ClientWithOrderGetDTO;
 import com.salescontrol.dto.client.ClientWithOrderPostDTO;
+import com.salescontrol.dto.client.forAddress.ClientForAddressPostDTO;
 import com.salescontrol.exception.ClientNotFoundException;
 import com.salescontrol.mapper.ClientMapper;
 import com.salescontrol.model.Address;
@@ -64,7 +65,7 @@ public class ClientService {
         return ClientMapper.INSTANCE.toClientGet(client);
     }
 
-//    LÓGICAS DE CLIENTE (CLIENT) COM PEDIDO (ORDER)
+//    LÓGICA DE CLIENT COM ORDER
     public ClientWithOrderPostDTO saveClientWithOrder(ClientWithOrderPostDTO clientWithOrderPostDTO) {
         Client client = ClientMapper.INSTANCE.toClient(clientWithOrderPostDTO);
 
@@ -84,6 +85,13 @@ public class ClientService {
             listDTO.add(clientWithOrderGetDTO);
         }
         return listDTO;
+    }
+
+//    LÓGICA DE CLIENT COM ADDRESS
+    public ClientForAddressPostDTO saveClientWithAddress(ClientForAddressPostDTO clientForAddressPostDTO) {
+        Client client = ClientMapper.INSTANCE.toClient(clientForAddressPostDTO);
+        clientRepository.save(client);
+        return clientForAddressPostDTO;
     }
 
 }
