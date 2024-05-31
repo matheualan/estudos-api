@@ -4,6 +4,7 @@ import com.salescontrol.dto.client.ClientGetDTO;
 import com.salescontrol.dto.client.ClientPostDTO;
 import com.salescontrol.dto.client.ClientWithOrderGetDTO;
 import com.salescontrol.dto.client.ClientWithOrderPostDTO;
+import com.salescontrol.dto.client.forAddress.ClientForAddressGetDTO;
 import com.salescontrol.dto.client.forAddress.ClientForAddressPostDTO;
 import com.salescontrol.exception.ClientNotFoundException;
 import com.salescontrol.mapper.ClientMapper;
@@ -93,4 +94,12 @@ public class ClientService {
         return clientForAddressPostDTO;
     }
 
+    public List<ClientForAddressGetDTO> listClientsWithAddresses() {
+        List<Client> allClients = clientRepository.findAll();
+        List<ClientForAddressGetDTO> listClientsWithAddresses = new ArrayList<>();
+        for (Client client : allClients) {
+            listClientsWithAddresses.add(ClientMapper.INSTANCE.toClientWithAddress(client));
+        }
+        return listClientsWithAddresses;
+    }
 }

@@ -2,6 +2,7 @@ package com.salescontrol.controller.client;
 
 import com.salescontrol.dto.client.ClientGetDTO;
 import com.salescontrol.dto.client.ClientPostDTO;
+import com.salescontrol.dto.client.forAddress.ClientForAddressGetDTO;
 import com.salescontrol.dto.client.forAddress.ClientForAddressPostDTO;
 import com.salescontrol.model.Client;
 import com.salescontrol.service.ClientService;
@@ -45,6 +46,12 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClientWithAddress(clientWithAddress));
     }
 
+    @GetMapping(value = "/list-clients-with-addresses")
+    public ResponseEntity<List<ClientForAddressGetDTO>> listClientsWithAddresses() {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET listClientsWithAddresses()"));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.listClientsWithAddresses());
+    }
+
     @GetMapping(value = "/list-client-entity")
     public ResponseEntity<List<Client>> listClients() {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET listClients()"));
@@ -56,6 +63,7 @@ public class ClientController {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET listClientsDTO()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.listClientsDTO());
     }
+
 
     @GetMapping(value = "/find-client-byName")
     public ResponseEntity<ClientGetDTO> findClientByName(@RequestParam String name) {
