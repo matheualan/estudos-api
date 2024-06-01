@@ -1,6 +1,7 @@
 package com.salescontrol.service;
 
 import com.salescontrol.dto.address.AddressPostDTO;
+import com.salescontrol.exception.ClientNotFoundException;
 import com.salescontrol.mapper.AddressMapper;
 import com.salescontrol.model.Address;
 import com.salescontrol.model.Client;
@@ -19,7 +20,8 @@ public class AddressService {
     public AddressPostDTO saveAddress(AddressPostDTO addressPostDTO, String name) {
         Address address = AddressMapper.INSTANCE.toAddress(addressPostDTO);
         addressRepository.save(address);
-        Client client = clientRepository.findByName(name).get();
+        Client client = clientRepository.findByName(name)
+                .orElseThrow(() -> new ClientNotFoundException("Cliente não encontrado."));
         client.getAddresses().add(address);
         clientRepository.save(client);
         return addressPostDTO;
