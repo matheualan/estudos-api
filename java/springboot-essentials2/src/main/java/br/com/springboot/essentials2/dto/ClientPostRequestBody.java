@@ -11,10 +11,7 @@ public class ClientPostRequestBody {
     @Size(min = 3, max = 255, message = "O campo name deve conter entre 3 a 255 caracteres.")
     private String name;
 
+    @Size(min = 8, max = 11, message = "Informe um número para contato válido.")
     private String phone;
-
-//    public ClientPostRequestBodyDTO(Client client) {
-//        name = client.getName();
-//    }
 
 }

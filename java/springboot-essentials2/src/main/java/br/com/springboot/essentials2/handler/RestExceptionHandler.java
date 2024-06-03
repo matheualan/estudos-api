@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ControllerAdvice //Diz para todos os controllers que deve usar essa classe baseado em uma 'flag' definada por meio
 //da anotação @ExceptionHandler
@@ -40,16 +41,18 @@ public class RestExceptionHandler {
 //        log.info("Fields {}", exception.getBindingResult().getFieldError().getField());
 
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
+        String fields = fieldErrors.stream().map(FieldError::getField).collect(Collectors.joining(", "));
+        String fieldsMessage = fieldErrors.stream().map(FieldError::getDefaultMessage).collect(Collectors.joining(", "));
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 ValidationExceptionDetails.builder()
-                        .title("Method Argument Not Valid Exception Personalized - Check the Documentation")
+                        .title("Method Argument Not Valid Exception Personalized - Invalid Fields")
                         .statusHttp(HttpStatus.BAD_REQUEST.value()) //.value() para pegar o valor int do status
                         .details(exception.getMessage())
                         .developerMessage(exception.getClass().getName())
                         .timestamp(LocalDateTime.now())
-                        .fields("")
-                        .fieldsMessage("")
+                        .fields(fields)
+                        .fieldsMessage(fieldsMessage)
                         .build()
         );
     }
