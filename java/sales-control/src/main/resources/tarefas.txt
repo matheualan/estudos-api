@@ -8,8 +8,9 @@ Cadastrar Pedido e associar a Cliente
 
 ===============================================================
 PARA IMPLEMENTAR:
-1 - Adicionar campo apelido na entidade Client pois pode facilitar a busca no banco de dados
-    foi notado que
+OK 1 - Adicionar campo apelido na entidade Client pois pode facilitar a busca no banco de dados
+    foi notado que será preciso localizar cliente por apelido para faciltar pois o nome posso nao lembrar depois
+2 - Criar endpoint para criar pedido por apelido
 
 ===============================================================
 BUGS:
