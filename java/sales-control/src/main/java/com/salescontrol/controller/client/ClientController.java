@@ -64,7 +64,6 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.OK).body(clientService.listClientsDTO());
     }
 
-
     @GetMapping(value = "/find-client-byName")
     public ResponseEntity<ClientGetDTO> findClientByName(@RequestParam String name) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET findClientByName()"));
