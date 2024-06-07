@@ -71,6 +71,12 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findByName(name));
     }
 
+    @GetMapping(value = "/find-client-byNickname")
+    public ResponseEntity<ClientGetDTO> findByNickname(@RequestParam String nickname) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET findByNickname()"));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.findByNickname(nickname));
+    }
+
     @GetMapping(value = "/find-client-byCpf/{cpf}")
     public ResponseEntity<ClientGetDTO> findClientByCpf(@PathVariable(value = "cpf") String cpf) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET findClientByCpf()"));

@@ -8,10 +8,44 @@ Cadastrar Pedido e associar a Cliente
 
 ===============================================================
 PARA IMPLEMENTAR:
-
+1 - Adicionar campo apelido na entidade Client pois pode facilitar a busca no banco de dados
+    foi notado que
 
 ===============================================================
 BUGS:
 
  Endpoint create-order lança exception quando tenta cadastrar pedido em um nome e encontra 2 registros no banco de dados
     com o mesmo nome.
+
+
+
+
+--CREATE TABLE tb_clients (
+--    idClient INT AUTO_INCREMENT PRIMARY KEY,
+--    name VARCHAR(255) NOT NULL,
+--    cpf VARCHAR(255) UNIQUE,
+--    totalOrders INT NOT NULL,
+--    totalQuantity DOUBLE,
+--    totalPurchased DECIMAL(10, 2),
+--    createdAt DATETIME
+--) ENGINE=InnoDB;
+--
+--CREATE TABLE tb_orders (
+--    idOrder INT AUTO_INCREMENT PRIMARY KEY,
+--    clientId INT,
+--    quantity DOUBLE,
+--    price DECIMAL(10, 2),
+--    createdAt DATETIME,
+--    FOREIGN KEY (clientId) REFERENCES tb_clients(idClient)
+--) ENGINE=InnoDB;
+--
+--CREATE TABLE tb_addresses (
+--    idAddress INT AUTO_INCREMENT PRIMARY KEY,
+--    clientId INT,
+--    cep VARCHAR(255),
+--    logradouro VARCHAR(255),
+--    complemento VARCHAR(255),
+--    bairro VARCHAR(255),
+--    localidade VARCHAR(255),
+--    FOREIGN KEY (clientId) REFERENCES tb_clients(idClient)
+--) ENGINE=InnoDB;

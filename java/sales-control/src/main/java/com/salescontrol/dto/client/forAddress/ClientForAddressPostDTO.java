@@ -12,6 +12,7 @@ import java.util.List;
 public class ClientForAddressPostDTO {
 
     private String name;
+    private String nickname;
     private String cpf;
 
     private Integer totalOrders = 0;

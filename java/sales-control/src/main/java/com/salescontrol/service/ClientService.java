@@ -10,7 +10,6 @@ import com.salescontrol.exception.ClientNotFoundException;
 import com.salescontrol.mapper.ClientMapper;
 import com.salescontrol.model.Client;
 import com.salescontrol.model.Order;
-import com.salescontrol.repository.AddressRepository;
 import com.salescontrol.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,6 @@ import java.util.List;
 public class ClientService {
 
     private final ClientRepository clientRepository;
-    private final AddressRepository addressRepository;
 
     public ClientPostDTO saveClient(ClientPostDTO clientPostDTO) {
         Client client = ClientMapper.INSTANCE.toClient(clientPostDTO);
@@ -55,13 +53,19 @@ public class ClientService {
 
     public ClientGetDTO findByName(String name) {
         Client client = clientRepository.findByName(name).orElseThrow(
-                () -> new ClientNotFoundException("Cliente não encontrado."));
+                () -> new ClientNotFoundException("Cliente com o nome '" + name + "' não encontrado."));
+        return ClientMapper.INSTANCE.toClientGet(client);
+    }
+
+    public ClientGetDTO findByNickname(String nickname) {
+        Client client = clientRepository.findByNickname(nickname).orElseThrow(
+                () -> new ClientNotFoundException("Cliente com o apelido '" + nickname + "' não encontrado"));
         return ClientMapper.INSTANCE.toClientGet(client);
     }
 
     public ClientGetDTO findByCpf(String cpf) {
         Client client = clientRepository.findByCpf(cpf).orElseThrow(
-                () -> new ClientNotFoundException("Cliente não encontrado."));
+                () -> new ClientNotFoundException("Cliente com o CPF '" + cpf + "' não encontrado."));
         return ClientMapper.INSTANCE.toClientGet(client);
     }
 

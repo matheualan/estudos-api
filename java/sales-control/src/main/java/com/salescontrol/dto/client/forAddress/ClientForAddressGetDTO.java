@@ -9,6 +9,7 @@ import java.util.List;
 public class ClientForAddressGetDTO {
 
     private String name;
+    private String nickname;
     private String cpf;
     private List<AddressPostDTO> addresses;
 

@@ -13,6 +13,7 @@ import java.util.List;
 public class ClientWithOrderGetDTO {
 
     private String name;
+    private String nickname;
     private String cpf;
     private List<OrderForClientGetDTO> orders;
 

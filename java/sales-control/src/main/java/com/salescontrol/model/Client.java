@@ -29,6 +29,8 @@ public class Client {
     @Column(nullable = false)
     private String name;
 
+    private String nickname;
+
     @Column(unique = true)
     private String cpf;
 
