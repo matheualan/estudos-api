@@ -13,4 +13,10 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
     Optional<Client> findByNickname(String nickname);
     Optional<Client> findByCpf(String cpf);
 
+//    @Query("SELECT name FROM tb_clients WHERE nome LIKE %:nome%")
+//    List<Client> findByNameContaining(String name);
+//
+//    @Query("SELECT c FROM Client c WHERE c.nome LIKE %:nome%")
+//    List<Client> findByNameContaining(@Param("nome") String nome);
+
 }
