@@ -12,6 +12,7 @@ OK 1 - Adicionar campo apelido na entidade Client pois pode facilitar a busca no
     foi notado que será preciso localizar cliente por apelido para faciltar pois o nome posso nao lembrar depois
 2 - Criar endpoint para criar pedido por apelido
 3 - Mudar o retorno do método findByNickname para retornar uma List<> com todos os objetos pesquisados por um nickname
+4 - Criar nova entidade para trazer um relatório com os indices da aplicação.
 
 ===============================================================
 BUGS:
