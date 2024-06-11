@@ -82,4 +82,11 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findByCpf(cpf));
     }
 
+    @DeleteMapping(value = "/delete-client-byId")
+    public ResponseEntity<Void> deleteClientById(@PathVariable Integer id) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" DELETE deleteClientById()"));
+        clientService.deleteClient(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }

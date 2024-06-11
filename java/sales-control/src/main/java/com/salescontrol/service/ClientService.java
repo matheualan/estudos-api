@@ -69,6 +69,12 @@ public class ClientService {
         return ClientMapper.INSTANCE.toClientGet(client);
     }
 
+    public void deleteClient(Integer id) {
+        Client client = clientRepository.findById(id).orElseThrow(
+                () -> new ClientNotFoundException("Cliente não encontrado."));
+        clientRepository.delete(client);
+    }
+
 //    LÓGICA DE CLIENT COM ORDER
     public ClientWithOrderPostDTO saveClientWithOrder(ClientWithOrderPostDTO clientWithOrderPostDTO) {
         Client client = ClientMapper.INSTANCE.toClient(clientWithOrderPostDTO);
