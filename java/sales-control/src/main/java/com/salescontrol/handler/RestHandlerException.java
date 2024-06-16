@@ -26,6 +26,7 @@ public class RestHandlerException {
                 .build());
     }
 
+//    Exception quando tenta cadastrar um CPF ja existente na base de dados
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public ResponseEntity<UniqueIndexCpfExceptionDetails> handlerUniqueIndexCpfException(
             SQLIntegrityConstraintViolationException e) {
