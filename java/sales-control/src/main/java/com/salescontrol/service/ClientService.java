@@ -75,6 +75,8 @@ public class ClientService {
         clientRepository.delete(client);
     }
 
+
+
 //    LÓGICA DE CLIENT COM ORDER
     public ClientWithOrderPostDTO saveClientWithOrder(ClientWithOrderPostDTO clientWithOrderPostDTO) {
         Client client = ClientMapper.INSTANCE.toClient(clientWithOrderPostDTO);
