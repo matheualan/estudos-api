@@ -75,7 +75,9 @@ public class ClientService {
         clientRepository.delete(client);
     }
 
+    public void updatedClient(String cpf, ClientPostDTO clientPostDTO) {
 
+    }
 
 //    LÓGICA DE CLIENT COM ORDER
     public ClientWithOrderPostDTO saveClientWithOrder(ClientWithOrderPostDTO clientWithOrderPostDTO) {
