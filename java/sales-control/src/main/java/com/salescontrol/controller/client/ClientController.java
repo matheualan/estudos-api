@@ -82,10 +82,17 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findByCpf(cpf));
     }
 
-    @DeleteMapping(value = "/delete-client-byId")
+    @DeleteMapping(value = "/delete-client-byId/{id}")
     public ResponseEntity<Void> deleteClientById(@PathVariable Integer id) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" DELETE deleteClientById()"));
         clientService.deleteClient(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping(value = "/uptated-client/{id}")
+    public ResponseEntity<Void> updateClient(@PathVariable Integer id, @RequestBody ClientPostDTO clientPostDTO) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" PUT updateClient()"));
+        clientService.updatedClient(id, clientPostDTO);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

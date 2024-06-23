@@ -12,6 +12,7 @@ import com.salescontrol.model.Client;
 import com.salescontrol.model.Order;
 import com.salescontrol.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -75,8 +76,12 @@ public class ClientService {
         clientRepository.delete(client);
     }
 
-    public void updatedClient(String cpf, ClientPostDTO clientPostDTO) {
+    public void updatedClient(Integer id, ClientPostDTO clientPostDTO) {
+        Client client = clientRepository.findById(id).orElseThrow(
+                () -> new ClientNotFoundException("Cliente não encontrado."));
 
+        BeanUtils.copyProperties(clientPostDTO, client);
+        clientRepository.save(client);
     }
 
 //    LÓGICA DE CLIENT COM ORDER
