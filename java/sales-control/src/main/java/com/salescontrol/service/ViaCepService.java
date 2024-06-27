@@ -19,7 +19,8 @@ public class ViaCepService {
         RestTemplate restTemplate = new RestTemplate();
         String urlViaCep = "https://viacep.com.br/ws/" + cep + "/json/";
         ResponseEntity<AddressPostDTO> response = restTemplate.getForEntity(urlViaCep, AddressPostDTO.class);
-        AddressPostDTO addressPostDTO = AddressMapper.INSTANCE.toAddressPost(response);
+        AddressPostDTO addressPostDTO = response.getBody();
+//        AddressPostDTO addressPostDTO = AddressMapper.INSTANCE.toAddressPost(response);
         Address address = AddressMapper.INSTANCE.toAddress(addressPostDTO);
         addressRepository.save(address);
         return addressPostDTO;
