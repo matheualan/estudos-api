@@ -30,3 +30,4 @@ public class Address {
     private String localidade;
 
 }
+

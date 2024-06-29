@@ -6,6 +6,9 @@ import lombok.Data;
 public class AddressDTO {
 
     private String cep;
-    private String rua;
+    private String logradouro;
+    private String complemento;
+    private String bairro;
+    private String localidade;
 
 }

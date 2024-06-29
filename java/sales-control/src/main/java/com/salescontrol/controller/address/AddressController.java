@@ -1,5 +1,6 @@
 package com.salescontrol.controller.address;
 
+import com.salescontrol.dto.address.AddressDTO;
 import com.salescontrol.dto.address.AddressPostDTO;
 import com.salescontrol.service.AddressService;
 import com.salescontrol.service.ViaCepService;
@@ -8,12 +9,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/address")
@@ -33,7 +32,14 @@ public class AddressController {
 
     @PostMapping(value = "/save-address-byCep")
     public ResponseEntity<AddressPostDTO> saveAddressByCep(String cep) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST saveAddressByCep()"));
         return ResponseEntity.status(HttpStatus.CREATED).body(viaCepService.buscarCep(cep));
+    }
+
+    @GetMapping(value = "/list-all-addresses")
+    public ResponseEntity<List<AddressDTO>> listAllAddresses() {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET listAllAddresses()"));
+        return ResponseEntity.status(HttpStatus.OK).body(addressService.listAllAddresses());
     }
 
 }

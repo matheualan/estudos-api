@@ -10,15 +10,15 @@ import java.time.LocalDateTime;
 @SuperBuilder
 public class ExceptionDetails {
 
-    private String error;
+    protected String error;
 
-    private int status;
+    protected int status;
 
-    private String message;
+    protected String message;
 
-    private String developMessage;
+    protected String developMessage;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime timestamp;
+    protected LocalDateTime timestamp;
 
 }

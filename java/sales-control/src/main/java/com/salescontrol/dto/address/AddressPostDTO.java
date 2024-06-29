@@ -12,8 +12,8 @@ public class AddressPostDTO {
     @Size(min = 8, max = 8, message = "O campo CEP deve conter 8 números")
     private String cep;
 
-    @JsonProperty("logradouro")
-    private String rua;
+//    @JsonProperty("rua")
+    private String logradouro;
 
 //    @JsonProperty("referencia")
     private String complemento;
