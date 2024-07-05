@@ -1,0 +1,2 @@
+--Query para buscar por nome em ordem ascendente selecionando os registros por quantidade_pedido maior que 5
+--SELECT * FROM sua_tabela WHERE quantidade_pedido > 5 ORDER BY nome ASC;

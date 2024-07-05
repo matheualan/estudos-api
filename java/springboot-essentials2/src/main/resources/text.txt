@@ -4,5 +4,5 @@ Supplier - Não recebe nenhum argumento/elemento/parâmetro mas devolve algo.
 Consumer - Recebe um argumento e devolve algo com ele, mas não retorna nada.
 Predicate - Recebe um argumento e faz um teste, compara algo com o elemento recebido e retorna um boolean.
 Function - Recebe um elemento de um tipo e retorna outro tipo.
-UnaryOperator - Receber um elemento de um tipo e retorna o mesmo tipo.
-BinaryOperator - Recebe dois elemento de um tipo e retorna o mesmo tipo.
+UnaryOperator - Recebe um elemento de um tipo e retorna o mesmo tipo.
+BinaryOperator - Recebe dois elementos de um tipo e retorna um do mesmo tipo.
