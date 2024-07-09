@@ -9,6 +9,8 @@ import br.com.springboot.essentials2.util.DateUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,10 +33,22 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClient(clientDTO));
     }
 
+    @PostMapping(value = "/saveAll")
+    public ResponseEntity<List<ClientPostRequestBody>> saveAll(@RequestBody @Valid List<ClientPostRequestBody> clients) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /POST saveAll()"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveAll(clients));
+    }
+
     @GetMapping(value = "/find-all")
     public ResponseEntity<List<Client>> listClient() {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: listClient()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.listAll());
+    }
+
+    @GetMapping(value = "/page")
+    public ResponseEntity<Page<ClientGetFindById>> pageClients(Pageable pageable) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /GET pageClients()"));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.pageClients(pageable));
     }
 
     @GetMapping(value = "/find-name") // Usar ? na URL para passar a var. Ex.: ?name=Matios / ?id=1&name=Alen

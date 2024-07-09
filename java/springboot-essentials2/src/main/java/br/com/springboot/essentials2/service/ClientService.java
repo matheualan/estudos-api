@@ -8,12 +8,17 @@ import br.com.springboot.essentials2.mapper.ClientMapper;
 import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +28,22 @@ public class ClientService {
 
     public List<Client> listAll() {
         return clientRepository.findAll();
+    }
+
+    public Page<ClientGetFindById> pageClients(Pageable pageable) {
+        Page<Client> pageClients = clientRepository.findAll(pageable);
+
+        List<ClientGetFindById> listClientGet = new ArrayList<>();
+
+        for (Client client : pageClients) {
+            Optional<ClientGetFindById> clientGetFindById = ClientMapper.INSTANCE.toClientGet(client);
+//            var clientGetFindById = new ClientGetFindById(client);
+            listClientGet.add(clientGetFindById.get());
+        }
+
+        Page<ClientGetFindById> pageClientGet = new PageImpl<ClientGetFindById>(listClientGet);
+
+        return pageClientGet;
     }
 
     public List<Client> findByName(String name) {
@@ -55,6 +76,16 @@ public class ClientService {
 //        }
         clientRepository.save(client);
         return clientPostRequestBody;
+    }
+
+    public List<ClientPostRequestBody> saveAll(List<ClientPostRequestBody> clients) {
+        List<Client> listClients = new ArrayList<>();
+        for (ClientPostRequestBody clientDTO : clients) {
+            Client client = ClientMapper.INSTANCE.toClient(clientDTO);
+            listClients.add(client);
+        }
+        clientRepository.saveAll(listClients);
+        return clients;
     }
 
     public void deleteClientById(Integer id) {
