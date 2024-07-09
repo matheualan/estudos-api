@@ -1,12 +1,15 @@
 package br.com.springboot.essentials2.dto;
 
-import br.com.springboot.essentials2.model.Client;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ClientGetFindById {
 
     private String name;
@@ -16,10 +19,10 @@ public class ClientGetFindById {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime createdAt;
 
-    public ClientGetFindById(Client client) {
-        name = client.getName();
-        phone = client.getPhone();
-        createdAt = client.getCreatedAt();
-    }
+//    public ClientGetFindById(Client client) {
+//        name = client.getName();
+//        phone = client.getPhone();
+//        createdAt = client.getCreatedAt();
+//    }
 
 }

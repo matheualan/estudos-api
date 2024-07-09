@@ -18,7 +18,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,9 +35,9 @@ public class ClientService {
         List<ClientGetFindById> listClientGet = new ArrayList<>();
 
         for (Client client : pageClients) {
-            Optional<ClientGetFindById> clientGetFindById = ClientMapper.INSTANCE.toClientGet(client);
+            ClientGetFindById clientGetFindById = ClientMapper.INSTANCE.toClientGet(client);
 //            var clientGetFindById = new ClientGetFindById(client);
-            listClientGet.add(clientGetFindById.get());
+            listClientGet.add(clientGetFindById);
         }
 
         Page<ClientGetFindById> pageClientGet = new PageImpl<ClientGetFindById>(listClientGet);
@@ -58,7 +57,8 @@ public class ClientService {
     public ClientGetFindById findClient(Integer id) {
         Client clientById = clientRepository.findById(id)
                 .orElseThrow(() -> new ClientNotFoundException("Cliente não encontrado"));
-        return new ClientGetFindById(clientById);
+//        return new ClientGetFindById(clientById);
+        return ClientMapper.INSTANCE.toClientGet(clientById);
     }
 
     @Transactional //(rollbackFor = Exception.class)

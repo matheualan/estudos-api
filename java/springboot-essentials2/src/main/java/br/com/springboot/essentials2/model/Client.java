@@ -26,8 +26,4 @@ public class Client {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private final LocalDateTime createdAt = LocalDateTime.now();
 
-//    public Client(ClientPostRequestBodyDTO clientDTO) {
-//        name = clientDTO.getName();
-//    }
-
 }
