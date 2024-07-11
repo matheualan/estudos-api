@@ -19,10 +19,4 @@ public class ClientGetFindById {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime createdAt;
 
-//    public ClientGetFindById(Client client) {
-//        name = client.getName();
-//        phone = client.getPhone();
-//        createdAt = client.getCreatedAt();
-//    }
-
 }

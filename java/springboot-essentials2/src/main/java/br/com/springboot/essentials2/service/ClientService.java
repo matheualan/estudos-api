@@ -36,7 +36,6 @@ public class ClientService {
 
         for (Client client : pageClients) {
             ClientGetFindById clientGetFindById = ClientMapper.INSTANCE.toClientGet(client);
-//            var clientGetFindById = new ClientGetFindById(client);
             listClientGet.add(clientGetFindById);
         }
 
@@ -57,20 +56,18 @@ public class ClientService {
     public ClientGetFindById findClient(Integer id) {
         Client clientById = clientRepository.findById(id)
                 .orElseThrow(() -> new ClientNotFoundException("Cliente não encontrado"));
-//        return new ClientGetFindById(clientById);
         return ClientMapper.INSTANCE.toClientGet(clientById);
     }
 
     @Transactional //(rollbackFor = Exception.class)
     public ClientPostRequestBody saveClient(ClientPostRequestBody clientPostRequestBody) {
-//        var client = new Client(clientPostRequestBodyDTO);
 
 //        Client client = Client.builder()
 //                .name(clientPostRequestBodyDTO.getName())
 //                .phone(clientPostRequestBodyDTO.getPhone())
 //                .build();
 
-        Client client = ClientMapper.INSTANCE.toClient(clientPostRequestBody); //map struct
+        Client client = ClientMapper.INSTANCE.toClient(clientPostRequestBody);
 //        if (client.getName() == null || client.getName().isEmpty()) {
 //            throw new RuntimeException("O campo nome deve conter no mínimo 3 caracteres.");
 //        }
