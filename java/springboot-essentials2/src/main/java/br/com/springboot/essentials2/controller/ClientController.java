@@ -48,7 +48,8 @@ public class ClientController {
     }
 
     @GetMapping(value = "/page") //sort = "name", direction = Sort.Direction.ASC
-    public ResponseEntity<Page<ClientGetFindById>> pageClients(@PageableDefault(page = 0, size = 5) Pageable pageable) {
+    public ResponseEntity<Page<ClientGetFindById>> pageClients(@PageableDefault(page = 0, size = 5,
+                                                                direction = Sort.Direction.ASC) Pageable pageable) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /GET pageClients()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.pageClients(pageable));
     }
