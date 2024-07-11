@@ -31,7 +31,7 @@ public class ClientController {
 
     @PostMapping(value = "/save")
     public ResponseEntity<ClientPostRequestBody> saveClient(@RequestBody @Valid ClientPostRequestBody clientDTO) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: POST, Method: saveClient()"));
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /POST saveClient()"));
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClient(clientDTO));
     }
 
@@ -43,7 +43,7 @@ public class ClientController {
 
     @GetMapping(value = "/find-all")
     public ResponseEntity<List<Client>> listClient() {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /GET, Method: listClient()"));
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /GET listClient()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.listAll());
     }
 
@@ -56,32 +56,32 @@ public class ClientController {
 
     @GetMapping(value = "/find-name") // Usar ? na URL para passar a var. Ex.: ?name=Matios / ?id=1&name=Alen
     public ResponseEntity<List<Client>> findClientByName(@RequestParam String name) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: findClientByName()"));
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /GET findClientByName()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findByName(name));
     }
 
     @GetMapping(value = "/find-id/{id}")
     public ResponseEntity<ClientGetFindById> findClientById(@PathVariable Integer id) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: findClientById()"));
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /GET findClientById()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findClient(id));
     }
 
     @GetMapping(value = "/find-entity/{id}")
     public ResponseEntity<Client> findClientEntityById(@PathVariable Integer id) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: GET, Method: findClientById()"));
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /GET findClientById()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findClientById(id));
     }
 
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Void> deleteClient(@PathVariable Integer id) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: DELETE, Method: deleteClient()"));
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /DELETE deleteClient()"));
         clientService.deleteClientById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping(value = "/replace")
     public ResponseEntity<Void> replaceClient(@RequestBody ClientPutRequestBody clientDTO) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" Request: PUT, Method: replaceClient()"));
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /PUT replaceClient()"));
         clientService.replaceClient(clientDTO);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
