@@ -6,3 +6,5 @@ Predicate - Recebe um argumento e faz um teste, compara algo com o elemento rece
 Function - Recebe um elemento de um tipo e retorna outro tipo.
 UnaryOperator - Recebe um elemento de um tipo e retorna o mesmo tipo.
 BinaryOperator - Recebe dois elementos de um tipo e retorna um do mesmo tipo.
+
+========================================================================================================================
