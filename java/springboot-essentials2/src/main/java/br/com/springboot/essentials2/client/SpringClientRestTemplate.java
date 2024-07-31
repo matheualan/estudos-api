@@ -1,6 +1,7 @@
 package br.com.springboot.essentials2.client;
 
 import br.com.springboot.essentials2.dto.ClientGetFindById;
+import br.com.springboot.essentials2.model.Client;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -27,15 +28,18 @@ public class SpringClientRestTemplate {
                 .getForObject("http://localhost:8082/client/find-id/{id}", ClientGetFindById.class, 2);
         log.info(forObject2);
 
-        ClientGetFindById[] clients = new RestTemplate().getForObject("http://localhost:8082/client/find-all",
+        ClientGetFindById[] clients = new RestTemplate().getForObject("http://localhost:8082/client/list-all",
                 ClientGetFindById[].class);
         log.info(Arrays.toString(clients));
 
-        ResponseEntity<List<ClientGetFindById>> exchange = new RestTemplate().exchange("http://localhost:8082/client/find-all",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {});
+//        @formatter:off
+        ResponseEntity<List<ClientGetFindById>> exchange = new RestTemplate()
+                .exchange("http://localhost:8082/client/list-all",
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<>(){});
         log.info(exchange.getBody());
+//        @formatter:on
 
     }
 
