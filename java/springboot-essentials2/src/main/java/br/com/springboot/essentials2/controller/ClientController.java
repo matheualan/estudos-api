@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/client")
+@RequestMapping(path = "/client")
 @RequiredArgsConstructor
 @Log4j2
 public class ClientController {
@@ -29,57 +29,57 @@ public class ClientController {
     private final ClientService clientService;
     private final DateUtil dateUtil;
 
-    @PostMapping(value = "/save")
+    @PostMapping(path = "/save")
     public ResponseEntity<ClientPostRequestBody> saveClient(@RequestBody @Valid ClientPostRequestBody clientDTO) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /POST saveClient()"));
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveClient(clientDTO));
     }
 
-    @PostMapping(value = "/saveAll")
+    @PostMapping(path = "/saveAll")
     public ResponseEntity<List<ClientPostRequestBody>> saveAll(@RequestBody @Valid List<ClientPostRequestBody> clients) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /POST saveAll()"));
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.saveAll(clients));
     }
 
-    @GetMapping(value = "/find-all")
+    @GetMapping(path = "/list-all")
     public ResponseEntity<List<Client>> listClient() {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /GET listClient()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.listAll());
     }
 
-    @GetMapping(value = "/page") //sort = "name", direction = Sort.Direction.ASC
+    @GetMapping(path = "/page") //sort = "name", direction = Sort.Direction.ASC
     public ResponseEntity<Page<ClientGetFindById>> pageClients(@PageableDefault(page = 0, size = 5,
                                                                 direction = Sort.Direction.ASC) Pageable pageable) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /GET pageClients()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.pageClients(pageable));
     }
 
-    @GetMapping(value = "/find-name") // Usar ? na URL para passar a var. Ex.: ?name=Matios / ?id=1&name=Alen
+    @GetMapping(path = "/list-by-name") // Usar ? na URL para passar a var. Ex.: ?name=Matios / ?id=1&name=Alen
     public ResponseEntity<List<Client>> findClientByName(@RequestParam String name) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /GET findClientByName()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findByName(name));
     }
 
-    @GetMapping(value = "/find-id/{id}")
+    @GetMapping(path = "/find-id/{id}")
     public ResponseEntity<ClientGetFindById> findClientById(@PathVariable Integer id) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /GET findClientById()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findClient(id));
     }
 
-    @GetMapping(value = "/find-entity/{id}")
+    @GetMapping(path = "/find-entity/{id}")
     public ResponseEntity<Client> findClientEntityById(@PathVariable Integer id) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /GET findClientById()"));
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findClientById(id));
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<Void> deleteClient(@PathVariable Integer id) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /DELETE deleteClient()"));
         clientService.deleteClientById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping(value = "/replace")
+    @PutMapping(path = "/replace")
     public ResponseEntity<Void> replaceClient(@RequestBody ClientPutRequestBody clientDTO) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" /PUT replaceClient()"));
         clientService.replaceClient(clientDTO);
