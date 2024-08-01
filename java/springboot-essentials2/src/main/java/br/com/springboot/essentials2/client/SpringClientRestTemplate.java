@@ -1,11 +1,11 @@
 package br.com.springboot.essentials2.client;
 
 import br.com.springboot.essentials2.dto.ClientGetFindById;
+import br.com.springboot.essentials2.dto.ClientPostRequestBody;
 import br.com.springboot.essentials2.model.Client;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -37,10 +37,37 @@ public class SpringClientRestTemplate {
                 .exchange("http://localhost:8082/client/list-all",
                         HttpMethod.GET,
                         null,
-                        new ParameterizedTypeReference<>(){});
+                        new ParameterizedTypeReference<List<ClientGetFindById>>(){});
         log.info(exchange.getBody());
 //        @formatter:on
 
+        Client clientTest = Client.builder()
+                .name("Cliente Teste")
+                .phone("81999991111")
+                .build();
+
+        ClientPostRequestBody clientPostRequestBody = new RestTemplate()
+                .postForObject("http://localhost:8082/client/save", clientTest, ClientPostRequestBody.class);
+//        assert clientPostRequestBody != null;
+        log.info("Saved anime: {}", clientPostRequestBody);
+
+        Client clienteTeste = Client.builder()
+                .name("Clientildo Chapolitano")
+                .phone("81999992222")
+                .build();
+
+        ResponseEntity<ClientPostRequestBody> postExchange = new RestTemplate().exchange("http://localhost:8082/client/save",
+                HttpMethod.POST,
+                new HttpEntity<>(clienteTeste, headersPersonalized()),
+                ClientPostRequestBody.class);
+        log.info("Saved client: {}", postExchange);
+
+    }
+
+    private static HttpHeaders headersPersonalized() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        return httpHeaders;
     }
 
 }
