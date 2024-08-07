@@ -5,7 +5,6 @@ import br.com.springboot.essentials2.dto.ClientPostRequestBody;
 import br.com.springboot.essentials2.dto.ClientPutRequestBody;
 import br.com.springboot.essentials2.model.Client;
 import lombok.extern.log4j.Log4j2;
-import org.hibernate.sql.Delete;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
