@@ -2,6 +2,7 @@ package br.com.springboot.essentials2.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idClient;
 
+    @NotBlank(message = "O campo name não pode ser nulo nem vazio.")
     private String name;
 
     private String phone;

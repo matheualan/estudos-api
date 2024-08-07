@@ -1,6 +1,7 @@
 package br.com.springboot.essentials2.repository;
 
 import br.com.springboot.essentials2.model.Client;
+import jakarta.validation.ConstraintViolationException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ import java.util.Optional;
 class ClientRepositoryTest {
 
     @Autowired
-    private ClientRepository clientRepository;
+    ClientRepository clientRepository;
 
     @Test
     @DisplayName("Saved client when successful")
@@ -63,16 +64,28 @@ class ClientRepositoryTest {
 
         List<Client> clientsByName = clientRepository.findByName(savedClient.getName());
 
-        Assertions.assertThat(clientsByName).isNotEmpty();
-        Assertions.assertThat(clientsByName).contains(savedClient);
+        Assertions.assertThat(clientsByName).isNotEmpty().contains(savedClient);
     }
 
     @Test
     @DisplayName("Return empty list when client is not found")
     void findByName_ReturnsEmptyList_WhenClientIsNotFound() {
-        List<Client> puglin = clientRepository.findByName("Puglin");
+        List<Client> plugin = clientRepository.findByName("Plugin");
 
-        Assertions.assertThat(puglin.isEmpty()).isTrue();
+        Assertions.assertThat(plugin.isEmpty()).isTrue();
+    }
+
+    @Test
+    @DisplayName("Save throw ConstraintViolationException when name is empty")
+    void save_ThrowException_WhenNameIsEmpty() {
+        var client = new Client();
+
+//        Assertions.assertThatThrownBy(() -> clientRepository.save(client))
+//                .isInstanceOf(ConstraintViolationException.class);
+
+        Assertions.assertThatExceptionOfType(ConstraintViolationException.class)
+                .isThrownBy(() -> clientRepository.save(client))
+                .withMessageContaining("O campo name não pode ser nulo nem vazio.");
     }
 
     private Client createClient() {
