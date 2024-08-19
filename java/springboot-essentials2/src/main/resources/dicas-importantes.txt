@@ -1,4 +1,4 @@
-Functional Interface @Java8
+Functional Interface @Java8 Expressões Lambda
 
 Supplier - Não recebe nenhum argumento/elemento/parâmetro mas devolve algo.
 Consumer - Recebe um argumento e devolve algo com ele, mas não retorna nada.
