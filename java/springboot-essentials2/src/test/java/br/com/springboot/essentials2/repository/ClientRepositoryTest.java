@@ -1,6 +1,7 @@
 package br.com.springboot.essentials2.repository;
 
 import br.com.springboot.essentials2.model.Client;
+import br.com.springboot.essentials2.util.ClientCreator;
 import jakarta.validation.ConstraintViolationException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -21,8 +22,8 @@ class ClientRepositoryTest {
     @Test
     @DisplayName("Saved client when successful")
     void save_PersistClient_WhenSuccessful() {
-//        Client client = createClient();
-        Client clientSaved = clientRepository.save(createClient());
+//        Client client = ClientCreator.createClientToBeSaved();
+        Client clientSaved = clientRepository.save(ClientCreator.createClientToBeSaved());
 
         Assertions.assertThat(clientSaved).isNotNull();
         Assertions.assertThat(clientSaved.getIdClient()).isNotNull();
@@ -33,7 +34,7 @@ class ClientRepositoryTest {
     @Test
     @DisplayName("Updated client when successful")
     void updateClient_WhenSuccessful() {
-        Client client = createClient();
+        Client client = ClientCreator.createClientToBeSaved();
         Client savedClient = clientRepository.save(client);
 
         savedClient.setName("FormaLaTormentaComTusManos");
@@ -47,7 +48,7 @@ class ClientRepositoryTest {
     @Test
     @DisplayName("Delete by id client when successful")
     void deleteClient_WhenSuccessful() {
-        Client client = createClient();
+        Client client = ClientCreator.createClientToBeSaved();
         Client savedClient = clientRepository.save(client);
 
         clientRepository.delete(savedClient);
@@ -59,7 +60,7 @@ class ClientRepositoryTest {
     @Test
     @DisplayName("Find client by name when successful")
     void findClientByName_WhenSuccessful() {
-        Client client = createClient();
+        Client client = ClientCreator.createClientToBeSaved();
         Client savedClient = clientRepository.save(client);
 
         List<Client> clientsByName = clientRepository.findByName(savedClient.getName());
@@ -86,13 +87,6 @@ class ClientRepositoryTest {
         Assertions.assertThatExceptionOfType(ConstraintViolationException.class)
                 .isThrownBy(() -> clientRepository.save(client))
                 .withMessageContaining("O campo name não pode ser nulo nem vazio.");
-    }
-
-    private Client createClient() {
-        return Client.builder()
-                .name("Clientinho")
-                .phone("11988332211")
-                .build();
     }
 
 }
