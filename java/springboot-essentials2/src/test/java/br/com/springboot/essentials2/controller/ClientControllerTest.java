@@ -17,8 +17,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 //@SpringBootTest //Essa anotação faz com q a aplicação seja startada e não somente a classe/método de teste
@@ -33,21 +31,22 @@ class ClientControllerTest {
 
     @BeforeEach
     void setUp() {
-        Page<ClientGetFindById> clientPage = new PageImpl<>(List.of(ClientCreator.createClientGet()));
+        BDDMockito.when(clientServiceMock.pageClients(ArgumentMatchers.any()))
+                .thenReturn(new PageImpl<>(List.of(ClientCreator.createClientGet())));
 
-        BDDMockito.when(clientServiceMock.pageClients(ArgumentMatchers.any())).thenReturn(clientPage);
-    }
+        BDDMockito.when(clientServiceMock.listAll())
+                .thenReturn(List.of(ClientCreator.createClientToBeSaved()));
 
-    @BeforeEach
-    void setUp2() {
-        List<Client> clientList = List.of(ClientCreator.createClientToBeSaved());
+        BDDMockito.when(clientServiceMock.findClient(ArgumentMatchers.anyInt()))
+                .thenReturn(ClientCreator.createClientGet());
 
-        BDDMockito.when(clientServiceMock.listAll()).thenReturn(clientList);
+        BDDMockito.when(clientServiceMock.findByName(ArgumentMatchers.anyString()))
+                .thenReturn(List.of(ClientCreator.createValidClient()));
     }
 
     @Test
-    @DisplayName("Returns list of clients inside page object when successful")
-    void list_ReturnsListOfClientsInsidePageObject_WhenSuccessful() {
+    @DisplayName("pageClients returns list of clients inside page object when successful")
+    void pageClients_ReturnsListOfClientsInsidePageObject_WhenSuccessful() {
         String expectedClient = ClientCreator.createClientGet().getName();
         Page<ClientGetFindById> clientPage = clientControllerMock.pageClients(null).getBody();
 
@@ -57,14 +56,35 @@ class ClientControllerTest {
     }
 
     @Test
-    @DisplayName("Essa e a descricao do que esse metodo de test deve fazer")
-    void nomeDoMetodo_DeveDizerOqueEleFaz() {
+    @DisplayName("listClient returns list of clients when suceessful")
+    void listClient_ReturnsListOfClients_WhenSuccessful() {
         String clientName = ClientCreator.createClientToBeSaved().getName();
         List<Client> clientList = clientControllerMock.listClient().getBody();
 
-        Assertions.assertThat(clientList).isNotNull().hasSize(1);
-        Assertions.assertThat(clientList).isNotEmpty().hasSize(1);
+        Assertions.assertThat(clientList).isNotNull().isNotEmpty().hasSize(1);
         Assertions.assertThat(clientList.get(0).getName()).isEqualTo(clientName);
+    }
+
+    @Test
+    @DisplayName("findClientById returns client by id when successful")
+    void findClientById_ReturnClientById_WhenSuccessful() {
+        ClientGetFindById clientGet = ClientCreator.createClientGet();
+        ClientGetFindById clientGetFindById = clientControllerMock.findClientById(1).getBody();
+
+        Assertions.assertThat(clientGetFindById).isNotNull();
+        Assertions.assertThat(clientGetFindById.getId()).isEqualTo(clientGet.getId()).isNotNull();
+        Assertions.assertThat(clientGetFindById.getName()).isEqualTo(clientGet.getName()).isNotEmpty();
+    }
+
+    @Test
+    @DisplayName("findClientByName returns client by name when successful")
+    void findClientByName_ReturnClientByName_WhenSuccessful() {
+        Client client = ClientCreator.createValidClient();
+        List<Client> clientList = clientControllerMock.findClientByName("Name qualquer").getBody();
+
+        Assertions.assertThat(clientList).isNotNull();
+        Assertions.assertThat(clientList.get(0).getName()).isEqualTo(client.getName()).isNotNull();
+        Assertions.assertThat(clientList.get(0).getIdClient()).isEqualTo(client.getIdClient());
     }
 
 }

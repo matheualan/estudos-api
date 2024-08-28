@@ -9,7 +9,7 @@ public class ClientCreator {
 
     public static Client createClientToBeSaved() {
         return Client.builder()
-                .name("Clientinho")
+                .name("Create Client To Be Saved")
                 .phone("11988332211")
                 .build();
     }
@@ -17,7 +17,7 @@ public class ClientCreator {
     public static Client createValidClient() {
         return Client.builder()
                 .idClient(1)
-                .name("Clientinho")
+                .name("Create Valid Client")
                 .phone("11988332211")
                 .build();
     }
@@ -25,14 +25,15 @@ public class ClientCreator {
     public static Client createUpdatedClient() {
         return Client.builder()
                 .idClient(1)
-                .name("Clientao")
+                .name("Create Updated Client")
                 .phone("11988332211")
                 .build();
     }
 
     public static ClientGetFindById createClientGet() {
         return ClientGetFindById.builder()
-                .name("Name Loko")
+                .id(1)
+                .name("Create Client GET")
                 .phone("22912345678")
                 .createdAt(LocalDateTime.now())
                 .build();
