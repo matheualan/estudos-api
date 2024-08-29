@@ -1,6 +1,8 @@
 package br.com.springboot.essentials2.controller;
 
 import br.com.springboot.essentials2.dto.ClientGetFindById;
+import br.com.springboot.essentials2.dto.ClientPostRequestBody;
+import br.com.springboot.essentials2.dto.ClientPutRequestBody;
 import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.service.ClientService;
 import br.com.springboot.essentials2.util.ClientCreator;
@@ -15,8 +17,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Collections;
 import java.util.List;
 
 //@SpringBootTest //Essa anotação faz com q a aplicação seja startada e não somente a classe/método de teste
@@ -42,6 +47,13 @@ class ClientControllerTest {
 
         BDDMockito.when(clientServiceMock.findByName(ArgumentMatchers.anyString()))
                 .thenReturn(List.of(ClientCreator.createValidClient()));
+
+        BDDMockito.when(clientServiceMock.saveClient(ArgumentMatchers.any(ClientPostRequestBody.class)))
+                .thenReturn(ClientCreator.createClientPost());
+
+        BDDMockito.doNothing().when(clientServiceMock).replaceClient(ArgumentMatchers.any(ClientPutRequestBody.class));
+
+        BDDMockito.doNothing().when(clientServiceMock).deleteClientById(ArgumentMatchers.anyInt());
     }
 
     @Test
@@ -77,14 +89,46 @@ class ClientControllerTest {
     }
 
     @Test
-    @DisplayName("findClientByName returns client by name when successful")
-    void findClientByName_ReturnClientByName_WhenSuccessful() {
+    @DisplayName("findClientByName returns a list  of client by name when successful")
+    void findClientByName_ReturnListOfClientByName_WhenSuccessful() {
         Client client = ClientCreator.createValidClient();
         List<Client> clientList = clientControllerMock.findClientByName("Name qualquer").getBody();
 
         Assertions.assertThat(clientList).isNotNull();
         Assertions.assertThat(clientList.get(0).getName()).isEqualTo(client.getName()).isNotNull();
         Assertions.assertThat(clientList.get(0).getIdClient()).isEqualTo(client.getIdClient());
+    }
+
+    @Test
+    @DisplayName("findClientByName returns a empty list when client by name is not found")
+    void findClientByName_ReturnsEmptyList_WhenClientByNameIsNotFound() {
+//        BDDMockito.when(clientServiceMock.findByName(ArgumentMatchers.anyString()))
+//                .thenReturn(List.of());
+        BDDMockito.when(clientServiceMock.findByName(ArgumentMatchers.anyString()))
+                .thenReturn(Collections.emptyList());
+
+        List<Client> clientList = clientControllerMock.findClientByName("Name qualquer").getBody();
+
+        Assertions.assertThat(clientList).isNotNull().isEmpty();
+    }
+
+    @Test
+    @DisplayName("saveClient returns client when successful")
+    void saveClient_ReturnsClient_WhenSuccessful() {
+        ClientPostRequestBody clientPost = ClientCreator.createClientPost();
+        ClientPostRequestBody client = clientControllerMock.saveClient(ClientCreator.createClientPost()).getBody();
+
+        Assertions.assertThat(client).isNotNull();
+        Assertions.assertThat(client.getName()).isEqualTo(clientPost.getName()).isNotEmpty();
+        Assertions.assertThat(client.getPhone()).isEqualTo(clientPost.getPhone()).isNotEmpty();
+    }
+
+    @Test
+    @DisplayName("replaceClient updates client when successful")
+    void replaceClient_UpdatesClient_WhenSuccessful() {
+        ResponseEntity<Void> body = clientControllerMock.replaceClient(ClientCreator.createClientPut());
+
+        Assertions.assertThat(body.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
     }
 
 }
