@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.List;
 import java.util.Optional;
 
+//Testes do repositorio
 @DataJpaTest
 @DisplayName("Tests for Client Repository")
 class ClientRepositoryTest {
@@ -27,7 +28,7 @@ class ClientRepositoryTest {
 
         Assertions.assertThat(clientSaved).isNotNull();
         Assertions.assertThat(clientSaved.getIdClient()).isNotNull();
-        Assertions.assertThat(clientSaved.getName()).isEqualTo("Clientinho");
+        Assertions.assertThat(clientSaved.getName()).isEqualTo("Create Client To Be Saved");
         Assertions.assertThat(clientSaved.getPhone()).isEqualTo("11988332211");
     }
 

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 public class ClientGetFindById {
 
-    private Integer id;
+    private Integer idClient;
 
     private String name;
 

@@ -26,7 +26,7 @@ public class ClientCreator {
 
     public static ClientGetFindById createClientGet() {
         return ClientGetFindById.builder()
-                .id(1)
+                .idClient(1)
                 .name("Create Client GET")
                 .phone("22912345678")
                 .createdAt(LocalDateTime.now())
