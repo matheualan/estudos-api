@@ -44,10 +44,11 @@ class ClientControllerIT {
                 new ParameterizedTypeReference<PageableResponse<ClientGetFindById>>(){}).getBody();
 //        @formatter:on
 
-//        Assertions.assertThat(clientPage).isEmpty();
         Assertions.assertThat(clientPage).isNotNull();
         Assertions.assertThat(clientPage.toList()).isNotEmpty().hasSize(1);
         Assertions.assertThat(clientPage.toList().get(0).getName()).isEqualTo(expectedName);
     }
+
+
 
 }
