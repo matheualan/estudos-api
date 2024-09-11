@@ -130,15 +130,16 @@ class ClientControllerIT {
     @Test
     @DisplayName("saveClient returns client when successful")
     void saveClient_ReturnsClient_WhenSuccessful() {
-        ClientPostRequestBody clientPost = ClientCreator.createClientPost();
-        ClientPostRequestBody client = clientControllerMock.saveClient(ClientCreator.createClientPost()).getBody();
-
         Client validClient = ClientCreator.createValidClient();
-        clientRepository.save()
+        Client savedClient = clientRepository.save(ClientCreator.createValidClient());
 
-        Assertions.assertThat(client).isNotNull();
-        Assertions.assertThat(client.getName()).isEqualTo(clientPost.getName()).isNotEmpty();
-        Assertions.assertThat(client.getPhone()).isEqualTo(clientPost.getPhone()).isNotEmpty();
+        Client responseClientRestTemplate = testRestTemplate.postForObject("/client/save",
+                validClient,
+                Client.class);
+
+        Assertions.assertThat(responseClientRestTemplate).isNotNull();
+        Assertions.assertThat(responseClientRestTemplate.getName()).isEqualTo(validClient.getName()).isNotEmpty();
+        Assertions.assertThat(responseClientRestTemplate.getPhone()).isEqualTo(validClient.getPhone()).isNotEmpty();
     }
 
 //    @Test
