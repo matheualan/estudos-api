@@ -1,6 +1,7 @@
 package br.com.springboot.essentials2.integration;
 
 import br.com.springboot.essentials2.dto.ClientGetFindById;
+import br.com.springboot.essentials2.dto.ClientPostRequestBody;
 import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.repository.ClientRepository;
 import br.com.springboot.essentials2.util.ClientCreator;
@@ -14,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 
 import java.util.List;
@@ -103,30 +103,44 @@ class ClientControllerIT {
         Assertions.assertThat(listClientsByName.get(0).getIdClient()).isEqualTo(client.getIdClient());
     }
 
-//    @Test
-//    @DisplayName("findClientByName returns a empty list when client by name is not found")
-//    void findClientByName_ReturnsEmptyList_WhenClientByNameIsNotFound() {
-////        BDDMockito.when(clientServiceMock.findByName(ArgumentMatchers.anyString()))
-////                .thenReturn(List.of());
-//        BDDMockito.when(clientServiceMock.findByName(ArgumentMatchers.anyString()))
+    @Test
+    @DisplayName("findClientByName returns a empty list when client by name is not found")
+    void findClientByName_ReturnsEmptyList_WhenClientByNameIsNotFound() {
+//        BDDMockito.when(clientRepository.findByName(ArgumentMatchers.anyString()))
+//                .thenReturn(List.of());
+
+//        BDDMockito.when(clientRepository.findByName(ArgumentMatchers.anyString()))
 //                .thenReturn(Collections.emptyList());
-//
-//        List<Client> clientList = clientControllerMock.findClientByName("Name qualquer").getBody();
-//
-//        Assertions.assertThat(clientList).isNotNull().isEmpty();
-//    }
-//
-//    @Test
-//    @DisplayName("saveClient returns client when successful")
-//    void saveClient_ReturnsClient_WhenSuccessful() {
-//        ClientPostRequestBody clientPost = ClientCreator.createClientPost();
-//        ClientPostRequestBody client = clientControllerMock.saveClient(ClientCreator.createClientPost()).getBody();
-//
-//        Assertions.assertThat(client).isNotNull();
-//        Assertions.assertThat(client.getName()).isEqualTo(clientPost.getName()).isNotEmpty();
-//        Assertions.assertThat(client.getPhone()).isEqualTo(clientPost.getPhone()).isNotEmpty();
-//    }
-//
+
+        Client validClient = ClientCreator.createValidClient();
+        String expectedName = validClient.getName();
+        String url = String.format("/client/list-by-name?name=%s", expectedName);
+
+        List<Client> responseClient = testRestTemplate.exchange(url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Client>>() {
+                }).getBody();
+
+        List<Client> clientList = clientRepository.findByName("Name qualquer");
+
+        Assertions.assertThat(clientList).isNotNull().isEmpty();
+    }
+
+    @Test
+    @DisplayName("saveClient returns client when successful")
+    void saveClient_ReturnsClient_WhenSuccessful() {
+        ClientPostRequestBody clientPost = ClientCreator.createClientPost();
+        ClientPostRequestBody client = clientControllerMock.saveClient(ClientCreator.createClientPost()).getBody();
+
+        Client validClient = ClientCreator.createValidClient();
+        clientRepository.save()
+
+        Assertions.assertThat(client).isNotNull();
+        Assertions.assertThat(client.getName()).isEqualTo(clientPost.getName()).isNotEmpty();
+        Assertions.assertThat(client.getPhone()).isEqualTo(clientPost.getPhone()).isNotEmpty();
+    }
+
 //    @Test
 //    @DisplayName("replaceClient updates client when successful")
 //    void replaceClient_UpdatesClient_WhenSuccessful() {
