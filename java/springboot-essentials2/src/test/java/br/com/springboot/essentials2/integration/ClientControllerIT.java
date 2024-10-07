@@ -1,7 +1,6 @@
 package br.com.springboot.essentials2.integration;
 
 import br.com.springboot.essentials2.dto.ClientGetFindById;
-import br.com.springboot.essentials2.dto.ClientPostRequestBody;
 import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.repository.ClientRepository;
 import br.com.springboot.essentials2.util.ClientCreator;
@@ -81,7 +80,7 @@ class ClientControllerIT {
                 ClientGetFindById.class,
                 expectedId);
 
-        Assertions.assertThat(clientGet.getIdClient()).isNotNull().isEqualTo(savedClient.getIdClient());
+        Assertions.assertThat(clientGet.getIdClient()).isNotNull().isEqualTo(expectedId);
     }
 
     @Test
@@ -153,7 +152,7 @@ class ClientControllerIT {
 //        Assertions.assertThat(responseHttpUpdateClient).isNotNull();
 //        Assertions.assertThat(responseHttpUpdateClient.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
 //    }
-//
+
 //    @Test
 //    @DisplayName("deleteClient delete client when successful")
 //    void deleteClient_RemovesClient_WhenSuccessful() {

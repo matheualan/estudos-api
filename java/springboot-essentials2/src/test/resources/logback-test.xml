@@ -1,3 +1,5 @@
+<!--Esse código é para alterar o log da app, onde estava aparecendo debug foi definido para info-->
+<!--Codigo pego do baeldung-->
 <configuration>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -9,3 +11,4 @@
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
+
