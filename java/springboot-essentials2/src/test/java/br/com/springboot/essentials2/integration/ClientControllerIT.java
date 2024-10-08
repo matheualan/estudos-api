@@ -8,6 +8,8 @@ import br.com.springboot.essentials2.wrapper.PageableResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +18,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 
+import java.util.Collections;
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -110,20 +113,18 @@ class ClientControllerIT {
 
 //        BDDMockito.when(clientRepository.findByName(ArgumentMatchers.anyString()))
 //                .thenReturn(Collections.emptyList());
+//
+//        List<Client> listQualquer = clientRepository.findByName("Name qualquer");
+//
+//        Assertions.assertThat(listQualquer).isNotNull().isEmpty();
 
-        Client validClient = ClientCreator.createValidClient();
-        String expectedName = validClient.getName();
-        String url = String.format("/client/list-by-name?name=%s", expectedName);
-
-        List<Client> responseClient = testRestTemplate.exchange(url,
+        List<Client> responseClient = testRestTemplate.exchange("/client/list-by-name?name=metabots",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Client>>() {
                 }).getBody();
 
-        List<Client> clientList = clientRepository.findByName("Name qualquer");
-
-        Assertions.assertThat(clientList).isNotNull().isEmpty();
+        Assertions.assertThat(responseClient).isNotNull().isEmpty();
     }
 
     @Test
