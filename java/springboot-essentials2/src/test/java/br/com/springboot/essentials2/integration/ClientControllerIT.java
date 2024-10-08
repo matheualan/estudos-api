@@ -124,7 +124,7 @@ class ClientControllerIT {
                 new ParameterizedTypeReference<List<Client>>() {
                 }).getBody();
 
-        Assertions.assertThat(responseClient).isNotNull().isEmpty();
+        Assertions.assertThat(responseClient).isNotNull().isEmpty();''
     }
 
     @Test
