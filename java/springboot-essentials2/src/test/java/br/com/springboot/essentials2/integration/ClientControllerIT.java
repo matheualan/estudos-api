@@ -1,6 +1,7 @@
 package br.com.springboot.essentials2.integration;
 
 import br.com.springboot.essentials2.dto.ClientGetFindById;
+import br.com.springboot.essentials2.dto.ClientPutRequestBody;
 import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.repository.ClientRepository;
 import br.com.springboot.essentials2.util.ClientCreator;
@@ -8,8 +9,6 @@ import br.com.springboot.essentials2.wrapper.PageableResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,8 +16,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import java.util.Collections;
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -98,7 +98,8 @@ class ClientControllerIT {
         List<Client> listClientsByName = testRestTemplate.exchange(url,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Client>>(){}).getBody();
+                new ParameterizedTypeReference<List<Client>>() {
+                }).getBody();
 
         Assertions.assertThat(listClientsByName).isNotNull();
         Assertions.assertThat(listClientsByName.get(0).getName()).isEqualTo(client.getName()).isNotNull();
@@ -131,28 +132,34 @@ class ClientControllerIT {
     @DisplayName("saveClient returns client when successful")
     void saveClient_ReturnsClient_WhenSuccessful() {
         Client validClient = ClientCreator.createValidClient();
-        Client savedClient = clientRepository.save(ClientCreator.createValidClient());
+//        Client validClient = clientRepository.save(ClientCreator.createValidClient());
 
-        Client responseClientRestTemplate = testRestTemplate.postForObject("/client/save",
+        ResponseEntity<Client> clientResponseEntity = testRestTemplate.postForEntity("/client/save",
                 validClient,
                 Client.class);
 
-        Assertions.assertThat(responseClientRestTemplate).isNotNull();
-        Assertions.assertThat(responseClientRestTemplate.getName()).isEqualTo(validClient.getName()).isNotEmpty();
-        Assertions.assertThat(responseClientRestTemplate.getPhone()).isEqualTo(validClient.getPhone()).isNotEmpty();
+        Assertions.assertThat(clientResponseEntity).isNotNull();
+//        Assertions.assertThat(clientResponseEntity.getBody().getIdClient()).isNotNull();
+        Assertions.assertThat(clientResponseEntity.getBody().getName()).isEqualTo(validClient.getName()).isNotEmpty();
+        Assertions.assertThat(clientResponseEntity.getBody().getPhone()).isEqualTo(validClient.getPhone()).isNotEmpty();
+        Assertions.assertThat(clientResponseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
 
-//    @Test
-//    @DisplayName("replaceClient updates client when successful")
-//    void replaceClient_UpdatesClient_WhenSuccessful() {
-//        Assertions.assertThatCode(() -> clientControllerMock.replaceClient(ClientCreator.createClientPut()))
-//                .doesNotThrowAnyException();
-//
-//        ResponseEntity<Void> responseHttpUpdateClient = clientControllerMock.replaceClient(ClientCreator.createClientPut());
-//
-//        Assertions.assertThat(responseHttpUpdateClient).isNotNull();
-//        Assertions.assertThat(responseHttpUpdateClient.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
-//    }
+    @Test
+    @DisplayName("replaceClient updates client when successful")
+    void replaceClient_UpdatesClient_WhenSuccessful() {
+//        Client client = clientRepository.save(ClientCreator.createValidClient());
+        ClientPutRequestBody clientPut = ClientCreator.createClientPut();
+
+        clientPut.setName("Nome Atualizado");
+
+        ResponseEntity<Void> resultPostForObj = testRestTemplate.postForEntity("/client/replace",
+                clientPut,
+                Void.class);
+
+        Assertions.assertThat(resultPostForObj).isNotNull();
+        Assertions.assertThat(resultPostForObj.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
 
 //    @Test
 //    @DisplayName("deleteClient delete client when successful")
@@ -165,7 +172,6 @@ class ClientControllerIT {
 //        Assertions.assertThat(responseHttpDeleteClient).isNotNull();
 //        Assertions.assertThat(responseHttpDeleteClient.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
 //    }
-
 
 
 }
