@@ -91,7 +91,7 @@ public class ClientService {
     }
 
     public void replaceClient(ClientPutRequestBody clientPutRequestBody) {
-        Client foundClient = findClientById(clientPutRequestBody.getIdClientDTO());
+        Client foundClient = findClientById(clientPutRequestBody.getIdClient());
 
         Client client = ClientMapper.INSTANCE.toClient(clientPutRequestBody);
 

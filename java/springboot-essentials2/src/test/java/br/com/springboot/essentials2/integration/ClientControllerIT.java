@@ -1,7 +1,6 @@
 package br.com.springboot.essentials2.integration;
 
 import br.com.springboot.essentials2.dto.ClientGetFindById;
-import br.com.springboot.essentials2.dto.ClientPutRequestBody;
 import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.repository.ClientRepository;
 import br.com.springboot.essentials2.util.ClientCreator;
@@ -15,15 +14,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //Parametro define porta aleatoria para n startar na porta 8080 e rolar conflito com alguma app rodando na mesma porta
 @AutoConfigureTestDatabase //Anotacao para executar os testes com banco de dados em memoria
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class ClientControllerIT {
 
     @Autowired
@@ -148,30 +150,35 @@ class ClientControllerIT {
     @Test
     @DisplayName("replaceClient updates client when successful")
     void replaceClient_UpdatesClient_WhenSuccessful() {
-//        Client client = clientRepository.save(ClientCreator.createValidClient());
-        ClientPutRequestBody clientPut = ClientCreator.createClientPut();
+        Client client = clientRepository.save(ClientCreator.createValidClient());
 
-        clientPut.setName("Nome Atualizado");
+        client.setName("Nome Atualizado");
 
-        ResponseEntity<Void> resultPostForObj = testRestTemplate.postForEntity("/client/replace",
-                clientPut,
+        ResponseEntity<Void> resultPostForObj = testRestTemplate.exchange("/client/replace",
+                HttpMethod.PUT,
+                new HttpEntity<>(client),
                 Void.class);
 
         Assertions.assertThat(resultPostForObj).isNotNull();
         Assertions.assertThat(resultPostForObj.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
     }
 
-//    @Test
-//    @DisplayName("deleteClient delete client when successful")
-//    void deleteClient_RemovesClient_WhenSuccessful() {
-//        Assertions.assertThatCode(() -> clientControllerMock.deleteClient(1))
-//                .doesNotThrowAnyException();
-//
-//        ResponseEntity<Void> responseHttpDeleteClient = clientControllerMock.deleteClient(1);
-//
-//        Assertions.assertThat(responseHttpDeleteClient).isNotNull();
-//        Assertions.assertThat(responseHttpDeleteClient.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
-//    }
+    @Test
+    @DisplayName("deleteClient delete client when successful")
+    void deleteClient_RemovesClient_WhenSuccessful() {
+        Client clientSaved = clientRepository.save(ClientCreator.createValidClient());
+
+        Integer idClient = clientSaved.getIdClient();
+
+        ResponseEntity<Void> respondeDeleteExchange = testRestTemplate.exchange("/client/delete/{id}",
+                HttpMethod.DELETE,
+                null,
+                Void.class,
+                idClient);
+
+        Assertions.assertThat(respondeDeleteExchange).isNotNull();
+        Assertions.assertThat(respondeDeleteExchange.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
 
 
 }

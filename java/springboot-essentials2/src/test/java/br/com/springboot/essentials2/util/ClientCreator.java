@@ -42,7 +42,7 @@ public class ClientCreator {
 
     public static ClientPutRequestBody createClientPut() {
         return ClientPutRequestBody.builder()
-                .idClientDTO(1)
+                .idClient(1)
                 .name("Create Client PUT")
                 .phone("11988332211")
                 .build();
