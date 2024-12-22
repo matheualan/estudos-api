@@ -28,7 +28,7 @@ public class Person {
     public String toString() {
         return "Person {" + "Name: " + name
                 + ", Value: " + balance
-                + ", TypePerson: " + typePerson + " - " + typePerson.description
+//                + ", TypePerson: " + typePerson + " - " + typePerson.description
                 + ", Timestamp: " + timestamp + "}";
     }
 

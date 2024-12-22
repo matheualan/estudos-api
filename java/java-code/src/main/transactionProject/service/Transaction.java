@@ -16,8 +16,11 @@ public class Transaction {
 
         Person personOne = new Person("Matheus", "123", new BigDecimal(50000));
         Person personTwo = new Person("Alan", "987" , new BigDecimal(30000));
-//        System.out.println(personOne);
-//        System.out.println(personTwo);
+//        System.out.println("[Nome: " + personOne.getName()
+//                + ", Documento: " + personOne.getDocument()
+//                + ", Saldo: " + personOne.getBalance() + "]");
+        System.out.println(personOne);
+        System.out.println(personTwo);
 
         listPersons.add(personOne);
         listPersons.add(personTwo);
@@ -25,6 +28,7 @@ public class Transaction {
         Scanner sc = new Scanner(System.in);
         System.out.println("\nInforme o documento de quem ira realizar a transferencia: ");
         String sender = sc.nextLine();
+        System.out.println("Documento informado: " + sender);
 
         if(sender.equalsIgnoreCase("123")) {
             personOne.setTypePerson(TypePersonEnum.REMETENTE);
@@ -48,8 +52,8 @@ public class Transaction {
             personTwo.setBalance(personTwo.getBalance().add(amountTransferred));
             personOne.setBalance(personOne.getBalance().subtract(amountTransferred));
         }
-        System.out.println(personOne);
-        System.out.println(personTwo);
+        System.out.println(personOne.getTypePerson() + " - " + personOne);
+        System.out.println(personTwo.getTypePerson() + " - " + personTwo);
 
     }
 
