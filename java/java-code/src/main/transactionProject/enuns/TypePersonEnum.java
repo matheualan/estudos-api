@@ -1,0 +1,15 @@
+package main.transactionProject.enuns;
+
+public enum TypePersonEnum {
+
+    REMETENTE(1, "ENVIANDO"), DESTINATARIO(2, "RECEBENDO");
+
+    public int typeId;
+    public String description;
+
+    TypePersonEnum(int typeId, String description) {
+        this.typeId = typeId;
+        this.description = description;
+    }
+
+}
