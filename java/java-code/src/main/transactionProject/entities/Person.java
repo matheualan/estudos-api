@@ -27,6 +27,7 @@ public class Person {
     @Override
     public String toString() {
         return "Person {" + "Name: " + name
+                + ", Document: " + document
                 + ", Value: " + balance
 //                + ", TypePerson: " + typePerson + " - " + typePerson.description
                 + ", Timestamp: " + timestamp + "}";
