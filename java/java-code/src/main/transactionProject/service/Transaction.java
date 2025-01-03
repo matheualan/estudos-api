@@ -13,7 +13,6 @@ public class Transaction {
         Person personOne = new Person("Matheus", "123", new BigDecimal(50000));
         Person personTwo = new Person("Alan", "987" , new BigDecimal(30000));
 
-        System.out.println("Informacoes iniciais: ");
         System.out.println(personOne);
         System.out.println(personTwo);
 
