@@ -32,7 +32,7 @@ public class Transaction {
             return;
         }
 
-        System.out.print("\nQual valor voce quer transferir? ");
+        System.out.print("\nQual valor deseja transferir? ");
         BigDecimal amountTransferred = sc.nextBigDecimal();
         System.out.println("Valor informado: " + amountTransferred + "\n");
         sc.close();
