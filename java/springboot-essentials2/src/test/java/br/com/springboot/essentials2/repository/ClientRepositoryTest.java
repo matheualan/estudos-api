@@ -12,7 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.List;
 import java.util.Optional;
 
-//Testes do repositorio
+//Testes do repositorio (banco de dados)
 @DataJpaTest
 @DisplayName("Tests for Client Repository")
 class ClientRepositoryTest {
