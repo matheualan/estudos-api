@@ -56,6 +56,7 @@ class ClientRepositoryTest {
         Optional<Client> clientById = clientRepository.findById(savedClient.getIdClient());
 
         Assertions.assertThat(clientById.isEmpty()).isTrue();
+//        Assertions.assertThat(clientById).isEmpty();
     }
 
     @Test
