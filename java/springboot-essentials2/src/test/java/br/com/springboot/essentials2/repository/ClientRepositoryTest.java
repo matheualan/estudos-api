@@ -73,9 +73,9 @@ class ClientRepositoryTest {
     @Test
     @DisplayName("Return empty list when client is not found")
     void findByName_ReturnsEmptyList_WhenClientIsNotFound() {
-        List<Client> plugin = clientRepository.findByName("Plugin");
+        List<Client> caseWhereClientIsNotFound = clientRepository.findByName("Plugin");
 
-        Assertions.assertThat(plugin.isEmpty()).isTrue();
+        Assertions.assertThat(caseWhereClientIsNotFound.isEmpty()).isTrue();
     }
 
     @Test
