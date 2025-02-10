@@ -29,9 +29,9 @@ import java.util.List;
 class ClientControllerTest {
 
     @InjectMocks //Para a classe em si que será testada
-    private ClientController clientControllerMock;
+    private ClientController clientController;
 
-    @Mock //Para as dependências de classe dentro da classe que será testada
+    @Mock //Para as dependências da classe que será testada (classes dentro da classe testada)
     private ClientService clientServiceMock;
 
     @BeforeEach
@@ -60,7 +60,7 @@ class ClientControllerTest {
     @DisplayName("pageClients returns list of clients inside page object when successful")
     void pageClients_ReturnsListOfClientsInsidePageObject_WhenSuccessful() {
         String expectedClient = ClientCreator.createClientGet().getName();
-        Page<ClientGetFindById> clientPage = clientControllerMock.pageClients(null).getBody();
+        Page<ClientGetFindById> clientPage = clientController.pageClients(null).getBody();
 
         Assertions.assertThat(clientPage).isNotNull();
         Assertions.assertThat(clientPage.toList()).isNotEmpty().hasSize(1);
@@ -71,7 +71,7 @@ class ClientControllerTest {
     @DisplayName("listClient returns list of clients when suceessful")
     void listClient_ReturnsListOfClients_WhenSuccessful() {
         String clientName = ClientCreator.createClientToBeSaved().getName();
-        List<Client> clientList = clientControllerMock.listClient().getBody();
+        List<Client> clientList = clientController.listClient().getBody();
 
         Assertions.assertThat(clientList).isNotNull().isNotEmpty().hasSize(1);
         Assertions.assertThat(clientList.get(0).getName()).isEqualTo(clientName);
@@ -81,7 +81,7 @@ class ClientControllerTest {
     @DisplayName("findClientById returns client by id when successful")
     void findClientById_ReturnClientById_WhenSuccessful() {
         ClientGetFindById clientGet = ClientCreator.createClientGet();
-        ClientGetFindById clientGetFindById = clientControllerMock.findClientById(1).getBody();
+        ClientGetFindById clientGetFindById = clientController.findClientById(1).getBody();
 
         Assertions.assertThat(clientGetFindById).isNotNull();
         Assertions.assertThat(clientGetFindById.getIdClient()).isEqualTo(clientGet.getIdClient()).isNotNull();
@@ -92,7 +92,7 @@ class ClientControllerTest {
     @DisplayName("findClientByName returns a list  of client by name when successful")
     void findClientByName_ReturnListOfClientByName_WhenSuccessful() {
         Client client = ClientCreator.createValidClient();
-        List<Client> clientList = clientControllerMock.findClientByName("Name qualquer").getBody();
+        List<Client> clientList = clientController.findClientByName("Name qualquer").getBody();
 
         Assertions.assertThat(clientList).isNotNull();
         Assertions.assertThat(clientList.get(0).getName()).isEqualTo(client.getName()).isNotNull();
@@ -107,7 +107,7 @@ class ClientControllerTest {
         BDDMockito.when(clientServiceMock.findByName(ArgumentMatchers.anyString()))
                 .thenReturn(Collections.emptyList());
 
-        List<Client> clientList = clientControllerMock.findClientByName("Name qualquer").getBody();
+        List<Client> clientList = clientController.findClientByName("Name qualquer").getBody();
 
         Assertions.assertThat(clientList).isNotNull().isEmpty();
     }
@@ -116,7 +116,7 @@ class ClientControllerTest {
     @DisplayName("saveClient returns client when successful")
     void saveClient_ReturnsClient_WhenSuccessful() {
         ClientPostRequestBody clientPost = ClientCreator.createClientPost();
-        ClientPostRequestBody client = clientControllerMock.saveClient(ClientCreator.createClientPost()).getBody();
+        ClientPostRequestBody client = clientController.saveClient(ClientCreator.createClientPost()).getBody();
 
         Assertions.assertThat(client).isNotNull();
         Assertions.assertThat(client.getName()).isEqualTo(clientPost.getName()).isNotEmpty();
@@ -126,10 +126,10 @@ class ClientControllerTest {
     @Test
     @DisplayName("replaceClient updates client when successful")
     void replaceClient_UpdatesClient_WhenSuccessful() {
-        Assertions.assertThatCode(() -> clientControllerMock.replaceClient(ClientCreator.createClientPut()))
+        Assertions.assertThatCode(() -> clientController.replaceClient(ClientCreator.createClientPut()))
                 .doesNotThrowAnyException();
 
-        ResponseEntity<Void> responseHttpUpdateClient = clientControllerMock.replaceClient(ClientCreator.createClientPut());
+        ResponseEntity<Void> responseHttpUpdateClient = clientController.replaceClient(ClientCreator.createClientPut());
 
         Assertions.assertThat(responseHttpUpdateClient).isNotNull();
         Assertions.assertThat(responseHttpUpdateClient.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
@@ -138,10 +138,10 @@ class ClientControllerTest {
     @Test
     @DisplayName("deleteClient delete client when successful")
     void deleteClient_RemovesClient_WhenSuccessful() {
-        Assertions.assertThatCode(() -> clientControllerMock.deleteClient(1))
+        Assertions.assertThatCode(() -> clientController.deleteClient(1))
                 .doesNotThrowAnyException();
 
-        ResponseEntity<Void> responseHttpDeleteClient = clientControllerMock.deleteClient(1);
+        ResponseEntity<Void> responseHttpDeleteClient = clientController.deleteClient(1);
 
         Assertions.assertThat(responseHttpDeleteClient).isNotNull();
         Assertions.assertThat(responseHttpDeleteClient.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
