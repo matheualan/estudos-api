@@ -111,8 +111,8 @@ class ClientControllerTest {
     @Test
     @DisplayName("findClientByName returns a empty list when client by name is not found")
     void findClientByName_ReturnsEmptyList_WhenClientByNameIsNotFound() {
-//        Todos os comportamentos não bem sucedidos usar o Mock dentro do próprio método (recomendação devdojo)
-//        Desta forma o Mock usado dentro do método terá maior precedência em relação ao Mock do BeforeEach
+//        Todos os comportamentos nao bem sucedidos usar o Mock dentro do proprio metodo (recomendacao devdojo)
+//        Desta forma o Mock usado dentro do metodo tera maior precedencia em relacao ao Mock do BeforeEach
 
 //        BDDMockito.when(clientServiceMock.findByName(ArgumentMatchers.anyString()))
 //                .thenReturn(List.of());
@@ -139,9 +139,11 @@ class ClientControllerTest {
     @Test
     @DisplayName("replaceClient updates client when successful")
     void replaceClient_UpdatesClient_WhenSuccessful() {
+//        Verifica que o metodo executou e nao lancou nenhuma excecao
         Assertions.assertThatCode(() -> clientController.replaceClient(ClientCreator.createClientPut()))
                 .doesNotThrowAnyException();
 
+//        Para verificar o status Http da execucao
         ResponseEntity<Void> responseHttpUpdateClient = clientController.replaceClient(ClientCreator.createClientPut());
 
         Assertions.assertThat(responseHttpUpdateClient).isNotNull();
@@ -151,9 +153,11 @@ class ClientControllerTest {
     @Test
     @DisplayName("deleteClient delete client when successful")
     void deleteClient_RemovesClient_WhenSuccessful() {
+//        Verifica que o metodo executou e nao lancou nenhuma excecao
         Assertions.assertThatCode(() -> clientController.deleteClient(1))
                 .doesNotThrowAnyException();
 
+//        Para verificar o status Http da execucao
         ResponseEntity<Void> responseHttpDeleteClient = clientController.deleteClient(1);
 
         Assertions.assertThat(responseHttpDeleteClient).isNotNull();
