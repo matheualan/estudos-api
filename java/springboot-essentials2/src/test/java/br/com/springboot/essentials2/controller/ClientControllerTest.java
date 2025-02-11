@@ -111,8 +111,12 @@ class ClientControllerTest {
     @Test
     @DisplayName("findClientByName returns a empty list when client by name is not found")
     void findClientByName_ReturnsEmptyList_WhenClientByNameIsNotFound() {
+//        Todos os comportamentos não bem sucedidos usar o Mock dentro do próprio método (recomendação devdojo)
+//        Desta forma o Mock usado dentro do método terá maior precedência em relação ao Mock do BeforeEach
+
 //        BDDMockito.when(clientServiceMock.findByName(ArgumentMatchers.anyString()))
 //                .thenReturn(List.of());
+
         BDDMockito.when(clientServiceMock.findByName(ArgumentMatchers.anyString()))
                 .thenReturn(Collections.emptyList());
 
