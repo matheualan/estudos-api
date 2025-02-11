@@ -6,6 +6,7 @@ import br.com.springboot.essentials2.dto.ClientPutRequestBody;
 import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.service.ClientService;
 import br.com.springboot.essentials2.util.ClientCreator;
+import br.com.springboot.essentials2.util.DateUtil;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +22,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,8 +37,14 @@ class ClientControllerTest {
     @Mock //Para as dependências da classe que será testada (classes dentro da classe testada)
     private ClientService clientServiceMock;
 
+    @Mock
+    private DateUtil dateUtilMock;
+
     @BeforeEach
     void setUp() {
+        BDDMockito.when(dateUtilMock.dateFormatter(ArgumentMatchers.any()))
+                .thenReturn(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now()));
+
         BDDMockito.when(clientServiceMock.pageClients(ArgumentMatchers.any()))
                 .thenReturn(new PageImpl<>(List.of(ClientCreator.createClientGet())));
 
