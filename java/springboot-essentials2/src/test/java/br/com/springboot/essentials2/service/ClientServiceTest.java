@@ -36,9 +36,8 @@ class ClientServiceTest {
 
     @BeforeEach
     void setUp() {
-        PageImpl<Client> pageClient = new PageImpl<>(List.of(ClientCreator.createValidClient()));
         BDDMockito.when(clientRepositoryMock.findAll(ArgumentMatchers.any(PageRequest.class)))
-                .thenReturn(pageClient);
+                .thenReturn(new PageImpl<>(List.of(ClientCreator.createValidClient())));
 
         BDDMockito.when(clientRepositoryMock.findAll())
                 .thenReturn(List.of(ClientCreator.createClientToBeSaved()));
@@ -49,8 +48,8 @@ class ClientServiceTest {
         BDDMockito.when(clientRepositoryMock.findByName(ArgumentMatchers.anyString()))
                 .thenReturn(List.of(ClientCreator.createValidClient()));
 
-        BDDMockito.when(clientRepositoryMock.save(ArgumentMatchers.any(Client.class)))
-                .thenReturn(ClientCreator.createValidClient());
+//        BDDMockito.when(clientRepositoryMock.save(ArgumentMatchers.any(Client.class)))
+//                .thenReturn(ClientCreator.createValidClient());
 
         BDDMockito.doNothing().when(clientRepositoryMock).delete(ArgumentMatchers.any(Client.class));
     }
@@ -59,7 +58,7 @@ class ClientServiceTest {
     @DisplayName("pageClients returns list of clients inside page object when successful")
     void pageClients_ReturnsListOfClientsInsidePageObject_WhenSuccessful() {
         String expectedClient = ClientCreator.createValidClient().getName();
-        Page<ClientGetFindById> clientPage = clientService.pageClients(PageRequest.of(1, 5));
+        Page<ClientGetFindById> clientPage = clientService.pageClients(PageRequest.of(0, 5));
 
         Assertions.assertThat(clientPage).isNotNull();
         Assertions.assertThat(clientPage.toList()).isNotEmpty().hasSize(1);
@@ -77,8 +76,8 @@ class ClientServiceTest {
     }
 
     @Test
-    @DisplayName("findClientById returns client by id when successful")
-    void findClientById_ReturnClientById_WhenSuccessful() {
+    @DisplayName("findClient returns client by id when successful")
+    void findClient_ReturnClientById_WhenSuccessful() {
         Client client = ClientCreator.createValidClient();
         ClientGetFindById clientGetFindById = clientService.findClient(1);
         clientGetFindById.setIdClient(client.getIdClient());
@@ -104,12 +103,20 @@ class ClientServiceTest {
     void findClientByName_ReturnsEmptyList_WhenClientByNameIsNotFound() {
 //        BDDMockito.when(clientServiceMock.findByName(ArgumentMatchers.anyString()))
 //                .thenReturn(List.of());
-        BDDMockito.when(clientService.findByName(ArgumentMatchers.anyString()))
+
+//        BDDMockito.when(clientService.findByName(ArgumentMatchers.anyString()))
+//                .thenReturn(Collections.emptyList());
+
+//        List<Client> clientList = clientRepositoryMock.findByName("Name qualquer");
+
+//        Assertions.assertThat(clientList).isNotNull().isEmpty();
+
+        BDDMockito.when(clientRepositoryMock.findByName(ArgumentMatchers.anyString()))
                 .thenReturn(Collections.emptyList());
 
-        List<Client> clientList = clientRepositoryMock.findByName("Name qualquer");
+        List<Client> returnFindByName = clientService.findByName("Just Timberlake");
 
-        Assertions.assertThat(clientList).isNotNull().isEmpty();
+        Assertions.assertThat(returnFindByName).isNotNull().isEmpty();
     }
 
     @Test
@@ -139,7 +146,7 @@ class ClientServiceTest {
 
     @Test
     @DisplayName("findClientById throws bad request exception when client is not found")
-    void findClientById_TrhowsBadRequestException_WhenClientIsNotFound() {
+    void findClientById_ThrowsBadRequestException_WhenClientIsNotFound() {
         BDDMockito.when(clientRepositoryMock.findById(ArgumentMatchers.anyInt()))
                 .thenReturn(Optional.empty());
 
