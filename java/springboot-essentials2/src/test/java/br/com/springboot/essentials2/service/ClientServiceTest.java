@@ -88,6 +88,17 @@ class ClientServiceTest {
     }
 
     @Test
+    @DisplayName("findClient throws bad request exception when client is not found")
+    void findClient_ThrowsBadRequestException_WhenClientIsNotFound() {
+        BDDMockito.when(clientRepositoryMock.findById(ArgumentMatchers.anyInt()))
+                .thenReturn(Optional.empty());
+
+        Assertions.assertThatExceptionOfType(ClientNotFoundException.class)
+                .isThrownBy(() -> clientService.findClient(1))
+                .withMessageContaining("Cliente não encontrado");
+    }
+
+    @Test
     @DisplayName("findClientByName returns a list  of client by name when successful")
     void findClientByName_ReturnListOfClientByName_WhenSuccessful() {
         Client client = ClientCreator.createValidClient();
@@ -142,17 +153,6 @@ class ClientServiceTest {
     void deleteClient_RemovesClient_WhenSuccessful() {
         Assertions.assertThatCode(() -> clientService.deleteClientById(1))
                 .doesNotThrowAnyException();
-    }
-
-    @Test
-    @DisplayName("findClientById throws bad request exception when client is not found")
-    void findClientById_ThrowsBadRequestException_WhenClientIsNotFound() {
-        BDDMockito.when(clientRepositoryMock.findById(ArgumentMatchers.anyInt()))
-                .thenReturn(Optional.empty());
-
-        Assertions.assertThatExceptionOfType(ClientNotFoundException.class)
-                .isThrownBy(() -> clientService.findClient(1))
-                .withMessageContaining("Cliente não encontrado");
     }
 
 }
