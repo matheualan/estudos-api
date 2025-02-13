@@ -134,7 +134,7 @@ class ClientServiceTest {
     @DisplayName("saveClient returns client when successful")
     void saveClient_ReturnsClient_WhenSuccessful() {
         ClientPostRequestBody clientPost = ClientCreator.createClientPost();
-        ClientPostRequestBody client = clientService.saveClient(ClientCreator.createClientPost());
+        ClientPostRequestBody client = clientService.saveClient(clientPost);
 
         Assertions.assertThat(client).isNotNull();
         Assertions.assertThat(client.getName()).isEqualTo(clientPost.getName()).isNotEmpty();
