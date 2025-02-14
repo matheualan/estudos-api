@@ -24,7 +24,7 @@ import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //Parametro define porta aleatoria para n startar na porta 8080 e rolar conflito com alguma app rodando na mesma porta
-@AutoConfigureTestDatabase //Anotacao para executar os testes com banco de dados em memoria
+@AutoConfigureTestDatabase //Anotacao para executar os testes usando banco de dados em memoria
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class ClientControllerIT {
 
@@ -133,14 +133,14 @@ class ClientControllerIT {
     @Test
     @DisplayName("saveClient returns client when successful")
     void saveClient_ReturnsClient_WhenSuccessful() {
-        Client validClient = ClientCreator.createValidClient();
-//        Client validClient = clientRepository.save(ClientCreator.createValidClient());
+//        Client validClient = ClientCreator.createValidClient();
+        Client validClient = clientRepository.save(ClientCreator.createValidClient());
 
         ResponseEntity<Client> clientResponseEntity = testRestTemplate.postForEntity("/client/save",
                 validClient,
                 Client.class);
 
-        Assertions.assertThat(clientResponseEntity).isNotNull();
+        Assertions.assertThat(clientResponseEntity.getBody()).isNotNull();
 //        Assertions.assertThat(clientResponseEntity.getBody().getIdClient()).isNotNull();
         Assertions.assertThat(clientResponseEntity.getBody().getName()).isEqualTo(validClient.getName()).isNotEmpty();
         Assertions.assertThat(clientResponseEntity.getBody().getPhone()).isEqualTo(validClient.getPhone()).isNotEmpty();

@@ -47,6 +47,7 @@ public class SpringClientRestTemplate {
                 .name("Cliente Teste")
                 .phone("81999991111")
                 .build();
+
         ClientPostRequestBody clientPostRequestBody = new RestTemplate()
                 .postForObject("http://localhost:8082/client/save", clientTest, ClientPostRequestBody.class);
         log.info("Saved anime: {}", clientPostRequestBody);
@@ -64,6 +65,7 @@ public class SpringClientRestTemplate {
                 .name("Clientildo Chapolitano")
                 .phone("81999992222")
                 .build();
+
         ResponseEntity<ClientPutRequestBody> postExchange = new RestTemplate().exchange("http://localhost:8082/client/save",
                 HttpMethod.POST,
                 new HttpEntity<>(clienteTeste, headersPersonalized()),
@@ -76,6 +78,7 @@ public class SpringClientRestTemplate {
                 .name("Matheus Alan")
                 .phone("8199003377")
                 .build();
+
         ResponseEntity<Client> client = new RestTemplate().exchange("http://localhost:8082/client/save",
                 HttpMethod.POST,
                 new HttpEntity<>(newClient),
