@@ -41,7 +41,6 @@ class ClientControllerIT {
     @DisplayName("pageClients returns list of clients inside page object when successful")
     void pageClients_ReturnsListOfClientsInsidePageObject_WhenSuccessful() {
         Client savedClient = clientRepository.save(ClientCreator.createClientToBeSaved());
-
         String expectedName = savedClient.getName();
 
 //        @formatter:off
@@ -60,7 +59,6 @@ class ClientControllerIT {
     @DisplayName("listClient returns list of clients when suceessful")
     void listClient_ReturnsListOfClients_WhenSuccessful() {
         Client savedClient = clientRepository.save(ClientCreator.createClientToBeSaved());
-
         String expectedName = savedClient.getName();
 
 //        @formatter:off
@@ -78,7 +76,6 @@ class ClientControllerIT {
     @DisplayName("findClientById returns client by id when successful")
     void findClientById_ReturnClientById_WhenSuccessful() {
         Client savedClient = clientRepository.save(ClientCreator.createClientToBeSaved());
-
         Integer expectedId = savedClient.getIdClient();
 
         ClientGetFindById clientGet = testRestTemplate.getForObject("/client/find-id/{id}",
@@ -92,16 +89,15 @@ class ClientControllerIT {
     @DisplayName("findClientByName returns a list of client by name when successful")
     void findClientByName_ReturnListOfClientByName_WhenSuccessful() {
         Client client = clientRepository.save(ClientCreator.createValidClient());
-
         String expectedName = client.getName();
-
         String url = String.format("/client/list-by-name?name=%s", expectedName);
 
+//        @formatter:off
         List<Client> listClientsByName = testRestTemplate.exchange(url,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Client>>() {
-                }).getBody();
+                new ParameterizedTypeReference<List<Client>>(){}).getBody();
+//      @formatter:on
 
         Assertions.assertThat(listClientsByName).isNotNull();
         Assertions.assertThat(listClientsByName.get(0).getName()).isEqualTo(client.getName()).isNotNull();
@@ -121,11 +117,12 @@ class ClientControllerIT {
 //
 //        Assertions.assertThat(listQualquer).isNotNull().isEmpty();
 
+//        @formatter:off
         List<Client> responseClient = testRestTemplate.exchange("/client/list-by-name?name=metabots",
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Client>>() {
-                }).getBody();
+                new ParameterizedTypeReference<List<Client>>(){}).getBody();
+//      @formatter:on
 
         Assertions.assertThat(responseClient).isNotNull().isEmpty();
     }

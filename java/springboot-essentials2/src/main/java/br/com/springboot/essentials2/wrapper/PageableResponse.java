@@ -31,12 +31,13 @@ public class PageableResponse<T> extends PageImpl<T> {
         @JsonProperty("numberOfElements") int numberOfElements,
         @JsonProperty("pageable") JsonNode pageable,
         @JsonProperty("sort") JsonNode sort) {
-        super(content, PageRequest.of(number, size), totalElements);
 
+        super(content, PageRequest.of(number, size), totalElements);
         this.last = last;
         this.first = first;
         this.totalPages = totalPages;
         this.numberOfElements = numberOfElements;
+
     }
 
 }
