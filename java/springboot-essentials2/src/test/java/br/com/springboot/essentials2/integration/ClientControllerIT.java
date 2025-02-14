@@ -44,6 +44,8 @@ class ClientControllerIT {
         String expectedName = savedClient.getName();
 
 //        @formatter:off
+//        Usar exchange() qdo for retornar List<T> pq o getForObject n suporta diretamente a deserializacao para List<T>
+//        pois a conversao generica n eh feita automaticamente
         PageableResponse<ClientGetFindById> clientPage = testRestTemplate.exchange("/client/page",
                 HttpMethod.GET,
                 null,
@@ -68,6 +70,7 @@ class ClientControllerIT {
                 new ParameterizedTypeReference<List<Client>>(){}).getBody();
 //        @formatter:on
 
+
         Assertions.assertThat(clients).isNotNull().isNotEmpty().hasSize(1);
         Assertions.assertThat(clients.get(0).getName()).isEqualTo(expectedName);
     }
@@ -90,14 +93,14 @@ class ClientControllerIT {
     void findClientByName_ReturnListOfClientByName_WhenSuccessful() {
         Client client = clientRepository.save(ClientCreator.createValidClient());
         String expectedName = client.getName();
-        String url = String.format("/client/list-by-name?name=%s", expectedName);
+        String url = String.format("/client/list-by-name?name=%s", expectedName); //feito assim pq a url precisa de parametro
 
 //        @formatter:off
         List<Client> listClientsByName = testRestTemplate.exchange(url,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Client>>(){}).getBody();
-//      @formatter:on
+//        @formatter:on
 
         Assertions.assertThat(listClientsByName).isNotNull();
         Assertions.assertThat(listClientsByName.get(0).getName()).isEqualTo(client.getName()).isNotNull();
