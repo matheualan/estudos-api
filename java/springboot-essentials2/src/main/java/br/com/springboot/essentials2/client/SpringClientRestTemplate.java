@@ -17,12 +17,22 @@ public class SpringClientRestTemplate {
 
     public static void main(String[] args) {
 
+        ResponseEntity<ClientPostRequestBody> waghnerBruno = new RestTemplate().postForEntity("http://localhost:8082/client/save",
+                ClientPostRequestBody.builder().name("Waghner Bruno").phone("81999887766").build(),
+                ClientPostRequestBody.class);
+        log.info("Saved client: {}" , waghnerBruno);
+
+        ResponseEntity<ClientPostRequestBody> guilhermiano = new RestTemplate().postForEntity("http://localhost:8082/client/save",
+                ClientPostRequestBody.builder().name("Guilhermiano").phone("81999887766").build(),
+                ClientPostRequestBody.class);
+        log.info("Saved client: {}" , guilhermiano);
+
         ResponseEntity<ClientGetFindById> forEntity = new RestTemplate()
-                .getForEntity("http://localhost:8082/client/find-id/2", ClientGetFindById.class);
+                .getForEntity("http://localhost:8082/client/find-id/1", ClientGetFindById.class);
         log.info(forEntity);
 
         ClientGetFindById forObject = new RestTemplate()
-                .getForObject("http://localhost:8082/client/find-id/2", ClientGetFindById.class);
+                .getForObject("http://localhost:8082/client/find-id/1", ClientGetFindById.class);
         log.info(forObject);
 
         ClientGetFindById forObject2 = new RestTemplate()
@@ -57,7 +67,7 @@ public class SpringClientRestTemplate {
                 HttpMethod.DELETE,
                 null,
                 Void.class,
-                12);
+                2);
         log.info("DELETE EXCHANGE: {}", deleteExchange);
 
 //        Post Exchange
@@ -66,27 +76,33 @@ public class SpringClientRestTemplate {
                 .phone("81999992222")
                 .build();
 
-        ResponseEntity<ClientPutRequestBody> postExchange = new RestTemplate().exchange("http://localhost:8082/client/save",
+        ResponseEntity<ClientPostRequestBody> postExchange = new RestTemplate().exchange("http://localhost:8082/client/save",
                 HttpMethod.POST,
                 new HttpEntity<>(clienteTeste, headersPersonalized()),
-                ClientPutRequestBody.class);
+                ClientPostRequestBody.class);
         log.info("Saved client: {}", postExchange);
 
 //        Put Exchange
         Client newClient = Client.builder()
-                .idClient(50)
+                .idClient(6)
                 .name("Matheus Alan")
                 .phone("8199003377")
                 .build();
 
-        ResponseEntity<Client> client = new RestTemplate().exchange("http://localhost:8082/client/save",
+        ResponseEntity<ClientPostRequestBody> client = new RestTemplate().exchange("http://localhost:8082/client/save",
                 HttpMethod.POST,
                 new HttpEntity<>(newClient),
-                Client.class);
+                ClientPostRequestBody.class);
         log.info("Cliente Exchange POST: {}", client);
 
         newClient.setName("Anamasto Coco");
         log.info("Cliente com nome atualizado: {}", newClient);
+
+        ResponseEntity<ClientPostRequestBody> clientUpdated = new RestTemplate().exchange("http://localhost:8082/client/save",
+                HttpMethod.POST,
+                new HttpEntity<>(newClient),
+                ClientPostRequestBody.class);
+        log.info("Client Updated Exchange POST: {}", clientUpdated);
 
         ResponseEntity<Void> putExchange = new RestTemplate().exchange("http://localhost:8082/client/replace",
                 HttpMethod.PUT,
