@@ -84,7 +84,7 @@ public class SpringClientRestTemplate {
 
 //        Put Exchange
         Client newClient = Client.builder()
-                .idClient(6)
+                .idClient(6) //tem que conferir o id no banco de dados para gerar o valor correto conforme ordem
                 .name("Matheus Alan")
                 .phone("8199003377")
                 .build();
