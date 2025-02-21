@@ -8,6 +8,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.Disposable;
+import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
 import java.util.List;
@@ -110,6 +113,16 @@ public class SpringClientRestTemplate {
                 Void.class);
         log.info("Put Exchange: {}", putExchange);
 
+//        WebClient
+        WebClient webClient = WebClient.create("http://localhost:8082");
+
+        Mono<ClientGetFindById> responseMonoGet = webClient.get()
+                .uri("/client/find-id/{id}", 1)
+                .retrieve()
+                .bodyToMono(ClientGetFindById.class);
+
+        Disposable subscribe = responseMonoGet.subscribe(response -> System.out.println("Resposta do WebClient: " + response));
+        System.out.println(subscribe.);
     }
 
 //  Faz parte do postExchange
