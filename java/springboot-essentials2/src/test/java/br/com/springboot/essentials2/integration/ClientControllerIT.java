@@ -4,7 +4,7 @@ import br.com.springboot.essentials2.dto.ClientGetFindById;
 import br.com.springboot.essentials2.model.Client;
 import br.com.springboot.essentials2.repository.ClientRepository;
 import br.com.springboot.essentials2.util.ClientCreator;
-import br.com.springboot.essentials2.wrapper.PageableResponse;
+import br.com.springboot.essentials2.wrapper.pageablepersonalized.PageableResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,9 +43,9 @@ class ClientControllerIT {
         Client savedClient = clientRepository.save(ClientCreator.createClientToBeSaved());
         String expectedName = savedClient.getName();
 
+//Usar exchange qdo for retornar o tipo List<T> pq o getForObject n suporta diretamente a deserializacao para List<T>
+//pois a conversao generica n eh feita automaticamente
 //        @formatter:off
-//        Usar exchange() qdo for retornar List<T> pq o getForObject n suporta diretamente a deserializacao para List<T>
-//        pois a conversao generica n eh feita automaticamente
         PageableResponse<ClientGetFindById> clientPage = testRestTemplate.exchange("/client/page",
                 HttpMethod.GET,
                 null,

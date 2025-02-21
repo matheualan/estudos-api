@@ -122,7 +122,6 @@ public class SpringClientRestTemplate {
                 .bodyToMono(ClientGetFindById.class);
 
         Disposable subscribe = responseMonoGet.subscribe(response -> System.out.println("Resposta do WebClient: " + response));
-        System.out.println(subscribe.);
     }
 
 //  Faz parte do postExchange

@@ -1,4 +1,4 @@
-package br.com.springboot.essentials2.wrapper;
+package br.com.springboot.essentials2.wrapper.pageablepersonalized;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
+//Classe personalizada para a classe de teste ClientControllerIT para o metodo de teste pageClients visto que
 @Getter
 @Setter
 public class PageableResponse<T> extends PageImpl<T> {
@@ -37,7 +38,6 @@ public class PageableResponse<T> extends PageImpl<T> {
         this.first = first;
         this.totalPages = totalPages;
         this.numberOfElements = numberOfElements;
-
     }
 
 }
