@@ -43,8 +43,9 @@ class ClientControllerIT {
         Client savedClient = clientRepository.save(ClientCreator.createClientToBeSaved());
         String expectedName = savedClient.getName();
 
-//Usar exchange qdo for retornar o tipo List<T> pq o getForObject n suporta diretamente a deserializacao para List<T>
-//pois a conversao generica n eh feita automaticamente
+//Usar exchange com new ParameterizedTypeReference<T>(){} qdo for retornar objeto do tipo List<T>
+//pq o getForObject n suporta diretamente a deserializacao para List<T> pois a conversao generica n eh feita automaticamente
+//devido ao type erasure q desaparece o tipo generico em tempo de execucao
 //        @formatter:off
         PageableResponse<ClientGetFindById> clientPage = testRestTemplate.exchange("/client/page",
                 HttpMethod.GET,
