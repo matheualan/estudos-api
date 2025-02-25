@@ -39,6 +39,11 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
@@ -82,6 +87,14 @@
 		</dependency>
 		<!--     Dependências para funcionar o Swagger com Spring Boot 3     -->
 
+<!--	Verificar para que serve este repositories que estava no projeto java-return junto as depend. do swagger-->
+<!--	<repositories>-->
+<!--		<repository>-->
+<!--			<id>springdoc-snapshots</id>-->
+<!--			<url>https://oss.sonatype.org/content/repositories/snapshots</url>-->
+<!--		</repository>-->
+<!--	</repositories>-->
+
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
@@ -95,19 +108,35 @@
 		</dependency>
 	</dependencies>
 
-<!--	Verificar para que serve este repositories que estava no projeto java-return junto as depend. do swagger-->
-<!--	<repositories>-->
-<!--		<repository>-->
-<!--			<id>springdoc-snapshots</id>-->
-<!--			<url>https://oss.sonatype.org/content/repositories/snapshots</url>-->
-<!--		</repository>-->
-<!--	</repositories>-->
+<!--	Maven p/ executar test de integracao	-->
+	<profiles>
+		<profile>
+			<id>integration-tests</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>${maven-surefire-plugin.version}</version>
+						<configuration>
+							<includes>
+								<include>**/*IT.*</include>
+							</includes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>3.2.3</version>
 				<configuration>
 					<excludes>
 						<exclude>
@@ -118,13 +147,14 @@
 				</configuration>
 			</plugin>
 
+<!--	Para funcionar lombok e mapstruct juntos	-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
-					<source>21</source> <!-- Dependendo da versão do seu projeto -->
-					<target>21</target> <!-- Dependendo da versão do seu projeto -->
+					<source>21</source> <!-- Dependendo da versão do Java no seu projeto -->
+					<target>21</target> <!-- Dependendo da versão do Java no seu projeto -->
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.mapstruct</groupId>

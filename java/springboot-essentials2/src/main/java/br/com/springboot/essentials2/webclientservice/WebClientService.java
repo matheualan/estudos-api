@@ -16,7 +16,7 @@ public class WebClientService {
 
     public Mono<ClientGetFindById> getClientById(Integer id) {
         return webClient.get()
-                .uri("/get/{id}")
+                .uri("/webclient/get/{id}", id)
                 .retrieve()
                 .bodyToMono(ClientGetFindById.class);
     }

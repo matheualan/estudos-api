@@ -181,5 +181,4 @@ class ClientControllerIT {
         Assertions.assertThat(respondeDeleteExchange.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
     }
 
-
 }
