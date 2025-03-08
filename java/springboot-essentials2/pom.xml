@@ -54,14 +54,11 @@
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <!--            <version>8.0.28</version>-->
-            <!--            <version>8.4.0</version>-->
         </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-<!--            <version>42.7.5</version>-->
         </dependency>
 
         <dependency>
@@ -122,12 +119,12 @@
             <scope>test</scope>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>org.flywaydb</groupId>-->
-        <!--            <artifactId>flyway-core</artifactId>-->
-        <!--            <version>11.3.4</version>-->
-        <!--            &lt;!&ndash;			<version>${flyway.version}</version>&ndash;&gt;-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>11.3.4</version>
+            <!--			<version>${flyway.version}</version>-->
+        </dependency>
     </dependencies>
 
     <!--	Maven p/ executar test de integracao	-->
