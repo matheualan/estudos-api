@@ -6,7 +6,7 @@
 #    environment:
 #      MYSQL_ROOT_PASSWORD: root
 #    ports:
-#    - "3306:3306"
+#    - "3306:3306" # primeira porta do localhost segunda porta do docker (container docker, talvez)
 #    volumes:
 #    - devdojo_data:/var/lib/mysql
 #

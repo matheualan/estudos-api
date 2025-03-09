@@ -1,5 +1,5 @@
---CREATE TABLE products (
---    id_product INT AUTO_INCREMENT PRIMARY KEY,
---    name VARCHAR(100),
---    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
---) ENGINE=InnoDB;
+CREATE TABLE products (
+    id_product SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
