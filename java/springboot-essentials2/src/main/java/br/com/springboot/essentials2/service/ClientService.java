@@ -40,7 +40,7 @@ public class ClientService {
             listClientGet.add(clientGetFindById);
         }
 
-        Page<ClientGetFindById> pageClientGet = new PageImpl<ClientGetFindById>(listClientGet);
+        Page<ClientGetFindById> pageClientGet = new PageImpl<>(listClientGet);
 
         return pageClientGet;
     }
