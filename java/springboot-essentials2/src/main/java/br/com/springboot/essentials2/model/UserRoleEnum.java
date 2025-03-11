@@ -2,9 +2,9 @@ package br.com.springboot.essentials2.model;
 
 public enum UserRoleEnum {
 
-    ADMIN("admin"), USER("user");
+    ADMIN("AdmiN"), USER("UseR");
 
-    private String role;
+    private final String role;
 
     UserRoleEnum(String role) {
         this.role = role;
