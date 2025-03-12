@@ -1,4 +1,4 @@
-package br.com.springboot.essentials2.model;
+package br.com.springboot.essentials2.model.security;
 
 public enum UserRoleEnum {
 

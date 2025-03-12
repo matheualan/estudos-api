@@ -1,4 +1,4 @@
-package br.com.springboot.essentials2.model;
+package br.com.springboot.essentials2.model.security;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -12,11 +12,11 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "tb_users_role")
+@Table(name = "tb_users_role") // seria melhor tb_user_model_for_auth
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-//UsersRole classe criada para armazenar os dados do usuario para autenticacao
+//UsersRole classe criada para armazenar os dados do usuario para autenticacao name: UserModelForAuth
 public class UsersRole implements UserDetails { //UserDetails para o security identificar uma classe que sera usada para autenticacao
 
     @Id
@@ -32,8 +32,8 @@ public class UsersRole implements UserDetails { //UserDetails para o security id
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private final LocalDateTime createdAt = LocalDateTime.now();
 
-//    Esse metodo consulta a entidade para verificar as roles que ela possui
-//    Eh aqui deve retornar as roles do usuario para o security tomar as decicoes corretas de acordo com a role do user
+//Esse metodo consulta a entidade para verificar as roles que ela possui
+//Aqui deve retornar as roles do user p/ o security tomar as decicoes/permissoes corretas de acordo com a role do user
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == UserRoleEnum.ADMIN) {
@@ -49,7 +49,7 @@ public class UsersRole implements UserDetails { //UserDetails para o security id
         return this.login;
     }
 
-    //    alterar todos retornos para true pois n ira ser utilizado para auth simples
+//Alterar todos retornos para true pois n ira ser utilizado para auth simples
     @Override
     public boolean isAccountNonExpired() {
         return true;
