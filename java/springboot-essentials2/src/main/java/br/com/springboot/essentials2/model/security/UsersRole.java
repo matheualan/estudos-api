@@ -12,12 +12,13 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "tb_users_role") // seria melhor tb_user_model_for_auth
+@Table(name = "tb_users_role") //Seria melhor tb_user_model_for_auth
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-//UsersRole classe criada para armazenar os dados do usuario para autenticacao name: UserModelForAuth
-public class UsersRole implements UserDetails { //UserDetails para o security identificar uma classe que sera usada para autenticacao
+//UsersRole: Classe criada para armazenar os dados do usuario para autenticacao [nome melhor: UserModelForAuth]
+//UserDetails: Implementacao para o S.Security identificar a classe onde tera os dados usados para autenticacao
+public class UsersRole implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,13 +33,17 @@ public class UsersRole implements UserDetails { //UserDetails para o security id
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private final LocalDateTime createdAt = LocalDateTime.now();
 
-//Esse metodo consulta a entidade para verificar as roles que ela possui
-//Aqui deve retornar as roles do user p/ o security tomar as decicoes/permissoes corretas de acordo com a role do user
+//Metodo para quando o S.Security for consultar a entidade e verificar as roles que ela possui
+//Aqui deve retornar as roles do user p/ o S.Security tomar a decisao correta de acordo com a permissao da role do user
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == UserRoleEnum.ADMIN) {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
-                    new SimpleGrantedAuthority("ROLE_USER"));
+//                           new SimpleGrantedAuthority("ROLE_SUBADMIN"),
+                           new SimpleGrantedAuthority("ROLE_USER"));
+//        } else if (this.role == UserRoleEnum.SUBADMIN) {
+//            return List.of(new SimpleGrantedAuthority("ROLE_SUBADMIN"),
+//                           new SimpleGrantedAuthority("ROLE_USER"));
         } else {
             return List.of(new SimpleGrantedAuthority("ROLE_USER"));
         }

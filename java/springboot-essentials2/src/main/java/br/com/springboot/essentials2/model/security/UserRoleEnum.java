@@ -1,8 +1,9 @@
 package br.com.springboot.essentials2.model.security;
 
+//Classe usada para defirnir as roles(permissoes/funcoes/papeis) que os usuarios terao na implementacao do S.Security
 public enum UserRoleEnum {
 
-    ADMIN("AdmiN"), USER("UseR");
+    ADMIN("AdmiN"), SUBADMIN("subadmin"), USER("UseR");
 
     private final String role;
 
