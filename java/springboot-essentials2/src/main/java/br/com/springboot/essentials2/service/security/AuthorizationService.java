@@ -1,6 +1,6 @@
-package br.com.springboot.essentials2.service;
+package br.com.springboot.essentials2.service.security;
 
-import br.com.springboot.essentials2.repository.UsersRoleRepository;
+import br.com.springboot.essentials2.repository.security.UsersRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

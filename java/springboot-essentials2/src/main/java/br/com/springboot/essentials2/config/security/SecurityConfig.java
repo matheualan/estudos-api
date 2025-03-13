@@ -1,4 +1,4 @@
-package br.com.springboot.essentials2.infra.security;
+package br.com.springboot.essentials2.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,9 +20,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //Definindo auth stateless
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/client/save").hasRole("ADMIN")
-                        .anyRequest().authenticated())//Definindo quais URLs/Requisicoes HTTP precisarao ser autenticadas
+                .authorizeHttpRequests(authorize -> authorize //Definindo quais URLs/Requisicoes HTTP precisarao ser autenticadas
+                        .requestMatchers(HttpMethod.POST, "/client/save").hasRole("ADMIN") //Config para somente ADMIN poder realizar request http para o endpoint selecionado
+                        .anyRequest().authenticated()) //Config para qualquer Role, apenas autenticado
                 .build();
     }
 

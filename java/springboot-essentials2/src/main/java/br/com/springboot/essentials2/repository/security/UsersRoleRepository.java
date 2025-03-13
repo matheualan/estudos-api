@@ -1,4 +1,4 @@
-package br.com.springboot.essentials2.repository;
+package br.com.springboot.essentials2.repository.security;
 
 import br.com.springboot.essentials2.model.security.UsersRole;
 import org.springframework.data.jpa.repository.JpaRepository;
