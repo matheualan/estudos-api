@@ -39,10 +39,10 @@ public class UsersRole implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == UserRoleEnum.ADMIN) {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
-//                           new SimpleGrantedAuthority("ROLE_SUBADMIN"),
+                           new SimpleGrantedAuthority("ROLE_MANAGER"),
                            new SimpleGrantedAuthority("ROLE_USER"));
-//        } else if (this.role == UserRoleEnum.SUBADMIN) {
-//            return List.of(new SimpleGrantedAuthority("ROLE_SUBADMIN"),
+//        } else if (this.role == UserRoleEnum.MANAGER) {
+//            return List.of(new SimpleGrantedAuthority("ROLE_MANAGER"),
 //                           new SimpleGrantedAuthority("ROLE_USER"));
         } else {
             return List.of(new SimpleGrantedAuthority("ROLE_USER"));

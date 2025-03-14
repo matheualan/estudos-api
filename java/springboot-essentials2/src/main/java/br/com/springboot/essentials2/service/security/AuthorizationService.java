@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-//Esse servico vai ser chamado automaticamente pelo S.Security toda vez que um usuario precisar de autenticar
+//Esse servico vai ser chamado automaticamente pelo S.Security toda vez que um usuario precisar se autenticar
 //Por meio do 'implements UserDetailsService' o S.Security vai identificar que deve chamar automaticamente toda
 //vez q um usuario precisar se autenticar
 
