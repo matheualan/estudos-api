@@ -33,6 +33,12 @@ public class UsersRole implements UserDetails {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private final LocalDateTime createdAt = LocalDateTime.now();
 
+    public UsersRole(String login, String password, UserRoleEnum role) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
+
 //Metodo para quando o S.Security for consultar a entidade e verificar as roles que ela possui
 //Aqui deve retornar as roles do user p/ o S.Security tomar a decisao correta de acordo com a permissao da role do user
     @Override
