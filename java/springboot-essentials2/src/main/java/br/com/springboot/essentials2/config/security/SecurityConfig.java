@@ -25,6 +25,8 @@ public class SecurityConfig {
         return httpSecurity.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //Definindo auth stateless
                 .authorizeHttpRequests(authorize -> authorize //Definindo quais URLs/Requisicoes HTTP precisarao ser autenticadas
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/client/save").hasRole("ADMIN") //Config para somente ADMIN poder realizar request http para o endpoint selecionado
                         .anyRequest().authenticated()) //Config para qualquer Role, apenas autenticado
                 .build();

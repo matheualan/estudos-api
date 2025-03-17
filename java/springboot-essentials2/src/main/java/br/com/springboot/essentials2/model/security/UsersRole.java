@@ -28,12 +28,12 @@ public class UsersRole implements UserDetails {
 
     private String password;
 
-    private UserRoleEnum role;
+    private UsersRoleEnum role;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private final LocalDateTime createdAt = LocalDateTime.now();
 
-    public UsersRole(String login, String password, UserRoleEnum role) {
+    public UsersRole(String login, String password, UsersRoleEnum role) {
         this.login = login;
         this.password = password;
         this.role = role;
@@ -43,7 +43,7 @@ public class UsersRole implements UserDetails {
 //Aqui deve retornar as roles do user p/ o S.Security tomar a decisao correta de acordo com a permissao da role do user
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role == UserRoleEnum.ADMIN) {
+        if (this.role == UsersRoleEnum.ADMIN) {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
                            new SimpleGrantedAuthority("ROLE_MANAGER"),
                            new SimpleGrantedAuthority("ROLE_USER"));
