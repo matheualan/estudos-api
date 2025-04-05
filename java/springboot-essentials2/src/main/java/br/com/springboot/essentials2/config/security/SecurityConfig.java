@@ -11,6 +11,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 //Classe para desabilitar as configuracoes padroes do S.Security e aplicar as nossas proprias configuracoes
 @Configuration //Avisa ao Spring que eh uma classe de configuracao
@@ -29,6 +30,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/client/save").hasRole("ADMIN") //Config para somente ADMIN poder realizar request http para o endpoint selecionado
                         .anyRequest().authenticated()) //Config para qualquer Role, apenas autenticado
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) //classe SecurityFilter q criamos
                 .build();
     }
 
@@ -42,5 +44,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(); //Classe do S.Security p/ fazer criptografia pode meio de algoritmo de hash
     }
+
+    //Para q o Spring faça verificacao do token automaticamente em todas requisicoes q precisam de autorizacao
 
 }
