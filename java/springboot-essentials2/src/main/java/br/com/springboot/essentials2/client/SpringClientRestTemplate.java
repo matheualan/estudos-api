@@ -2,7 +2,6 @@ package br.com.springboot.essentials2.client;
 
 import br.com.springboot.essentials2.dto.ClientGetFindById;
 import br.com.springboot.essentials2.dto.ClientPostRequestBody;
-import br.com.springboot.essentials2.dto.ClientPutRequestBody;
 import br.com.springboot.essentials2.model.Client;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;

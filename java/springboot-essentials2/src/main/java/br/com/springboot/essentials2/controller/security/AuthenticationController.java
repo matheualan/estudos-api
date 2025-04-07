@@ -1,9 +1,11 @@
 package br.com.springboot.essentials2.controller.security;
 
 import br.com.springboot.essentials2.dto.security.AuthenticationDTO;
+import br.com.springboot.essentials2.dto.security.LoginResponseDTO;
 import br.com.springboot.essentials2.dto.security.RegisterDTO;
 import br.com.springboot.essentials2.model.security.UsersRole;
 import br.com.springboot.essentials2.repository.security.UsersRoleRepository;
+import br.com.springboot.essentials2.service.security.TokenService;
 import br.com.springboot.essentials2.util.DateUtil;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
@@ -25,10 +27,13 @@ import java.time.LocalDateTime;
 public class AuthenticationController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    AuthenticationManager authenticationManager;
 
     @Autowired
-    private UsersRoleRepository usersRoleRepository;
+    UsersRoleRepository usersRoleRepository;
+
+    @Autowired
+    TokenService tokenService;
 
     @Autowired
     private DateUtil dateUtil;
@@ -40,7 +45,9 @@ public class AuthenticationController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password()); //Acho q eh para fazer um token do login e password
         var auth = this.authenticationManager.authenticate(usernamePassword); //Para autenticar o token
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((UsersRole) auth.getPrincipal()); //qdo o usuario logar vai receber um token
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping(path = "/register")

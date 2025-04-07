@@ -1,5 +1,6 @@
 package br.com.springboot.essentials2.config.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,6 +19,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity //Avisa ao S.Security que iremos desabilitar as configs default e pede para habilitar as configuracoes
 //do web security pois vamos fazer nossa propria config
 public class SecurityConfig {
+
+    @Autowired
+    SecurityFilter securityFilter;
 
     @Bean //Para o Spring fazer a injecao e gerenciar as instancias desse metodo/objeto
 //SecurityFilterChain: Sao filtros que serao aplicados a requisicao para fazer a seguranca da app.
