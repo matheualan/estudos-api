@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 @Service
-public class TokenService {
+public class TokenService { //classe para criacao e validacao do token
 
     @Value("${api.security.token.secret}") //o valor esta vindo do application.properties
     private String secret; //a secret pode ser variaveis de ambiente q podem estar na aws ou na maquina local
@@ -45,7 +45,7 @@ public class TokenService {
                     .getSubject();
         } catch (JWTVerificationException exc) {
             return ""; //retornando string vazia pq qdo algum metodo chamar esse metodo e receber string vazia ele
-            // vai saber q o token nao foi validado e retornar unauthorized
+                       //vai saber q o token nao foi validado e retornar unauthorized
         }
     }
 

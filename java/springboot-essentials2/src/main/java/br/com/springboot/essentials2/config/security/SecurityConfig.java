@@ -16,11 +16,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 //Classe para desabilitar as configuracoes padroes do S.Security e aplicar as nossas proprias configuracoes
 @Configuration //Avisa ao Spring que eh uma classe de configuracao
 @EnableWebSecurity //Avisa ao S.Security que iremos desabilitar as configs default e pede para habilitar as configuracoes
-// do web security que vamos fazer nossa propria config
+//do web security pois vamos fazer nossa propria config
 public class SecurityConfig {
 
     @Bean //Para o Spring fazer a injecao e gerenciar as instancias desse metodo/objeto
-//SecurityFilterChain: Sao filtros que serao aplicado a requisicao para fazer a seguranca da app.
+//SecurityFilterChain: Sao filtros que serao aplicados a requisicao para fazer a seguranca da app.
 //Filtros: Metodos onde vamos fazer validacoes no usuario q esta fazendo a requisicao para verificar se esta apto ou nao
     public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf(csrf -> csrf.disable())
@@ -30,7 +30,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/client/save").hasRole("ADMIN") //Config para somente ADMIN poder realizar request http para o endpoint selecionado
                         .anyRequest().authenticated()) //Config para qualquer Role, apenas autenticado
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) //classe SecurityFilter q criamos
+
+                //securityFilter eh a classe q criamos para verificar os tokens de forma automatica a cada requisicao
+                //dps q ele passar pelos metodos acima e identificar o endpoint q precisa da validacao do token
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) //quero que o filtro securityFilter ocorra antes do UsernamePassword...
+                //caso o securityFilter nao passe ira cair no UsernamePasswordAuthenticationFilter e provavelmente lancara um 403 forbbiden
+
                 .build();
     }
 
