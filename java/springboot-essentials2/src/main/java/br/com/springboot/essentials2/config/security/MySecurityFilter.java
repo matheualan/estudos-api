@@ -17,7 +17,7 @@ import java.io.IOException;
 
 @Component
 //classe para o spring verificar o token do usuario de forma automatica em todas as requisicoes q necessitam de autorizacao
-public class SecurityFilter extends OncePerRequestFilter { //Once eh um filtro q acontece uma vez a cada requisicao para pegar o token e validar verificando as infos contidas nesse token
+public class MySecurityFilter extends OncePerRequestFilter { //Once eh um filtro q acontece uma vez a cada requisicao para pegar o token e validar verificando as infos contidas nesse token
 
     @Autowired
     TokenService tokenService;
@@ -49,5 +49,4 @@ public class SecurityFilter extends OncePerRequestFilter { //Once eh um filtro q
         if (authHeader == null) return null; //quer dizer q nao tem nenhum token nessa requisicao
         return authHeader.replace("Bearer ", ""); //substituindo "Bearer " por um espaco vazio para pegar apenas o valor do token no final e descartar o bearer q serve apenas por padronizacao
     }
-
 }

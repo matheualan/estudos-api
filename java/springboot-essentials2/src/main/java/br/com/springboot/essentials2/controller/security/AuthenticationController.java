@@ -36,11 +36,11 @@ public class AuthenticationController {
     TokenService tokenService;
 
     @Autowired
-    private DateUtil dateUtil;
+    DateUtil dateUtil;
 
     @PostMapping(path = "/login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST /login"));
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO data) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST /auth/login"));
 
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password()); //Acho q eh para fazer um token do login e password
         var auth = this.authenticationManager.authenticate(usernamePassword); //Para autenticar o token
@@ -51,8 +51,8 @@ public class AuthenticationController {
     }
 
     @PostMapping(path = "/register")
-    public ResponseEntity register(@RequestBody @Valid RegisterDTO data) {
-        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST /register"));
+    public ResponseEntity<Void> register(@RequestBody @Valid RegisterDTO data) {
+        log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST /auth/register"));
 
         if (usersRoleRepository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 

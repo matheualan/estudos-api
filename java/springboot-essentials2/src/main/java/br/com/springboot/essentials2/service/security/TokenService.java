@@ -22,12 +22,11 @@ public class TokenService { //classe para criacao e validacao do token
     public String generateToken(UsersRole usersRole) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(this.secret); //algoritmo de geracao de token HMAC256
-            String token = JWT.create()
+            return JWT.create()
                     .withIssuer("springboot-essentials2") //nome do emissor, de quem esta criando, bom colocar o nome da api
                     .withSubject(usersRole.getLogin()) //para o usuario que esta sendo criado esse token, usar o login do usuario
                     .withExpiresAt(LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"))) //o tempo de expiracao desse token
                     .sign(algorithm); //para fazer a assinatura e a geracao final, usar a variavel q criamos com a secret
-            return token;
         } catch (JWTCreationException exc) {
             throw new RuntimeException("Error while generating token", exc);
         }
