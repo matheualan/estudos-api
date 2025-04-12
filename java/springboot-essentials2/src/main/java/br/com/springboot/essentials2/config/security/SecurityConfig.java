@@ -34,7 +34,7 @@ public class SecurityConfig {
 //                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 //                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
 //                        .requestMatchers(HttpMethod.POST, "/client/save").hasRole("ADMIN") //Config para somente ADMIN poder realizar request http para o endpoint selecionado
-//                        .anyRequest().authenticated()) //Config para qualquer Role, apenas autenticado
+//                        .anyRequest().authenticated()) //definindo que as demais urls da api precisarao de autenticacao
 //
 //                //securityFilter eh a classe q criamos para verificar os tokens de forma automatica a cada requisicao
 //                //dps q ele passar pelos metodos acima e identificar o endpoint q precisa da validacao do token
@@ -45,13 +45,13 @@ public class SecurityConfig {
 //    }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
-        return security.csrf(AbstractHttpConfigurer::disable)
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/client/page").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/client/list-all").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/client/list-all").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/client/save").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 ).addFilterBefore(mySecurityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

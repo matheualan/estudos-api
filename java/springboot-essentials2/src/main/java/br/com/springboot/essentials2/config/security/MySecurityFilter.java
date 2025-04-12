@@ -28,6 +28,8 @@ public class MySecurityFilter extends OncePerRequestFilter { //Once eh um filtro
     @Override //doFilterInternal eh o filtro q vai ser chamado antes do UsernamePasswordAuthenticationFilter na classe SecurityConfig
     //eh aqui q vamos pegar o token e recuperar as infos contidas no token
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        System.out.println("Passando pelo doFilterInternal() na classe MySecurityConfig");
+
         var token = this.recoverToken(request);
         if (token != null) {
             var subjectLogin = tokenService.validateToken(token);
