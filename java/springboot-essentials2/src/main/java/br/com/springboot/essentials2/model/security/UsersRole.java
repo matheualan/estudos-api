@@ -47,7 +47,7 @@ public class UsersRole implements UserDetails {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
                            new SimpleGrantedAuthority("ROLE_MANAGER"),
                            new SimpleGrantedAuthority("ROLE_USER"));
-//        } else if (this.role == UserRoleEnum.MANAGER) {
+//        } else if (this.role == UsersRoleEnum.MANAGER) {
 //            return List.of(new SimpleGrantedAuthority("ROLE_MANAGER"),
 //                           new SimpleGrantedAuthority("ROLE_USER"));
         } else {

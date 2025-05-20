@@ -8,7 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -24,38 +24,39 @@ public class SecurityConfig {
     @Autowired
     MySecurityFilter mySecurityFilter;
 
-//    @Bean //Para o Spring fazer a injecao e gerenciar as instancias desse metodo/objeto
+    @Bean //Para o Spring fazer a injecao e gerenciar as instancias desse metodo/objeto
 //SecurityFilterChain: Sao filtros que serao aplicados a requisicao para fazer a seguranca da app.
 //Filtros: Metodos onde vamos fazer validacoes no usuario q esta fazendo a requisicao para verificar se esta apto ou nao
-//    public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {
-//        return httpSecurity.csrf(csrf -> csrf.disable())
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //Definindo auth stateless
-//                .authorizeHttpRequests(authorize -> authorize //Definindo quais URLs/Requisicoes HTTP precisarao ser autenticadas
-//                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/client/save").hasRole("ADMIN") //Config para somente ADMIN poder realizar request http para o endpoint selecionado
-//                        .anyRequest().authenticated()) //definindo que as demais urls da api precisarao de autenticacao
-//
-//                //securityFilter eh a classe q criamos para verificar os tokens de forma automatica a cada requisicao
-//                //dps q ele passar pelos metodos acima e identificar o endpoint q precisa da validacao do token
-//                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) //quero que o filtro securityFilter ocorra antes do UsernamePassword...
-//                //caso o securityFilter nao passe ira cair no UsernamePasswordAuthenticationFilter e provavelmente lancara um 403 forbbiden
-//
-//                .build();
-//    }
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+    public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity.csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //Definindo auth stateless
+                .authorizeHttpRequests(authorize -> authorize //Definindo quais URLs/Requisicoes HTTP precisarao ser autenticadas
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/client/save").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/client/list-all").permitAll()
-                        .anyRequest().authenticated()
-                ).addFilterBefore(mySecurityFilter, UsernamePasswordAuthenticationFilter.class)
+                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/client/save").hasRole("ADMIN") //Config para somente ADMIN poder realizar request http para o endpoint selecionado
+                        .anyRequest().authenticated()) //definindo que as demais urls da api precisarao de autenticacao
+
+                //securityFilter eh a classe q criamos para verificar os tokens de forma automatica a cada requisicao
+                //dps q ele passar pelos metodos acima e identificar o endpoint q precisa da validacao do token
+                .addFilterBefore(mySecurityFilter, UsernamePasswordAuthenticationFilter.class) //quero que o filtro securityFilter ocorra antes do UsernamePassword...
+                //caso o securityFilter nao passe ira cair no UsernamePasswordAuthenticationFilter e provavelmente lancara um 403 forbbiden
+
                 .build();
     }
+
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+//        return httpSecurity.csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/client/save").hasRole("ADMIN")
+//                        .requestMatchers(HttpMethod.GET, "/client/list-all").permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/client/page").permitAll()
+//                        .anyRequest().authenticated()
+//                ).addFilterBefore(mySecurityFilter, UsernamePasswordAuthenticationFilter.class)
+//                .build();
+//    }
 
     //Metodo para avisar ao S.Security de onde esta vindo a instancia de AuthenticationManager q esta sendo usado em AuthenticationController
     @Bean
