@@ -3,7 +3,7 @@ package br.com.springboot.essentials2.controller.security;
 import br.com.springboot.essentials2.dto.security.AuthenticationDTO;
 import br.com.springboot.essentials2.dto.security.LoginResponseDTO;
 import br.com.springboot.essentials2.dto.security.RegisterDTO;
-import br.com.springboot.essentials2.model.security.UsersRole;
+import br.com.springboot.essentials2.model.security.Users;
 import br.com.springboot.essentials2.repository.security.UsersRoleRepository;
 import br.com.springboot.essentials2.service.security.TokenService;
 import br.com.springboot.essentials2.util.DateUtil;
@@ -45,7 +45,7 @@ public class AuthenticationController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password()); //Acho q eh para fazer um token do login e password
         var auth = this.authenticationManager.authenticate(usernamePassword); //Para autenticar o token
 
-        var token = tokenService.generateToken((UsersRole) auth.getPrincipal()); //qdo o usuario logar vai receber um token
+        var token = tokenService.generateToken((Users) auth.getPrincipal()); //qdo o usuario logar vai receber um token
 
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
@@ -57,9 +57,9 @@ public class AuthenticationController {
         if (usersRoleRepository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        UsersRole newUser = new UsersRole(data.login(), encryptedPassword, data.role());
+        Users newUsers = new Users(data.login(), encryptedPassword, data.role());
 
-        usersRoleRepository.save(newUser);
+        usersRoleRepository.save(newUsers);
 
         return ResponseEntity.ok().build();
     }

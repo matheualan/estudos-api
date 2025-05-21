@@ -1,6 +1,6 @@
 package br.com.springboot.essentials2.service.security;
 
-import br.com.springboot.essentials2.model.security.UsersRole;
+import br.com.springboot.essentials2.model.security.Users;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -19,12 +19,12 @@ public class TokenService { //classe para criacao e validacao do token
     //a secret eh uma forma para tornar o hash gerado (token) unico na app
     //a secret tem q ser mto bem guardada pois eh uma informacao unica e sensivel q ngm deve ter acesso pois poderia descobrir as senhas
 
-    public String generateToken(UsersRole usersRole) {
+    public String generateToken(Users users) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(this.secret); //algoritmo de geracao de token HMAC256
             return JWT.create()
                     .withIssuer("springboot-essentials2") //nome do emissor, de quem esta criando, bom colocar o nome da api
-                    .withSubject(usersRole.getLogin()) //para o usuario que esta sendo criado esse token, usar o login do usuario
+                    .withSubject(users.getLogin()) //para o usuario que esta sendo criado esse token, usar o login do usuario
                     .withExpiresAt(LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"))) //o tempo de expiracao desse token
                     .sign(algorithm); //para fazer a assinatura e a geracao final, usar a variavel q criamos com a secret
         } catch (JWTCreationException exc) {
