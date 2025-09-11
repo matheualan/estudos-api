@@ -10,6 +10,10 @@ BinaryOperator - Recebe dois elementos de um tipo e retorna um do mesmo tipo.
 ========================================================================================================================
 Ctrl+F & Ctrl+R = Usado no arquivo de classe pra alterar palavras(replace) F = palavra que deseja mudar R = palavra nova
 ========================================================================================================================
+SPRING SECURITY
+Ordem criação classes do s. security (aula Fernanda Kipper):
+UserEntidade (UserDetails) > UserEnum > Repository (UserDetails) > AuthorizationService (UserDetailsService) >
+SecurityConfig (SecurityFilterChain) >
 ========================================================================================================================
 ========================================================================================================================
 ========================================================================================================================

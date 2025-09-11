@@ -51,7 +51,7 @@ public class ClientController {
     public ResponseEntity<Page<ClientGetFindById>> pageClients(@PageableDefault(page = 0, size = 5,
                                                                 direction = Sort.Direction.ASC) Pageable pageable) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" GET /client/page"));
-        return ResponseEntity.status(HttpStatus.OK).body(clientService.pageClients(pageable));
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.pageClientsMap(pageable));
     }
 
     @GetMapping(path = "/list-by-name") // Usar ? na URL para passar a var. Ex.: ?name=Matios / ?id=1&name=Alen

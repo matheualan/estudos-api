@@ -45,6 +45,10 @@ public class ClientService {
         return pageClientGet;
     }
 
+    public Page<ClientGetFindById> pageClientsMap(Pageable pageable) {
+        return clientRepository.findAll(pageable).map(ClientMapper.INSTANCE::toClientGet);
+    }
+
     public List<Client> findByName(String name) {
         return clientRepository.findByName(name);
     }

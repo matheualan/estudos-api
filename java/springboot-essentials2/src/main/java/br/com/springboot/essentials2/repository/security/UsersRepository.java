@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UsersRoleRepository extends JpaRepository<Users, Long> {
+public interface UsersRepository extends JpaRepository<Users, Long> {
 
-//S.Security usará para fazer as consultas dos users no DataBase
+    //S.Security usará para fazer as consultas dos users no DataBase buscando por login
 //Importante retornar como UserDetails pq sera usado pelo S.Security
     UserDetails findByLogin(String login);
 

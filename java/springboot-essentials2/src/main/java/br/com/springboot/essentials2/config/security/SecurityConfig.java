@@ -28,7 +28,7 @@ public class SecurityConfig {
 //SecurityFilterChain: Sao filtros que serao aplicados a requisicao para fazer a seguranca da app.
 //Filtros: Metodos onde vamos fazer validacoes no usuario q esta fazendo a requisicao para verificar se esta apto ou nao
     public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.csrf(csrf -> csrf.disable())
+        return httpSecurity.csrf(csrf -> csrf.disable()) //No httpsecurity onde vamos declarar as configs pro s. security
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //Definindo auth stateless
                 .authorizeHttpRequests(authorize -> authorize //Definindo quais URLs/Requisicoes HTTP precisarao ser autenticadas
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()

@@ -24,6 +24,7 @@ public class Users implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String login;
 
     private String password;
@@ -47,9 +48,9 @@ public class Users implements UserDetails {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
                            new SimpleGrantedAuthority("ROLE_MANAGER"),
                            new SimpleGrantedAuthority("ROLE_USER"));
-//        } else if (this.role == UsersRole.MANAGER) {
-//            return List.of(new SimpleGrantedAuthority("ROLE_MANAGER"),
-//                           new SimpleGrantedAuthority("ROLE_USER"));
+        } else if (this.role == UsersRole.MANAGER) {
+            return List.of(new SimpleGrantedAuthority("ROLE_MANAGER"),
+                           new SimpleGrantedAuthority("ROLE_USER"));
         } else {
             return List.of(new SimpleGrantedAuthority("ROLE_USER"));
         }

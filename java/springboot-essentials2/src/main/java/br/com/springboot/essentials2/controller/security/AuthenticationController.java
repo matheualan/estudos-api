@@ -4,7 +4,7 @@ import br.com.springboot.essentials2.dto.security.AuthenticationDTO;
 import br.com.springboot.essentials2.dto.security.LoginResponseDTO;
 import br.com.springboot.essentials2.dto.security.RegisterDTO;
 import br.com.springboot.essentials2.model.security.Users;
-import br.com.springboot.essentials2.repository.security.UsersRoleRepository;
+import br.com.springboot.essentials2.repository.security.UsersRepository;
 import br.com.springboot.essentials2.service.security.TokenService;
 import br.com.springboot.essentials2.util.DateUtil;
 import jakarta.validation.Valid;
@@ -30,7 +30,7 @@ public class AuthenticationController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UsersRoleRepository usersRoleRepository;
+    UsersRepository usersRepository;
 
     @Autowired
     TokenService tokenService;
@@ -54,12 +54,12 @@ public class AuthenticationController {
     public ResponseEntity<Void> register(@RequestBody @Valid RegisterDTO data) {
         log.info(dateUtil.dateFormatter(LocalDateTime.now()).concat(" POST /auth/register"));
 
-        if (usersRoleRepository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
+        if (usersRepository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         Users newUsers = new Users(data.login(), encryptedPassword, data.role());
 
-        usersRoleRepository.save(newUsers);
+        usersRepository.save(newUsers);
 
         return ResponseEntity.ok().build();
     }

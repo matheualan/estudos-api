@@ -1,6 +1,6 @@
 package br.com.springboot.essentials2.config.security;
 
-import br.com.springboot.essentials2.repository.security.UsersRoleRepository;
+import br.com.springboot.essentials2.repository.security.UsersRepository;
 import br.com.springboot.essentials2.service.security.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -23,7 +23,7 @@ public class MySecurityFilter extends OncePerRequestFilter { //Once eh um filtro
     TokenService tokenService;
 
     @Autowired
-    UsersRoleRepository userRepository;
+    UsersRepository userRepository;
 
     @Override //doFilterInternal eh o filtro q vai ser chamado antes do UsernamePasswordAuthenticationFilter na classe SecurityConfig
     //eh aqui q vamos pegar o token e recuperar as infos contidas no token

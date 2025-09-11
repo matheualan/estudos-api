@@ -1,6 +1,6 @@
 package br.com.springboot.essentials2.service.security;
 
-import br.com.springboot.essentials2.repository.security.UsersRoleRepository;
+import br.com.springboot.essentials2.repository.security.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,17 +14,16 @@ import org.springframework.stereotype.Service;
 //Dentro dessa classe vamos definir alguns metodos que vao ajudar o S.Security identificar como queremos fazer essas autenticacoes
 @Service
 public class AuthorizationService implements UserDetailsService {
-//UserDetailsService: Para o S.Security identificar que essa eh nossa authentication service que ele deve chamar de forma automatica
 
     @Autowired
-    UsersRoleRepository usersRoleRepository;
+    UsersRepository usersRepository;
 
 //Toda vez que alguem tentar se autenticar na app o S.Security tem que ter uma forma de consultar esses users
 //Metodo onde o Security vai consultar os users no database na tabela criada p/ as auth toda vez q algum usuario tentar
 //se autenticar na aplicacao
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return usersRoleRepository.findByLogin(username);
+        return usersRepository.findByLogin(username);
     }
 
 }
