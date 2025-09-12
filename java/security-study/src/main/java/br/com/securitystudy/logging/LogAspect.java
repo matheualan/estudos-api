@@ -9,6 +9,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,17 +22,25 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class LogAspect {
 
-    private final HttpServletRequest request;
-    private final HttpServletResponse response;
+//    private final HttpServletRequest request;
+//    private final HttpServletResponse response;
 
     private static final DateTimeFormatter BR_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
-    @Pointcut("within(@org.springframework.web.bind.annotation.RestController *)")
-    public void controllerMethods() {
-    }
+//    @Pointcut("within(@org.springframework.web.bind.annotation.RestController *)")
+//    public void controllerMethods() {
+//    }
+
+    @Pointcut("execution(public * (@org.springframework.web.bind.annotation.RestController *).*(..))")
+    public void controllerMethods() { }
 
     @Around("controllerMethods()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        HttpServletRequest request =
+                ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        HttpServletResponse response =
+                ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
+
         String dateHour = LocalDateTime.now().format(BR_FORMAT);
         String methodHttp = request.getMethod();
         String className = joinPoint.getSignature().getDeclaringTypeName();
@@ -38,7 +48,7 @@ public class LogAspect {
         Object[] args = joinPoint.getArgs();
 
         log.info("[INIT] {} {} {}.{}() {}",
-                dateHour, methodHttp, className, methodHttp, Arrays.toString(args));
+                dateHour, methodHttp, className, methodName, Arrays.toString(args));
 
         long initCount = System.currentTimeMillis();
 
