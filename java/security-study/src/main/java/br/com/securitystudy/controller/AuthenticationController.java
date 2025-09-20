@@ -22,7 +22,7 @@ public class AuthenticationController {
 
 
     @Autowired
-    UsersRepository repository;
+    UsersRepository usersRepository;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -36,15 +36,15 @@ public class AuthenticationController {
     }
 
     @PostMapping(path = "/register")
-    public ResponseEntity<RegisterDTO> register(@RequestBody @Valid RegisterDTO registerDTO) {
-        if (repository.findByLogin(registerDTO.login()) != null) return ResponseEntity.badRequest().build();
+    public ResponseEntity<Users> register(@RequestBody @Valid RegisterDTO data) {
+        if (usersRepository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(registerDTO.password());
-        Users newUser = new Users(registerDTO.login(), encryptedPassword, registerDTO.role());
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
+        Users newUser = new Users(data.login(), encryptedPassword, data.role());
 
-        Users save = repository.save(newUser);
+        Users save = usersRepository.save(newUser);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(registerDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(save);
     }
 
 }

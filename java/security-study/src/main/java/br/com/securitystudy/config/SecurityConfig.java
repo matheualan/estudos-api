@@ -23,8 +23,8 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class SecurityConfig {
 
-//    @Autowired
-//    MySecurityFilter mySecurityFilter;
+    @Autowired
+    MySecurityFilter mySecurityFilter;
 
     @Autowired
     Environment env;
@@ -36,10 +36,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(HttpMethod.POST, "/test/save").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.GET, "/test/only-admin").hasRole("ADMIN")
-//                            .requestMatchers(HttpMethod.GET, "/test/only-admin").permitAll()
                             .requestMatchers(HttpMethod.GET, "/test/").permitAll()
-                            .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                            .requestMatchers(HttpMethod.POST, "/auth/register").permitAll();
+                            .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register").permitAll();
 
                     // se estiver rodando no profile "dev", libera Swagger + H2
                     if (Arrays.asList(env.getActiveProfiles()).contains("dev")) {
@@ -48,9 +46,7 @@ public class SecurityConfig {
                     }
 
                     auth.anyRequest().authenticated();
-
-                });
-//        .addFilterBefore(mySecurityFilter, UsernamePasswordAuthenticationFilter.class)
+                }).addFilterBefore(mySecurityFilter, UsernamePasswordAuthenticationFilter.class);
 
         // H2 usa frames, precisa desabilitar isso só em dev
         if (Arrays.asList(env.getActiveProfiles()).contains("dev")) {
