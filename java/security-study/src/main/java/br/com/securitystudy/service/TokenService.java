@@ -35,11 +35,12 @@ public class TokenService {
     public String validateToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            return JWT.require(algorithm)
+            String subject = JWT.require(algorithm)
                     .withIssuer("security-study")
                     .build()
                     .verify(token)
                     .getSubject();
+            return subject;
         } catch (JWTVerificationException e) {
             return ""; //retornando string vazia pq qdo verificar q esta vazio vai entender q nao tem token valido lancando o erro de unauthorized 403
         }

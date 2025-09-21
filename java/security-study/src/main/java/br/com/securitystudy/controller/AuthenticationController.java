@@ -1,11 +1,13 @@
 package br.com.securitystudy.controller;
 
 import br.com.securitystudy.dto.AuthenticationDTO;
+import br.com.securitystudy.dto.LoginResponseDTO;
 import br.com.securitystudy.dto.RegisterDTO;
 import br.com.securitystudy.model.Users;
 import br.com.securitystudy.repository.UsersRepository;
+import br.com.securitystudy.service.TokenService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,21 +20,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/auth")
+@RequiredArgsConstructor
 public class AuthenticationController {
 
-
-    @Autowired
-    UsersRepository usersRepository;
-
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private final UsersRepository usersRepository;
+    private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
 
     @PostMapping(path = "/login")
-    public ResponseEntity<Void>  login(@RequestBody @Valid AuthenticationDTO data) {
+    public ResponseEntity<LoginResponseDTO>  login(@RequestBody @Valid AuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-        var authenticate = authenticationManager.authenticate(usernamePassword);
+        var auth = authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        String token = tokenService.generateToken((Users) auth.getPrincipal());
+
+        return ResponseEntity.status(HttpStatus.OK).body(new LoginResponseDTO(token));
     }
 
     @PostMapping(path = "/register")
