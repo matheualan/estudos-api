@@ -22,10 +22,10 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class LogAspect {
 
+    private static final DateTimeFormatter BR_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
 //    private final HttpServletRequest request;
 //    private final HttpServletResponse response;
-
-    private static final DateTimeFormatter BR_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
 //    @Pointcut("within(@org.springframework.web.bind.annotation.RestController *)")
 //    public void controllerMethods() {
