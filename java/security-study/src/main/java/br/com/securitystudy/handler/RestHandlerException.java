@@ -1,8 +1,7 @@
 package br.com.securitystudy.handler;
 
-import br.com.securitystudy.exception.NullException;
-import br.com.securitystudy.exception.details.NullPointerExceptionDetails;
 import br.com.securitystudy.exception.details.InternalAuthenticationServiceExceptionDetails;
+import br.com.securitystudy.exception.details.NullPointerExceptionDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;

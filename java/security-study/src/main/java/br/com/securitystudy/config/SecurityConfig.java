@@ -1,5 +1,6 @@
 package br.com.securitystudy.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,13 +22,11 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Autowired
-    MySecurityFilter mySecurityFilter;
-
-    @Autowired
-    Environment env;
+    private final MySecurityFilter mySecurityFilter;
+    private final Environment env;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
