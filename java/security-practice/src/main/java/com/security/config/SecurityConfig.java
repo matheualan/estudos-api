@@ -1,15 +1,16 @@
 package com.security.config;
 
-import com.security.infra.MySecurityFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,18 +21,26 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
     private final MySecurityFilter mySecurityFilter;
+    private final Environment env;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        httpSecurity.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register").permitAll()
-                .requestMatchers(HttpMethod.GET, "/test/forUser").permitAll()
-                .requestMatchers(HttpMethod.GET, "/test/forAdmin").hasRole("ADMIN")
-                .anyRequest().authenticated()
-        ).addFilterBefore(mySecurityFilter, UsernamePasswordAuthenticationFilter.class);
+
+        httpSecurity.authorizeHttpRequests(authorize -> {
+            authorize.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/auth/register").permitAll();
+//                    .requestMatchers("/h2-console/**").permitAll();
+            authorize.anyRequest().permitAll();
+
+
+        }).addFilterBefore(mySecurityFilter, UsernamePasswordAuthenticationFilter.class);
+
+        httpSecurity.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
+
         return httpSecurity.build();
     }
 
@@ -44,4 +53,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

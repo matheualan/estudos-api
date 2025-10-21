@@ -1,9 +1,8 @@
 package com.security.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,29 +14,27 @@ import java.util.List;
 
 @Entity
 @Table(name = "tb_users")
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Users implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String login;
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
     private UsersRole role;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime updatedAt;
-
-    public Users(String login, String password, UsersRole role) {
+    public Users(String login, String passwordEncode, UsersRole role) {
         this.login = login;
-        this.password = password;
+        this.password = passwordEncode;
         this.role = role;
     }
 
@@ -45,13 +42,9 @@ public class Users implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (role == UsersRole.ADMIN) {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
-                    new SimpleGrantedAuthority("ROLE_MANAGER"),
-                    new SimpleGrantedAuthority("ROLE_USER"));
-        } else if (role == UsersRole.MANAGER) {
-            return List.of(new SimpleGrantedAuthority("ROLE_MANAGER"),
                     new SimpleGrantedAuthority("ROLE_USER"));
         } else {
-            return List.of((new SimpleGrantedAuthority("ROLE_USER")));
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
         }
     }
 

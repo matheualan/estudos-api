@@ -1,7 +1,8 @@
 package com.security.model;
 
 public enum UsersRole {
-    ADMIN("admin"), MANAGER("manager"), USER("user");
+
+    ADMIN("admin"), USER("user");
 
     private final String role;
 

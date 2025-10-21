@@ -1,4 +1,4 @@
-package com.security.infra;
+package com.security.config;
 
 import com.security.repository.UsersRepository;
 import com.security.service.TokenService;
@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,17 +19,30 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class MySecurityFilter extends OncePerRequestFilter {
+
     private final TokenService tokenService;
     private final UsersRepository usersRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = recoverToken(request);
-        if (token != null) {
+
+        String recebeToken = "";
+        String authorization = request.getHeader("Authorization");
+        if (authorization != null) {
+            String accessToken = authorization.replace("Bearer ", "");
+            recebeToken = accessToken;
+        }
+
+
+//        if (token != null) {
+        if (recebeToken != null) {
             String loginSubject = tokenService.validateToken(token);
-            UserDetails userDetails = usersRepository.findByLogin(loginSubject);
-            var authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            UserDetails userByLogin = usersRepository.findByLogin(loginSubject);
+            if (userByLogin != null) {
+                var authenticationToken = new UsernamePasswordAuthenticationToken(userByLogin, null, userByLogin.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
         }
         filterChain.doFilter(request, response);
     }
@@ -38,4 +52,5 @@ public class MySecurityFilter extends OncePerRequestFilter {
         if (authorization == null) return null;
         return authorization.replace("Bearer ", "");
     }
+
 }
