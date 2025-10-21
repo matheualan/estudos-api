@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -34,11 +35,18 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    //Entity JPA
+    //Entities JPA
     @PostMapping(path = "/create")
     public ResponseEntity<Void> create(@RequestBody ProductEntity product) {
         productService.save(product);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping(path = "/create-several")
+    public ResponseEntity<Void> createSeveral(@RequestBody List<ProductEntity> products) {
+        List<ProductEntity> list = productService.createSeveral(products);
+        URI location = URI.create("/product/create-several");
+        return ResponseEntity.created(location).build();
     }
 
     @GetMapping(path = "/list")

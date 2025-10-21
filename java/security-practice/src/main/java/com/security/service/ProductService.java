@@ -53,4 +53,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public List<ProductEntity> createSeveral(List<ProductEntity> products) {
+        return productRepository.saveAll(products);
+    }
 }

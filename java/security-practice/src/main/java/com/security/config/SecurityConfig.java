@@ -30,15 +30,15 @@ public class SecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        httpSecurity.authorizeHttpRequests(authorize -> {
-            authorize.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/auth/register").permitAll();
-//                    .requestMatchers("/h2-console/**").permitAll();
-            authorize.anyRequest().permitAll();
+        httpSecurity.authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.POST, "/product/create-several").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+//                        .requestMatchers("/h2-console/**").permitAll()
+                        .anyRequest().permitAll()
+        ).addFilterBefore(mySecurityFilter, UsernamePasswordAuthenticationFilter.class);
 
-
-        }).addFilterBefore(mySecurityFilter, UsernamePasswordAuthenticationFilter.class);
-
+        //desabilitar frames do H2 para conseguir acesso a interface do DB
         httpSecurity.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
 
         return httpSecurity.build();
