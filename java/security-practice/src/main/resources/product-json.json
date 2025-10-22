@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Uva",
+    "price": 1.00
+  },
+  {
+    "name": "Acerola",
+    "price": 1.50
+  },
+  {
+    "name": "Caja",
+    "price": 2.00
+  },
+  {
+    "name": "Caju",
+    "price": 2.50
+  },
+  {
+    "name": "Manga",
+    "price": 3.00
+  },
+  {
+    "name": "Graviola",
+    "price": 3.50
+  }
+]

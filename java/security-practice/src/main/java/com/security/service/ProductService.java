@@ -1,14 +1,15 @@
 package com.security.service;
 
 import com.security.model.Product;
-import com.security.model.ProductEntity;
+import com.security.model.ProductModel;
 import com.security.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +18,6 @@ public class ProductService {
     List<Product> products = new ArrayList<>();
 
     private final ProductRepository productRepository;
-
 
     public void saveProduct(Product product) {
         products.add(product);
@@ -41,7 +41,7 @@ public class ProductService {
     }
 
     //Entity JPA
-    public void save(ProductEntity product) {
+    public void save(ProductModel product) {
         productRepository.save(product);
     }
 
@@ -49,11 +49,15 @@ public class ProductService {
         productRepository.delete(productRepository.findById(id).get());
     }
 
-    public List<ProductEntity> list() {
+    public List<ProductModel> list() {
         return productRepository.findAll();
     }
 
-    public List<ProductEntity> createSeveral(List<ProductEntity> products) {
+    public List<ProductModel> createSeveral(List<ProductModel> products) {
         return productRepository.saveAll(products);
+    }
+
+    public Page<ProductModel> page(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 }

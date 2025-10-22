@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 @Entity @Table(name = "tb_products")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"})
-public class ProductEntity {
+@JsonIgnoreProperties(value = {"updatedAt"})
+public class ProductModel {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
