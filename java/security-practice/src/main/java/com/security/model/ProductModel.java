@@ -3,15 +3,13 @@ package com.security.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity @Table(name = "tb_products")
+@Builder
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 @JsonIgnoreProperties(value = {"updatedAt"})
