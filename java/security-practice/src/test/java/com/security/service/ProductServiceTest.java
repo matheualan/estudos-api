@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
@@ -25,13 +26,12 @@ class ProductServiceTest {
     @Mock
     private ProductRepository productRepositoryMock;
 
-    private ProductModel product;
+    private ProductModel melancia;
     private List<ProductModel> listProducts;
 
     @BeforeEach
     void setUp() {
-        product = ProductBuilder.createMelancia();
-
+        melancia = ProductBuilder.createMelancia();
         listProducts = List.of(ProductBuilder.createMelancia(),
                                 ProductBuilder.createAbacate(),
                                 ProductBuilder.createManga());
@@ -41,10 +41,11 @@ class ProductServiceTest {
     @Test
     @DisplayName("Method save() should save a ProductModel when successful")
     void shouldSaveProductModel_WhenSuccessful() {
-        productService.save(product);
+        productService.save(melancia);
 
-        BDDMockito.verify(productRepositoryMock, Mockito.times(1)).save(product);
-        Assertions.assertThatCode(() -> productService.save(product)).doesNotThrowAnyException();
+        BDDMockito.verify(productRepositoryMock, Mockito.times(1)).save(melancia);
+        BDDMockito.verifyNoMoreInteractions(productRepositoryMock);
+        Assertions.assertThatCode(() -> productService.save(melancia)).doesNotThrowAnyException();
     }
 
     @Test
@@ -52,6 +53,28 @@ class ProductServiceTest {
     void shouldThrowAnException_WhenItIsNull() {
         Assertions.assertThatThrownBy(() -> productRepositoryMock.save(null))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void createSeveral() {
+    }
+
+    @Test
+    @DisplayName("Method delete() should delete product when successful")
+    void shouldDeleteProduct_WhenSuccessful() {
+        Long id = melancia.getId();
+        BDDMockito.when(productRepositoryMock.findById(id)).thenReturn(Optional.of(melancia));
+
+        productService.delete(id);
+
+        BDDMockito.verify(productRepositoryMock, Mockito.times(1)).findById(id);
+        BDDMockito.verify(productRepositoryMock, Mockito.times(1)).delete(melancia);
+        BDDMockito.verifyNoMoreInteractions(productRepositoryMock);
+        Assertions.assertThatCode(() -> productService.delete(id)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void list() {
     }
 
     @Test
@@ -67,22 +90,6 @@ class ProductServiceTest {
                 .hasSize(3)
                 .extracting(ProductModel::getName)
                 .contains("Melancia", "Abacate", "Manga");
-    }
-
-    @Test
-    @DisplayName("Method delete() should delete product when successful")
-    void shouldDeleteProduct_WhenSuccessful() {
-        BDDMockito.doNothing().when(productRepositoryMock).delete(ArgumentMatchers.any(ProductModel.class));
-        productService.delete(1L);
-        BDDMockito.verify(productRepositoryMock, Mockito.times(1)).delete(product);
-//        Assertions.assertThatCode(() -> productService.delete(1L)).doesNotThrowAnyException();
-    }
-
-    @Test
-    void list() {
-    }
-    @Test
-    void createSeveral() {
     }
 
 }
