@@ -19,30 +19,12 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public void saveProduct(Product product) {
-        products.add(product);
-    }
-
-    public Product getProduct(Integer indexProduct) {
-        try {
-            return products.get(indexProduct);
-        } catch (IndexOutOfBoundsException e) {
-            throw new RuntimeException("Produto com código " + indexProduct + " não encontrado.");
-        }
-    }
-
-    public List<Product> listProducts() {
-        return products.stream().toList();
-    }
-
-    public void deleteProduct(Integer code) {
-        Product product = getProduct(code);
-        products.remove(product);
-    }
-
-    //Entity JPA
     public void save(ProductModel product) {
         productRepository.save(product);
+    }
+
+    public List<ProductModel> createSeveral(List<ProductModel> products) {
+        return productRepository.saveAll(products);
     }
 
     public void delete(Long id) {
@@ -53,11 +35,29 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<ProductModel> createSeveral(List<ProductModel> products) {
-        return productRepository.saveAll(products);
-    }
-
     public Page<ProductModel> page(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
+
+    //CRUD sem banco de dados
+//    public void saveProduct(Product product) {
+//        products.add(product);
+//    }
+//
+//    public Product getProduct(Integer indexProduct) {
+//        try {
+//            return products.get(indexProduct);
+//        } catch (IndexOutOfBoundsException e) {
+//            throw new RuntimeException("Produto com código " + indexProduct + " não encontrado.");
+//        }
+//    }
+//
+//    public List<Product> listProducts() {
+//        return products.stream().toList();
+//    }
+//
+//    public void deleteProduct(Integer code) {
+//        Product product = getProduct(code);
+//        products.remove(product);
+//    }
 }

@@ -22,7 +22,7 @@ public class TokenService {
             return JWT.create()
                     .withIssuer("security")
                     .withSubject(user.getLogin())
-                    .withExpiresAt(LocalDateTime.now().plusMinutes(40).toInstant(ZoneOffset.of("-03:00")))
+                    .withExpiresAt(LocalDateTime.now().plusMinutes(10).toInstant(ZoneOffset.of("-03:00")))
                     .sign(Algorithm.HMAC256(secret));
         } catch (JWTCreationException e) {
             throw new JWTCreationException("Error while creating token", e);

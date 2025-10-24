@@ -8,13 +8,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
-import org.mockito.BDDMockito;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
@@ -26,37 +26,63 @@ class ProductServiceTest {
     private ProductRepository productRepositoryMock;
 
     private ProductModel product;
+    private List<ProductModel> listProducts;
 
     @BeforeEach
     void setUp() {
-        product = ProductBuilder.createProduct();
+        product = ProductBuilder.createMelancia();
+
+        listProducts = List.of(ProductBuilder.createMelancia(),
+                                ProductBuilder.createAbacate(),
+                                ProductBuilder.createManga());
     }
 
     // AAA - Arrange, Act, Assert
     @Test
-    @DisplayName("Should save a ProductModel when successful")
-    void shouldSave_WhenSuccessful_ProductModel() {
-        BDDMockito.when(productRepositoryMock.save(product)).thenReturn(product);
-
+    @DisplayName("Method save() should save a ProductModel when successful")
+    void shouldSaveProductModel_WhenSuccessful() {
         productService.save(product);
 
-        assertThat(product.getName()).isEqualTo("Melancia");
-        assertThat(product.getPrice()).isEqualByComparingTo("5.00");
+        BDDMockito.verify(productRepositoryMock, Mockito.times(1)).save(product);
+        Assertions.assertThatCode(() -> productService.save(product)).doesNotThrowAnyException();
     }
 
     @Test
-    void delete() {
+    @DisplayName("Method save() should throw an exception when it is null")
+    void shouldThrowAnException_WhenItIsNull() {
+        Assertions.assertThatThrownBy(() -> productRepositoryMock.save(null))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("Method Page() should return a pagination when successful")
+    void shouldReturnPagination_WhenSuccessful() {
+        BDDMockito.when(productRepositoryMock.findAll(ArgumentMatchers.any(PageRequest.class)))
+                .thenReturn(new PageImpl<>(listProducts, PageRequest.of(0, 2), listProducts.size()));
+
+        Page<ProductModel> page = productService.page(PageRequest.of(0, 2));
+
+        Assertions.assertThat(page.getContent())
+                .isNotEmpty()
+                .hasSize(3)
+                .extracting(ProductModel::getName)
+                .contains("Melancia", "Abacate", "Manga");
+    }
+
+    @Test
+    @DisplayName("Method delete() should delete product when successful")
+    void shouldDeleteProduct_WhenSuccessful() {
+        BDDMockito.doNothing().when(productRepositoryMock).delete(ArgumentMatchers.any(ProductModel.class));
+        productService.delete(1L);
+        BDDMockito.verify(productRepositoryMock, Mockito.times(1)).delete(product);
+//        Assertions.assertThatCode(() -> productService.delete(1L)).doesNotThrowAnyException();
     }
 
     @Test
     void list() {
     }
-
     @Test
     void createSeveral() {
     }
 
-    @Test
-    void page() {
-    }
 }

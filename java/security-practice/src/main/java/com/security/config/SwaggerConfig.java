@@ -20,7 +20,7 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Minha API Spring Boot")
+                        .title("API Spring Boot - Security Practice")
                         .version("1.2.3")
                         .description("Documentação gerada automaticamente pelo Swagger/OpenAPI"));
     }

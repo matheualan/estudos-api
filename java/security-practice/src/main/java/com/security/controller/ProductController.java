@@ -25,28 +25,6 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @Hidden
-    @PostMapping(path = "/createProduct")
-    public ResponseEntity<Void> saveProduct(@RequestBody Product product) {
-        productService.saveProduct(product);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
-    @Hidden
-    @GetMapping(path = "/listProducts")
-    public ResponseEntity<List<Product>> listProducts() {
-        return ResponseEntity.status(HttpStatus.OK).body(productService.listProducts());
-    }
-
-    @Hidden
-    @DeleteMapping(path = "/deleteProduct/{code}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Integer code) {
-        productService.deleteProduct(code);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
-    //Entities JPA
-
     @PostMapping(path = "/create")
     public ResponseEntity<Void> create(@RequestBody ProductModel product) {
         productService.save(product);
@@ -76,5 +54,26 @@ public class ProductController {
         productService.delete(id);
         return ResponseEntity.ok().build();
     }
+
+    //CRUD sem banco de dados
+//    @Hidden
+//    @PostMapping(path = "/createProduct")
+//    public ResponseEntity<Void> saveProduct(@RequestBody Product product) {
+//        productService.saveProduct(product);
+//        return ResponseEntity.status(HttpStatus.CREATED).build();
+//    }
+//
+//    @Hidden
+//    @GetMapping(path = "/listProducts")
+//    public ResponseEntity<List<Product>> listProducts() {
+//        return ResponseEntity.status(HttpStatus.OK).body(productService.listProducts());
+//    }
+//
+//    @Hidden
+//    @DeleteMapping(path = "/deleteProduct/{code}")
+//    public ResponseEntity<Void> deleteProduct(@PathVariable Integer code) {
+//        productService.deleteProduct(code);
+//        return ResponseEntity.status(HttpStatus.OK).build();
+//    }
 
 }
