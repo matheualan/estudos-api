@@ -56,7 +56,8 @@ class ProductServiceTest {
                 .isInstanceOf(NullPointerException.class)
                 .hasMessageContaining("Dados invalidos");
 
-        BDDMockito.verify(productRepositoryMock, Mockito.never()).save(any());
+        BDDMockito.verify(productRepositoryMock, BDDMockito.never()).save(any());
+        BDDMockito.verifyNoMoreInteractions(productRepositoryMock);
     }
 
     @Test
@@ -74,6 +75,7 @@ class ProductServiceTest {
                 .extracting(ProductModel::getName)
                 .contains("Melancia", "Abacate", "Manga");
         BDDMockito.verify(productRepositoryMock, BDDMockito.times(1)).saveAll(listProducts);
+        BDDMockito.verifyNoMoreInteractions(productRepositoryMock);
     }
 
     @Test
@@ -87,6 +89,7 @@ class ProductServiceTest {
 
         Assertions.assertThat(result).isEmpty();
         BDDMockito.verify(productRepositoryMock, BDDMockito.times(1)).saveAll(emptyList);
+        BDDMockito.verifyNoMoreInteractions(productRepositoryMock);
     }
 
     @Test
@@ -95,6 +98,8 @@ class ProductServiceTest {
         Assertions.assertThatThrownBy(() -> productService.createSeveral(null))
                 .isInstanceOf(NullPointerException.class)
                 .hasMessageContaining("null");
+        BDDMockito.verify(productRepositoryMock, BDDMockito.never()).saveAll(any());
+        BDDMockito.verifyNoMoreInteractions(productRepositoryMock);
     }
 
     @Test
@@ -125,15 +130,17 @@ class ProductServiceTest {
                 .extracting(ProductModel::getName)
                 .contains("Melancia", "Abacate", "Manga");
         BDDMockito.verify(productRepositoryMock, BDDMockito.times(1)).findAll();
+        BDDMockito.verifyNoMoreInteractions(productRepositoryMock);
     }
 
     @Test
     @DisplayName("Method Page() should return a pagination when successful")
     void page_shouldReturnPagination_WhenSuccessful() {
+        PageRequest pageRequest = PageRequest.of(0, 2);
         BDDMockito.when(productRepositoryMock.findAll(any(PageRequest.class)))
-                .thenReturn(new PageImpl<>(listProducts, PageRequest.of(0, 2), listProducts.size()));
+                .thenReturn(new PageImpl<>(listProducts, pageRequest, listProducts.size()));
 
-        Page<ProductModel> page = productService.page(PageRequest.of(0, 2));
+        Page<ProductModel> page = productService.page(pageRequest);
 
         Assertions.assertThat(page.getContent())
                 .isNotNull()
@@ -141,6 +148,8 @@ class ProductServiceTest {
                 .hasSize(3)
                 .extracting(ProductModel::getName)
                 .contains("Melancia", "Abacate", "Manga");
+        BDDMockito.verify(productRepositoryMock, BDDMockito.times(1)).findAll(pageRequest);
+        BDDMockito.verifyNoMoreInteractions(productRepositoryMock);
     }
 
 }
