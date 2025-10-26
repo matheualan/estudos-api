@@ -24,7 +24,7 @@ public class ProductService {
         if (product == null) {
             throw new NullPointerException("Dados invalidos");
         }
-        productRepository.save(product).o;
+        productRepository.save(product);
     }
 
     public List<ProductModel> createSeveral(List<ProductModel> products) {
