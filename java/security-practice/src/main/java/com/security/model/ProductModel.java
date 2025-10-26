@@ -19,8 +19,10 @@ public class ProductModel {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private BigDecimal price;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")

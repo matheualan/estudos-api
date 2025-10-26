@@ -17,6 +17,8 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
+
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
 
@@ -51,12 +53,47 @@ class ProductServiceTest {
     @Test
     @DisplayName("Method save() should throw an exception when it is null")
     void shouldThrowAnException_WhenItIsNull() {
-        Assertions.assertThatThrownBy(() -> productRepositoryMock.save(null))
-                .isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> productService.save(null))
+                .isInstanceOf(NullPointerException.class)
+                .hasMessageContaining("Dados invalidos");
+
+        BDDMockito.verify(productRepositoryMock, Mockito.never()).save(any());
     }
 
     @Test
-    void createSeveral() {
+    @DisplayName("Should create and return a list of products when successful")
+    void shouldCreateAndReturn_AListOfProducts_WhenSuccessful() {
+        BDDMockito.when(productRepositoryMock.saveAll(ArgumentMatchers.anyList()))
+                .thenReturn(listProducts);
+
+        List<ProductModel> several = productService.createSeveral(listProducts);
+
+        Assertions.assertThat(several).isNotNull().isNotEmpty();
+        Assertions.assertThat(several)
+                .hasSize(3)
+                .extracting(ProductModel::getName)
+                .contains("Melancia", "Abacate", "Manga");
+        BDDMockito.verify(productRepositoryMock, BDDMockito.times(1)).saveAll(listProducts);
+    }
+
+    @Test
+    @DisplayName("Should return a empty list")
+    void shouldReturnAEmptyList() {
+        List<ProductModel> emptyList = List.of();
+
+        BDDMockito.when(productRepositoryMock.saveAll(ArgumentMatchers.anyList()))
+                .thenReturn(emptyList);
+
+        List<ProductModel> result = productService.createSeveral(emptyList);
+
+        Assertions.assertThat(result).isEmpty();
+        BDDMockito.verify(productRepositoryMock, BDDMockito.times(1)).saveAll(emptyList);
+    }
+
+    @Test
+    void returnNull() {
+        Assertions.assertThatThrownBy(() -> productService.createSeveral(null))
+                .isInstanceOf(NullPointerException.class);
     }
 
     @Test
@@ -80,7 +117,7 @@ class ProductServiceTest {
     @Test
     @DisplayName("Method Page() should return a pagination when successful")
     void shouldReturnPagination_WhenSuccessful() {
-        BDDMockito.when(productRepositoryMock.findAll(ArgumentMatchers.any(PageRequest.class)))
+        BDDMockito.when(productRepositoryMock.findAll(any(PageRequest.class)))
                 .thenReturn(new PageImpl<>(listProducts, PageRequest.of(0, 2), listProducts.size()));
 
         Page<ProductModel> page = productService.page(PageRequest.of(0, 2));

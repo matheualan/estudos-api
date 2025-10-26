@@ -4,6 +4,7 @@ import com.security.model.Product;
 import com.security.model.ProductModel;
 import com.security.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,16 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public void save(ProductModel product) {
-        productRepository.save(product);
+        if (product == null) {
+            throw new NullPointerException("Dados invalidos");
+        }
+        productRepository.save(product).o;
     }
 
     public List<ProductModel> createSeveral(List<ProductModel> products) {
+        if (products == null) {
+            throw new NullPointerException("null");
+        }
         return productRepository.saveAll(products);
     }
 

@@ -1,26 +1,30 @@
 [
   {
-    "name": "Uva",
+    "name": "Alex",
     "price": 1.00
   },
   {
-    "name": "Acerola",
+    "name": "Bernardo",
     "price": 1.50
   },
   {
-    "name": "Caja",
+    "name": "Cristiano",
+    "price": 1.75
+  },
+  {
+    "name": "Carol",
     "price": 2.00
   },
   {
-    "name": "Caju",
+    "name": "Damiao",
     "price": 2.50
   },
   {
-    "name": "Manga",
+    "name": "Eliza",
     "price": 3.00
   },
   {
-    "name": "Graviola",
+    "name": "Fabiola",
     "price": 3.50
   }
 ]
