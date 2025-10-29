@@ -93,8 +93,8 @@ class ProductServiceTest {
     }
 
     @Test
-    @DisplayName("Create Several should return exception when list is empty")
-    void createSeveral_ShouldReturnException_WhenListIsEmpty() {
+    @DisplayName("Create Several should return exception when list is null")
+    void createSeveral_ShouldReturnException_WhenListIsNull() {
         Assertions.assertThatThrownBy(() -> productService.createSeveral(null))
                 .isInstanceOf(NullPointerException.class)
                 .hasMessageContaining("null");

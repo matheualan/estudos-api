@@ -1,0 +1,2 @@
+mvn clean verify - jacoco rodar e gerar a pasta site com o arquivo index.html
+mvn clean test   - para rodar os testes

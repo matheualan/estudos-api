@@ -1,9 +1,7 @@
 package com.security.controller;
 
-import com.security.model.Product;
 import com.security.model.ProductModel;
 import com.security.service.ProductService;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

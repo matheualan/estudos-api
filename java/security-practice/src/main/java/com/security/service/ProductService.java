@@ -1,10 +1,11 @@
 package com.security.service;
 
+import com.security.exception.BadRequestException;
+import com.security.exception.ResourceNotFoundException;
 import com.security.model.Product;
 import com.security.model.ProductModel;
 import com.security.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,20 +23,21 @@ public class ProductService {
 
     public void save(ProductModel product) {
         if (product == null) {
-            throw new NullPointerException("Dados invalidos");
+            throw new BadRequestException("Requisição inválida");
         }
         productRepository.save(product);
     }
 
     public List<ProductModel> createSeveral(List<ProductModel> products) {
         if (products == null) {
-            throw new NullPointerException("null");
+            throw new BadRequestException("Requisição inválida");
         }
         return productRepository.saveAll(products);
     }
 
     public void delete(Long id) {
-        productRepository.delete(productRepository.findById(id).get());
+        productRepository.delete(productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado")));
     }
 
     public List<ProductModel> list() {
