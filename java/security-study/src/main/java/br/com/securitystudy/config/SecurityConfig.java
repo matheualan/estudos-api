@@ -1,7 +1,6 @@
 package br.com.securitystudy.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -38,7 +37,7 @@ public class SecurityConfig {
                             .requestMatchers(HttpMethod.GET, "/test/").permitAll()
                             .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register").permitAll();
 
-                    // se estiver rodando no profile "dev", libera Swagger + H2
+                    // se estiver rodando no profile "dev" libera Swagger + H2
                     if (Arrays.asList(env.getActiveProfiles()).contains("dev")) {
                         auth.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll();
                         auth.requestMatchers("/h2-console/**").permitAll();
