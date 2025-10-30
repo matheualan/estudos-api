@@ -14,7 +14,8 @@
 	<name>security-study</name>
 	<description>Project for study spring security</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>25</java.version>
+        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
