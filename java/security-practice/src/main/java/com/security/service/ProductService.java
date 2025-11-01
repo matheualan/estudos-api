@@ -23,14 +23,14 @@ public class ProductService {
 
     public void save(ProductModel product) {
         if (product == null) {
-            throw new BadRequestException("Requisição inválida");
+            throw new BadRequestException("Requisicao invalida");
         }
         productRepository.save(product);
     }
 
     public List<ProductModel> createSeveral(List<ProductModel> products) {
         if (products == null) {
-            throw new BadRequestException("Requisição inválida");
+            throw new BadRequestException("Requisicao invalida");
         }
         return productRepository.saveAll(products);
     }

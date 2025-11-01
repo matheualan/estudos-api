@@ -3,19 +3,24 @@ server:
 
 spring:
   application:
-    name: security-practice
+    name: security_practice
 
   profiles:
-    active: prod
+    active: dev
 
-  jpa:
-    open-in-view: false
-    properties:
-      hibernate:
-        format_sql: true
+api:
+  security:
+    token:
+      secret: ${JWT_TOKEN:my-secret-key}
 
-logging:
-  level:
-    root: INFO
-    org.springframework.web: INFO
-    com.myapp: DEBUG
+#  jpa:
+#    open-in-view: false
+#    properties:
+#      hibernate:
+#        format_sql: true
+#
+#logging:
+#  level:
+#    root: INFO
+#    org.springframework.web: INFO
+#    com.myapp: DEBUG

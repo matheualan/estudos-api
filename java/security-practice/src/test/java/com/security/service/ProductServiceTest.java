@@ -55,7 +55,7 @@ class ProductServiceTest {
     void save_shouldThrowAnException_WhenItIsNull() {
         Assertions.assertThatThrownBy(() -> productService.save(null))
                 .isInstanceOf(BadRequestException.class)
-                .hasMessageContaining("Error in request. Verify the informations.");
+                .hasMessageContaining("Requisicao invalida");
 
         BDDMockito.verify(productRepositoryMock, BDDMockito.never()).save(any());
         BDDMockito.verifyNoMoreInteractions(productRepositoryMock);
@@ -98,7 +98,7 @@ class ProductServiceTest {
     void createSeveral_ShouldReturnException_WhenListIsNull() {
         Assertions.assertThatThrownBy(() -> productService.createSeveral(null))
                 .isInstanceOf(BadRequestException.class)
-                .hasMessageContaining("Error in request. Verify the informations.");
+                .hasMessageContaining("Requisicao invalida");
         BDDMockito.verify(productRepositoryMock, BDDMockito.never()).saveAll(any());
         BDDMockito.verifyNoMoreInteractions(productRepositoryMock);
     }
