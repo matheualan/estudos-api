@@ -8,13 +8,14 @@ import java.time.LocalDateTime;
 
 @Getter @Setter
 @SuperBuilder
-public class ApiErrorHandler {
+public class ExceptionDetails {
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime timestamp;
     private Integer status;
     private String error;
     private String message;
+    private String className;
     private String path;
 
 }

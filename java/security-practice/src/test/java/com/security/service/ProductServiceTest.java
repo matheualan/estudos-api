@@ -1,5 +1,6 @@
 package com.security.service;
 
+import com.security.exception.BadRequestException;
 import com.security.model.ProductModel;
 import com.security.repository.ProductRepository;
 import com.security.util.ProductBuilder;
@@ -53,8 +54,8 @@ class ProductServiceTest {
     @DisplayName("Method save() should throw an exception when it is null")
     void save_shouldThrowAnException_WhenItIsNull() {
         Assertions.assertThatThrownBy(() -> productService.save(null))
-                .isInstanceOf(NullPointerException.class)
-                .hasMessageContaining("Dados invalidos");
+                .isInstanceOf(BadRequestException.class)
+                .hasMessageContaining("Error in request. Verify the informations.");
 
         BDDMockito.verify(productRepositoryMock, BDDMockito.never()).save(any());
         BDDMockito.verifyNoMoreInteractions(productRepositoryMock);
@@ -96,8 +97,8 @@ class ProductServiceTest {
     @DisplayName("Create Several should return exception when list is null")
     void createSeveral_ShouldReturnException_WhenListIsNull() {
         Assertions.assertThatThrownBy(() -> productService.createSeveral(null))
-                .isInstanceOf(NullPointerException.class)
-                .hasMessageContaining("null");
+                .isInstanceOf(BadRequestException.class)
+                .hasMessageContaining("Error in request. Verify the informations.");
         BDDMockito.verify(productRepositoryMock, BDDMockito.never()).saveAll(any());
         BDDMockito.verifyNoMoreInteractions(productRepositoryMock);
     }

@@ -47,6 +47,11 @@ public class ProductController {
         return ResponseEntity.ok().body(productService.list());
     }
 
+    @GetMapping(path = "/get/{id}")
+    public ResponseEntity<ProductModel> getById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getById(id));
+    }
+
     @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         productService.delete(id);

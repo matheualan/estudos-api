@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 public class RestExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ApiErrorHandler> handleBadRequestException(BadRequestException bre, WebRequest request) {
+    public ResponseEntity<ExceptionDetails> handleBadRequestException(BadRequestException bre, WebRequest request) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(ApiErrorHandler.builder()
+                .body(ExceptionDetails.builder()
                         .timestamp(LocalDateTime.now())
                         .status(HttpStatus.BAD_REQUEST.value())
                         .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
@@ -25,22 +25,23 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiErrorHandler> handleResourceNotFoundException(ResourceNotFoundException rnfe, WebRequest request) {
+    public ResponseEntity<ExceptionDetails> handleResourceNotFoundException(ResourceNotFoundException rnfe, WebRequest request) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ApiErrorHandler.builder()
+                .body(ExceptionDetails.builder()
                         .timestamp(LocalDateTime.now())
                         .status(HttpStatus.NOT_FOUND.value())
                         .error(HttpStatus.NOT_FOUND.getReasonPhrase())
                         .message(rnfe.getMessage())
+                        .className(rnfe.getClass().getName())
                         .path(request.getDescription(false).replace("uri=", ""))
                         .build()
                 );
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiErrorHandler> handleGeneralException(Exception e, WebRequest request) {
+    public ResponseEntity<ExceptionDetails> handleGeneralException(Exception e, WebRequest request) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ApiErrorHandler.builder()
+                .body(ExceptionDetails.builder()
                         .timestamp(LocalDateTime.now())
                         .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                         .error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())

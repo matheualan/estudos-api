@@ -35,6 +35,12 @@ public class ProductService {
         return productRepository.saveAll(products);
     }
 
+    public ProductModel getById(Long id) {
+        return productRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Objeto com o Id: " + id + " nao encontrado." )
+        );
+    }
+
     public void delete(Long id) {
         productRepository.delete(productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado")));
