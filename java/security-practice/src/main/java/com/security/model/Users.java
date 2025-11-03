@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Users implements UserDetails {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String login;

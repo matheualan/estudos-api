@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(value = {"id", "updatedAt"})
 public class ProductModel {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
