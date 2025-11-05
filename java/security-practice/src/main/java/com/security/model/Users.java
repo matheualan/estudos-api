@@ -14,9 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "tb_users")
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @NoArgsConstructor @AllArgsConstructor
 public class Users implements UserDetails {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
