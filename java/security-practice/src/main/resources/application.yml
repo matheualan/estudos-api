@@ -6,21 +6,9 @@ spring:
     name: security-practice
 
   profiles:
-    active: prod
+    active: dev
 
 api:
   security:
     token:
       secret: ${JWT_TOKEN:my-secret-key}
-
-#  jpa:
-#    open-in-view: false
-#    properties:
-#      hibernate:
-#        format_sql: true
-#
-#logging:
-#  level:
-#    root: INFO
-#    org.springframework.web: INFO
-#    com.myapp: DEBUG

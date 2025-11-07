@@ -24,9 +24,8 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping(path = "/create")
-    public ResponseEntity<Void> create(@RequestBody ProductModel product) {
-        productService.save(product);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<ProductModel> create(@RequestBody ProductModel product) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(product));
     }
 
     @PostMapping(path = "/create-several")

@@ -2,30 +2,35 @@ package com.security.service;
 
 import com.security.exception.BadRequestException;
 import com.security.exception.ResourceNotFoundException;
-import com.security.model.Product;
 import com.security.model.ProductModel;
 import com.security.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProductService {
-
-    List<Product> products = new ArrayList<>();
 
     private final ProductRepository productRepository;
 
-    public void save(ProductModel product) {
+//    public void save(ProductModel product) {
+//        if (product == null) {
+//            throw new BadRequestException("Requisicao invalida");
+//        }
+//        productRepository.save(product);
+//    }
+
+    public ProductModel save(ProductModel product) {
         if (product == null) {
             throw new BadRequestException("Requisicao invalida");
         }
-        productRepository.save(product);
+        return productRepository.save(product);
     }
 
     public List<ProductModel> createSeveral(List<ProductModel> products) {
@@ -35,26 +40,32 @@ public class ProductService {
         return productRepository.saveAll(products);
     }
 
+    @Transactional(readOnly = true)
     public ProductModel getById(Long id) {
         return productRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Objeto com o Id: " + id + " nao encontrado." )
+                () -> new ResourceNotFoundException("Objeto com o Id: " + id + " nao encontrado.")
         );
     }
 
     public void delete(Long id) {
-        productRepository.delete(productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado")));
+        if (!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Objeto com o Id: " + id + " nao encontrado.");
+        }
+        productRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public List<ProductModel> list() {
         return productRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Page<ProductModel> page(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
 
     //CRUD sem banco de dados
+//    List<Product> products = new ArrayList<>();
 //    public void saveProduct(Product product) {
 //        products.add(product);
 //    }
